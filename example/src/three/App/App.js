@@ -41,6 +41,18 @@ export default class App {
         this._scene.add(cubeMesh);
 
         this._animate();
+
+        this._initEvents();
+    }
+
+    _initEvents() {
+        window.addEventListener("resize", () => this._resize());
+    }
+
+    _resize() {
+        this._gl.setSize(window.innerWidth, window.innerHeight);
+        this._camera.aspect = window.innerWidth / window.innerHeight;
+        this._camera.updateProjectionMatrix();
     }
 
     _animate() {
