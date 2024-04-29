@@ -45,5 +45,6 @@ export default class App {
 
     _animate() {
         this._gl.render(this._scene, this._camera);
+        window.requestAnimationFrame(() => this._animate());
     }
 }
