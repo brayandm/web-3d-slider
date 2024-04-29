@@ -1,3 +1,4 @@
+// import { Stats } from "fs";
 import {
     BoxGeometry,
     Mesh,
@@ -9,9 +10,9 @@ import {
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-export default class App {
-    _gl;
+import Stats from "stats.js";
 
+export default class App {
     constructor() {
         console.log("App constructor");
     }
@@ -46,6 +47,14 @@ export default class App {
 
         const controls = new OrbitControls(this._camera, this._gl.domElement);
 
+        // STATS
+
+        this._stats = new Stats();
+
+        this._stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+
+        document.body.appendChild(this._stats.dom);
+
         this._animate();
 
         this._initEvents();
@@ -62,7 +71,9 @@ export default class App {
     }
 
     _animate() {
+        this._stats.begin();
         this._gl.render(this._scene, this._camera);
+        this._stats.end();
         window.requestAnimationFrame(() => this._animate());
     }
 }
