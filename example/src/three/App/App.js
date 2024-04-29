@@ -7,6 +7,8 @@ import {
     WebGLRenderer,
 } from "three";
 
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
 export default class App {
     _gl;
 
@@ -39,6 +41,10 @@ export default class App {
         const cubeMesh = new Mesh(cubeGeometry, cubeMaterial);
 
         this._scene.add(cubeMesh);
+
+        // CONTROLS
+
+        const controls = new OrbitControls(this._camera, this._gl.domElement);
 
         this._animate();
 
