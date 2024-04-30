@@ -11,6 +11,7 @@ import {
     RepeatWrapping,
     MeshStandardMaterial,
     DirectionalLight,
+    AmbientLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -102,6 +103,9 @@ export default class App {
                 map: new TextureLoader().load("App/assets/sun.jpg"),
             })
         );
+
+        const ambientLight = new AmbientLight(0xffffff, 0.02); // color y la intensidad
+        this._scene.add(ambientLight);
 
         this._sun.position.set(20, 20, 20);
 
