@@ -91,7 +91,7 @@ export default class App {
 
         {
             const loader = new TextureLoader();
-            const texture = loader.load("App/assets/skybox.png", () => {
+            const texture = loader.load("App/assets/skybox4.jpg", () => {
                 texture.mapping = EquirectangularReflectionMapping;
                 texture.colorSpace = SRGBColorSpace;
                 this._scene.background = texture;
