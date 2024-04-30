@@ -53,15 +53,14 @@ export default class App {
         const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
 
-        const texture = new TextureLoader().load("App/assets/brick.jpg");
+        const texture = new TextureLoader().load("App/assets/world.jpg");
         texture.wrapS = texture.wrapT = RepeatWrapping;
-        texture.repeat.set(10, 10);
+        texture.repeat.set(1, 1);
 
         this._sphere = new Mesh(
-            new SphereGeometry(40, 40, 40, 0, Math.PI * 2, 0, Math.PI),
+            new SphereGeometry(2, 40, 40, 0, Math.PI * 2, 0, Math.PI),
             new MeshBasicMaterial({
                 map: texture,
-                side: BackSide,
             })
         );
 
@@ -85,7 +84,7 @@ export default class App {
     }
 
     _rotateSphere() {
-        this._sphere.rotation.y += 0.01;
+        this._sphere.rotation.y += 0.001;
     }
 
     _animateSphere() {
