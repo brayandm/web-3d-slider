@@ -1,3 +1,5 @@
 Do slider with pictures floating at different deepth, we can go right or left, it is infinite, if we click a pictures
 we move camera in front of the picture and if we click again we go back. The pictures will be floating randomly in the space
 like fairy dust. When moving do a move effect that distort the space or view.
+
+Do the slider like if you were inside a sphere
