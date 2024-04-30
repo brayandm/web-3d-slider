@@ -1,18 +1,18 @@
 {
-  "name": "vite-starter",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
-  },
-  "devDependencies": {
-    "vite": "^4.4.0"
-  },
-  "dependencies": {
-    "stats.js": "^0.17.0",
-    "three": "^0.154.0"
-  }
+    "name": "vite-starter",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "vite": "^4.4.0"
+    },
+    "dependencies": {
+        "stats.js": "^0.17.0",
+        "three": "^0.154.0"
+    }
 }
