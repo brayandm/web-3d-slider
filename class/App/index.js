@@ -9,6 +9,8 @@ import {
     TextureLoader,
     BackSide,
     RepeatWrapping,
+    MeshStandardMaterial,
+    DirectionalLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -58,9 +60,16 @@ export default class App {
         texture.wrapS = texture.wrapT = RepeatWrapping;
         texture.repeat.set(1, 1);
 
+        // LIGHT
+
+        const light = new DirectionalLight(0xffffff, 1);
+        light.position.set(20, 20, 20);
+
+        this._scene.add(light);
+
         this._sphere = new Mesh(
             new SphereGeometry(2, 40, 40, 0, Math.PI * 2, 0, Math.PI),
-            new MeshBasicMaterial({
+            new MeshStandardMaterial({
                 map: texture,
             })
         );
@@ -79,13 +88,24 @@ export default class App {
 
         this._moon = new Mesh(
             new SphereGeometry(0.5, 40, 40),
-            new MeshBasicMaterial({
+            new MeshStandardMaterial({
                 map: new TextureLoader().load("App/assets/moon.jpg"),
             })
         );
 
         this._moon.position.x = 4;
         this._moon.position.y = 1;
+
+        this._sun = new Mesh(
+            new SphereGeometry(5, 40, 40),
+            new MeshBasicMaterial({
+                map: new TextureLoader().load("App/assets/sun.jpg"),
+            })
+        );
+
+        this._sun.position.set(20, 20, 20);
+
+        this._scene.add(this._sun);
 
         // this._scene.add(this._mesh);
         this._scene.add(this._sphere);
