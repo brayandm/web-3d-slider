@@ -14,6 +14,7 @@ import {
     AmbientLight,
     EquirectangularReflectionMapping,
     SRGBColorSpace,
+    Vector2,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -59,9 +60,19 @@ export default class App {
         const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
 
-        const texture = new TextureLoader().load("App/assets/worldhd.jpg");
-        texture.wrapS = texture.wrapT = RepeatWrapping;
-        texture.repeat.set(1, 1);
+        const texture = new TextureLoader().load("App/assets/earthhd.jpg");
+
+        //add bump map
+
+        texture.bumpMap = new TextureLoader().load("App/assets/earthbump.jpg");
+
+        // add normal map
+
+        texture.normalMap = new TextureLoader().load(
+            "App/assets/earthnormal.webp"
+        );
+
+        texture.normalScale = new Vector2(1, 1);
 
         // LIGHT
 
@@ -74,6 +85,9 @@ export default class App {
             new SphereGeometry(2, 40, 40, 0, Math.PI * 2, 0, Math.PI),
             new MeshStandardMaterial({
                 map: texture,
+                // bumpMap: texture.bumpMap,
+                normalMap: texture.normalMap,
+                normalScale: texture.normalScale,
             })
         );
 
