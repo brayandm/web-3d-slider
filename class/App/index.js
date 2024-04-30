@@ -12,6 +12,8 @@ import {
     MeshStandardMaterial,
     DirectionalLight,
     AmbientLight,
+    EquirectangularReflectionMapping,
+    SRGBColorSpace,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -87,6 +89,15 @@ export default class App {
             })
         );
 
+        {
+            const loader = new TextureLoader();
+            const texture = loader.load("App/assets/skybox.png", () => {
+                texture.mapping = EquirectangularReflectionMapping;
+                texture.colorSpace = SRGBColorSpace;
+                this._scene.background = texture;
+            });
+        }
+
         this._moon = new Mesh(
             new SphereGeometry(0.5, 40, 40),
             new MeshStandardMaterial({
@@ -113,7 +124,6 @@ export default class App {
 
         // this._scene.add(this._mesh);
         this._scene.add(this._sphere);
-        this._scene.add(this._universe);
         this._scene.add(this._moon);
 
         // START
