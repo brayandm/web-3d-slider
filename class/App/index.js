@@ -5,6 +5,7 @@ import {
     BoxGeometry,
     MeshBasicMaterial,
     Mesh,
+    SphereGeometry,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -43,21 +44,46 @@ export default class App {
         );
 
         // MESH
-        const geometry = new BoxGeometry();
-        const material = new MeshBasicMaterial();
+        const geometry = new BoxGeometry(1, 1, 1);
+        const material = new MeshBasicMaterial({ wireframe: true });
 
         const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
 
-        this._scene.add(this._mesh);
+        this._sphere = new Mesh(
+            new SphereGeometry(1, 20, 20),
+            new MeshBasicMaterial({ wireframe: true })
+        );
+
+        // this._scene.add(this._mesh);
+        this._scene.add(this._sphere);
 
         // START
         this._initEvents();
         this._start();
+
+        this._animateSphere();
     }
 
     _initEvents() {
         window.addEventListener("resize", this._onResize.bind(this));
+    }
+
+    _moveSphere() {
+        this._sphere.position.x = Math.sin(Date.now() * 0.001) * 2;
+        this._sphere.position.y = Math.cos(Date.now() * 0.001) * 2;
+    }
+
+    _rotateSphere() {
+        this._sphere.rotation.y += 0.01;
+    }
+
+    _animateSphere() {
+        window.requestAnimationFrame(() => {
+            this._moveSphere();
+            this._rotateSphere();
+            this._animateSphere();
+        });
     }
 
     _onResize() {
@@ -78,7 +104,6 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
-
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
     }
