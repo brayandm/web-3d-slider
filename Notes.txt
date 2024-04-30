@@ -3,3 +3,5 @@ we move camera in front of the picture and if we click again we go back. The pic
 like fairy dust. When moving do a move effect that distort the space or view.
 
 Do the slider like if you were inside a sphere
+
+Maybe do a medieval theme, with medieval paintings and rotating around wall
