@@ -6,6 +6,9 @@ import {
     MeshBasicMaterial,
     Mesh,
     SphereGeometry,
+    TextureLoader,
+    BackSide,
+    RepeatWrapping,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -50,9 +53,16 @@ export default class App {
         const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
 
+        const texture = new TextureLoader().load("App/assets/brick.jpg");
+        texture.wrapS = texture.wrapT = RepeatWrapping;
+        texture.repeat.set(10, 10);
+
         this._sphere = new Mesh(
-            new SphereGeometry(1, 20, 20),
-            new MeshBasicMaterial({ wireframe: true })
+            new SphereGeometry(40, 40, 40, 0, Math.PI * 2, 0, Math.PI),
+            new MeshBasicMaterial({
+                map: texture,
+                side: BackSide,
+            })
         );
 
         // this._scene.add(this._mesh);
@@ -80,7 +90,7 @@ export default class App {
 
     _animateSphere() {
         window.requestAnimationFrame(() => {
-            this._moveSphere();
+            // this._moveSphere();
             this._rotateSphere();
             this._animateSphere();
         });
