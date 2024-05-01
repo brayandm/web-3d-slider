@@ -15,6 +15,8 @@ import {
     EquirectangularReflectionMapping,
     SRGBColorSpace,
     Vector2,
+    PointLight,
+    SpotLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -76,10 +78,10 @@ export default class App {
 
         // LIGHT
 
-        const light = new DirectionalLight(0xffffff, 1);
-        light.position.set(20, 20, 20);
+        this._light = new SpotLight(0xffffff, 1);
+        this._light.position.set(20, 20, 20);
 
-        this._scene.add(light);
+        this._scene.add(this._light);
 
         this._sphere = new Mesh(
             new SphereGeometry(2, 40, 40, 0, Math.PI * 2, 0, Math.PI),
@@ -149,6 +151,7 @@ export default class App {
         this._animateMoon();
         this._animateUniverse();
         this._animateSun();
+        this._animateLight();
     }
 
     _initEvents() {
@@ -167,6 +170,17 @@ export default class App {
         window.requestAnimationFrame(() => {
             this._rotateUniverse();
             this._animateUniverse();
+        });
+    }
+
+    _scaleLight() {
+        this._light.intensity *= 1.001;
+    }
+
+    _animateLight() {
+        window.requestAnimationFrame(() => {
+            this._scaleLight();
+            this._animateLight();
         });
     }
 
