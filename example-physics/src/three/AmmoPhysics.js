@@ -36,7 +36,6 @@ async function AmmoPhysics() {
             shape.addPoint(btVec, true);
         }
 
-        shape.setMargin(0.05); // Puedes ajustar este margen según necesidad
         return shape;
     }
 
