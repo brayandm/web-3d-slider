@@ -90,7 +90,24 @@ export default class App {
                 mass: 0.1,
             };
 
-            this._scene.add(mesh);
+            const cube = new Mesh(
+                new BoxGeometry(1, 1, 1),
+                new MeshBasicMaterial({ color: 0x0000ff })
+            );
+
+            cube.position.x = Math.random() * 20 - 10;
+            cube.position.y = Math.random() * 100 + 5;
+            cube.position.z = Math.random() * 20 - 10;
+
+            cube.rotation.x = 1;
+            cube.rotation.y = 1;
+            cube.rotation.z = 1;
+
+            cube.userData.physics = {
+                mass: 10,
+            };
+
+            this._scene.add(cube);
         }
 
         const floor = new Mesh(
