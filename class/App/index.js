@@ -44,6 +44,7 @@ export default class App {
 
         const aspect = window.innerWidth / window.innerHeight;
         this._renderer.setSize(window.innerWidth, window.innerHeight);
+        this._renderer.shadowMap.enabled = true;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
         this._camera.position.z = 8;
         this._camera.position.y = 3;
@@ -81,6 +82,9 @@ export default class App {
 
         this._light = new SpotLight(0xffffff, 1);
         this._light.position.set(20, 20, 20);
+        this._light.castShadow = true;
+        this._light.shadow.mapSize.width = 5000;
+        this._light.shadow.mapSize.height = 5000;
 
         this._scene.add(this._light);
 
@@ -93,6 +97,8 @@ export default class App {
                 normalScale: texture.normalScale,
             })
         );
+
+        this._sphere.receiveShadow = true;
 
         const texture2 = new TextureLoader().load("App/assets/stars3.jpg");
         texture2.wrapS = texture2.wrapT = RepeatWrapping;
@@ -121,6 +127,10 @@ export default class App {
                 map: new TextureLoader().load("App/assets/moon.jpg"),
             })
         );
+
+        //moon shadow
+
+        this._moon.castShadow = true;
 
         this._moon.position.x = 4;
         this._moon.position.y = 1;
@@ -175,8 +185,8 @@ export default class App {
     }
 
     _scaleLight() {
-        this._light.intensity *= 1.001;
-        this._light.distance *= 1.001;
+        this._light.intensity *= 1.0005;
+        this._light.distance *= 1.0005;
     }
 
     _animateLight() {
@@ -191,9 +201,9 @@ export default class App {
     }
 
     _scaleSun() {
-        this._sun.scale.x *= 1.001;
-        this._sun.scale.y *= 1.001;
-        this._sun.scale.z *= 1.001;
+        this._sun.scale.x *= 1.0005;
+        this._sun.scale.y *= 1.0005;
+        this._sun.scale.z *= 1.0005;
     }
 
     _animateSun() {
