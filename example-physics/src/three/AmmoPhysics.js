@@ -25,36 +25,19 @@ async function AmmoPhysics() {
     //
 
     function getShape(geometry) {
-        const parameters = geometry.parameters;
+        const vertices = geometry.attributes.position.array;
+        const shape = new Ammo.btConvexHullShape();
 
-        // TODO change type to is*
-
-        if (geometry.type === "BoxGeometry") {
-            const sx =
-                parameters.width !== undefined ? parameters.width / 2 : 0.5;
-            const sy =
-                parameters.height !== undefined ? parameters.height / 2 : 0.5;
-            const sz =
-                parameters.depth !== undefined ? parameters.depth / 2 : 0.5;
-
-            const shape = new Ammo.btBoxShape(new Ammo.btVector3(sx, sy, sz));
-            shape.setMargin(0.05);
-
-            return shape;
-        } else if (
-            geometry.type === "SphereGeometry" ||
-            geometry.type === "IcosahedronGeometry"
-        ) {
-            const radius =
-                parameters.radius !== undefined ? parameters.radius : 1;
-
-            const shape = new Ammo.btSphereShape(radius);
-            shape.setMargin(0.05);
-
-            return shape;
+        for (let i = 0; i < vertices.length; i += 3) {
+            const vx = vertices[i];
+            const vy = vertices[i + 1];
+            const vz = vertices[i + 2];
+            const btVec = new Ammo.btVector3(vx, vy, vz);
+            shape.addPoint(btVec, true);
         }
 
-        return null;
+        shape.setMargin(0.05); // Puedes ajustar este margen según necesidad
+        return shape;
     }
 
     const meshes = [];

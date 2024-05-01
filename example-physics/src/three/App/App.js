@@ -66,7 +66,7 @@ export default class App {
         heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
         heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i <= 1; i++) {
             const geometry = new ShapeGeometry(heartShape);
 
             const material = new MeshBasicMaterial({
