@@ -87,7 +87,7 @@ export default class App {
             mesh.rotation.z = 1;
 
             mesh.userData.physics = {
-                mass: 0.1,
+                mass: 10,
             };
 
             const cube = new Mesh(
@@ -108,6 +108,7 @@ export default class App {
             };
 
             this._scene.add(cube);
+            this._scene.add(mesh);
         }
 
         const floor = new Mesh(
