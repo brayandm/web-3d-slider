@@ -169,6 +169,22 @@ export default class App {
         window.addEventListener("resize", this._onResize.bind(this));
     }
 
+    _moveEarthAndMoonTowardsSun() {
+        const sunPosition = this._sun.position;
+
+        const moveX = (this._sphere.position.x - sunPosition.x) * 0.0005;
+        const moveY = (this._sphere.position.y - sunPosition.y) * 0.0005;
+        const moveZ = (this._sphere.position.z - sunPosition.z) * 0.0005;
+
+        this._sphere.position.x -= moveX;
+        this._sphere.position.y -= moveY;
+        this._sphere.position.z -= moveZ;
+
+        this._moon.position.x -= moveX;
+        this._moon.position.y -= moveY;
+        this._moon.position.z -= moveZ;
+    }
+
     _rotateMoon() {
         this._moon.rotation.y += 0.01;
     }
@@ -240,6 +256,7 @@ export default class App {
     _animateSphere() {
         window.requestAnimationFrame(() => {
             // this._moveSphere();
+            // this._moveEarthAndMoonTowardsSun();
             this._rotateSphere();
             this._animateSphere();
         });
