@@ -176,6 +176,7 @@ export default class App {
 
     _scaleLight() {
         this._light.intensity *= 1.001;
+        this._light.distance *= 1.001;
     }
 
     _animateLight() {
