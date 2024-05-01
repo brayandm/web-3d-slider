@@ -17,6 +17,7 @@ import {
     Vector2,
     PointLight,
     SpotLight,
+    DoubleSide,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -128,6 +129,7 @@ export default class App {
             new SphereGeometry(5, 40, 40),
             new MeshBasicMaterial({
                 map: new TextureLoader().load("App/assets/sun.jpg"),
+                side: DoubleSide,
             })
         );
 
