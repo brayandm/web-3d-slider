@@ -126,6 +126,7 @@ export default class App {
             new SphereGeometry(5, 40, 40),
             new MeshBasicMaterial({
                 map: new TextureLoader().load("App/assets/sun.jpg"),
+                side: BackSide,
             })
         );
 
@@ -147,6 +148,7 @@ export default class App {
         this._animateSphere();
         this._animateMoon();
         this._animateUniverse();
+        this._animateSun();
     }
 
     _initEvents() {
@@ -165,6 +167,24 @@ export default class App {
         window.requestAnimationFrame(() => {
             this._rotateUniverse();
             this._animateUniverse();
+        });
+    }
+
+    _rotateSun() {
+        this._sun.rotation.y += 0.001;
+    }
+
+    _scaleSun() {
+        this._sun.scale.x *= 1.001;
+        this._sun.scale.y *= 1.001;
+        this._sun.scale.z *= 1.001;
+    }
+
+    _animateSun() {
+        window.requestAnimationFrame(() => {
+            this._rotateSun();
+            this._scaleSun();
+            this._animateSun();
         });
     }
 
