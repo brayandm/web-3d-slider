@@ -7,3 +7,5 @@ Do the slider like if you were inside a sphere
 Maybe do a medieval theme, with medieval paintings and rotating around wall
 
 And maybe make a game, that you can completly move around the space and rotate camera and interact with the pictures
+
+Use rapier as physic engine
