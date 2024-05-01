@@ -76,9 +76,9 @@ export default class App {
 
             const mesh = new Mesh(geometry, material);
 
-            mesh.position.x = Math.random() * 20 - 5;
-            mesh.position.y = Math.random() * 20 - 5;
-            mesh.position.z = Math.random() * 20 - 5;
+            mesh.position.x = Math.random() * 20 - 10;
+            mesh.position.y = Math.random() * 100 + 5;
+            mesh.position.z = Math.random() * 20 - 10;
 
             mesh.scale.set(0.1, 0.1, 0.1);
 
@@ -87,14 +87,14 @@ export default class App {
             mesh.rotation.z = 1;
 
             mesh.userData.physics = {
-                mass: 1.0,
+                mass: 0.1,
             };
 
             this._scene.add(mesh);
         }
 
         const floor = new Mesh(
-            new BoxGeometry(30, 0.1, 30),
+            new BoxGeometry(60, 0.1, 60),
             new MeshBasicMaterial({ color: 0x00ff00 })
         );
 
