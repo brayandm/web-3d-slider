@@ -4,26 +4,23 @@ async function AmmoPhysics() {
         return;
     }
 
-    const AmmoLib = await Ammo(); // eslint-disable-line no-undef
+    const Ammo = await AmmoLib(); // eslint-disable-line no-undef
 
     const frameRate = 60;
 
-    const collisionConfiguration =
-        new AmmoLib.btDefaultCollisionConfiguration();
-    const dispatcher = new AmmoLib.btCollisionDispatcher(
-        collisionConfiguration
-    );
-    const broadphase = new AmmoLib.btDbvtBroadphase();
-    const solver = new AmmoLib.btSequentialImpulseConstraintSolver();
-    const world = new AmmoLib.btDiscreteDynamicsWorld(
+    const collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
+    const dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
+    const broadphase = new Ammo.btDbvtBroadphase();
+    const solver = new Ammo.btSequentialImpulseConstraintSolver();
+    const world = new Ammo.btDiscreteDynamicsWorld(
         dispatcher,
         broadphase,
         solver,
         collisionConfiguration
     );
-    world.setGravity(new AmmoLib.btVector3(0, -9.8, 0));
+    world.setGravity(new Ammo.btVector3(0, -9.8, 0));
 
-    const worldTransform = new AmmoLib.btTransform();
+    const worldTransform = new Ammo.btTransform();
 
     //
 
@@ -40,9 +37,7 @@ async function AmmoPhysics() {
             const sz =
                 parameters.depth !== undefined ? parameters.depth / 2 : 0.5;
 
-            const shape = new AmmoLib.btBoxShape(
-                new AmmoLib.btVector3(sx, sy, sz)
-            );
+            const shape = new Ammo.btBoxShape(new Ammo.btVector3(sx, sy, sz));
             shape.setMargin(0.05);
 
             return shape;
@@ -53,7 +48,7 @@ async function AmmoPhysics() {
             const radius =
                 parameters.radius !== undefined ? parameters.radius : 1;
 
-            const shape = new AmmoLib.btSphereShape(radius);
+            const shape = new Ammo.btSphereShape(radius);
             shape.setMargin(0.05);
 
             return shape;
@@ -93,13 +88,13 @@ async function AmmoPhysics() {
         const position = mesh.position;
         const quaternion = mesh.quaternion;
 
-        const transform = new AmmoLib.btTransform();
+        const transform = new Ammo.btTransform();
         transform.setIdentity();
         transform.setOrigin(
-            new AmmoLib.btVector3(position.x, position.y, position.z)
+            new Ammo.btVector3(position.x, position.y, position.z)
         );
         transform.setRotation(
-            new AmmoLib.btQuaternion(
+            new Ammo.btQuaternion(
                 quaternion.x,
                 quaternion.y,
                 quaternion.z,
@@ -107,19 +102,19 @@ async function AmmoPhysics() {
             )
         );
 
-        const motionState = new AmmoLib.btDefaultMotionState(transform);
+        const motionState = new Ammo.btDefaultMotionState(transform);
 
-        const localInertia = new AmmoLib.btVector3(0, 0, 0);
+        const localInertia = new Ammo.btVector3(0, 0, 0);
         shape.calculateLocalInertia(mass, localInertia);
 
-        const rbInfo = new AmmoLib.btRigidBodyConstructionInfo(
+        const rbInfo = new Ammo.btRigidBodyConstructionInfo(
             mass,
             motionState,
             shape,
             localInertia
         );
 
-        const body = new AmmoLib.btRigidBody(rbInfo);
+        const body = new Ammo.btRigidBody(rbInfo);
         // body.setFriction( 4 );
         world.addRigidBody(body);
 
@@ -137,22 +132,22 @@ async function AmmoPhysics() {
         for (let i = 0; i < mesh.count; i++) {
             const index = i * 16;
 
-            const transform = new AmmoLib.btTransform();
+            const transform = new Ammo.btTransform();
             transform.setFromOpenGLMatrix(array.slice(index, index + 16));
 
-            const motionState = new AmmoLib.btDefaultMotionState(transform);
+            const motionState = new Ammo.btDefaultMotionState(transform);
 
-            const localInertia = new AmmoLib.btVector3(0, 0, 0);
+            const localInertia = new Ammo.btVector3(0, 0, 0);
             shape.calculateLocalInertia(mass, localInertia);
 
-            const rbInfo = new AmmoLib.btRigidBodyConstructionInfo(
+            const rbInfo = new Ammo.btRigidBodyConstructionInfo(
                 mass,
                 motionState,
                 shape,
                 localInertia
             );
 
-            const body = new AmmoLib.btRigidBody(rbInfo);
+            const body = new Ammo.btRigidBody(rbInfo);
             world.addRigidBody(body);
 
             bodies.push(body);
@@ -172,23 +167,23 @@ async function AmmoPhysics() {
             const bodies = meshMap.get(mesh);
             const body = bodies[index];
 
-            body.setAngularVelocity(new AmmoLib.btVector3(0, 0, 0));
-            body.setLinearVelocity(new AmmoLib.btVector3(0, 0, 0));
+            body.setAngularVelocity(new Ammo.btVector3(0, 0, 0));
+            body.setLinearVelocity(new Ammo.btVector3(0, 0, 0));
 
             worldTransform.setIdentity();
             worldTransform.setOrigin(
-                new AmmoLib.btVector3(position.x, position.y, position.z)
+                new Ammo.btVector3(position.x, position.y, position.z)
             );
             body.setWorldTransform(worldTransform);
         } else if (mesh.isMesh) {
             const body = meshMap.get(mesh);
 
-            body.setAngularVelocity(new AmmoLib.btVector3(0, 0, 0));
-            body.setLinearVelocity(new AmmoLib.btVector3(0, 0, 0));
+            body.setAngularVelocity(new Ammo.btVector3(0, 0, 0));
+            body.setLinearVelocity(new Ammo.btVector3(0, 0, 0));
 
             worldTransform.setIdentity();
             worldTransform.setOrigin(
-                new AmmoLib.btVector3(position.x, position.y, position.z)
+                new Ammo.btVector3(position.x, position.y, position.z)
             );
             body.setWorldTransform(worldTransform);
         }

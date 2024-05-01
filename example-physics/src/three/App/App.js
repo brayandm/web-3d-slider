@@ -16,7 +16,7 @@ import {
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import Stats from "stats.js";
-import { RapierPhysics } from "../RapierPhysics";
+import { AmmoPhysics } from "../AmmoPhysics";
 
 export default class App {
     constructor() {
@@ -38,7 +38,7 @@ export default class App {
         this._camera.position.z = 30;
         this._camera.position.x = 20;
 
-        this._physics = await RapierPhysics();
+        this._physics = await AmmoPhysics();
 
         // SCENE
         this._scene = new Scene();
