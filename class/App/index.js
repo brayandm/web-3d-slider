@@ -128,7 +128,6 @@ export default class App {
             new SphereGeometry(5, 40, 40),
             new MeshBasicMaterial({
                 map: new TextureLoader().load("App/assets/sun.jpg"),
-                side: BackSide,
             })
         );
 
