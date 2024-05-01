@@ -68,12 +68,13 @@ export default class App {
         heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
         heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 10; i++) {
             const geometry = new ShapeGeometry(heartShape);
 
             const material = new MeshBasicMaterial({
                 color: 0xff0000,
                 side: 2,
+                wireframe: true,
             });
 
             const mesh = new Mesh(geometry, material);
@@ -82,7 +83,7 @@ export default class App {
             mesh.position.y = Math.random() * 100 + 5;
             mesh.position.z = Math.random() * 20 - 10;
 
-            mesh.scale.set(0.1, 0.1, 0.1);
+            // mesh.scale.set(0.1, 0.1, 0.1);
 
             mesh.rotation.x = 1;
             mesh.rotation.y = 1;
