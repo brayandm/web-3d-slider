@@ -10,6 +10,7 @@ import {
     Shape,
     ShapeGeometry,
     SphereGeometry,
+    TorusKnotGeometry,
     WebGLRenderer,
 } from "three";
 
@@ -33,10 +34,11 @@ export default class App {
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
-        this._camera = new PerspectiveCamera(60, aspect, 1, 100);
+        this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
         this._camera.position.y = 20;
         this._camera.position.z = 30;
         this._camera.position.x = 20;
+        this._camera.fov = 100;
 
         this._physics = await AmmoPhysics();
 
@@ -66,7 +68,7 @@ export default class App {
         heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
         heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
 
-        for (let i = 0; i <= 1; i++) {
+        for (let i = 0; i < 5; i++) {
             const geometry = new ShapeGeometry(heartShape);
 
             const material = new MeshBasicMaterial({
@@ -91,8 +93,8 @@ export default class App {
             };
 
             const cube = new Mesh(
-                new BoxGeometry(1, 1, 1),
-                new MeshBasicMaterial({ color: 0x0000ff })
+                new TorusKnotGeometry(6, 3, 100, 16),
+                new MeshBasicMaterial({ color: 0x0000ff, wireframe: true })
             );
 
             cube.position.x = Math.random() * 20 - 10;
