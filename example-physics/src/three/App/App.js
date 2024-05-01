@@ -1,23 +1,29 @@
 // import { Stats } from "fs";
 import {
     BoxGeometry,
+    IcosahedronGeometry,
     Mesh,
     MeshBasicMaterial,
+    OctahedronGeometry,
     PerspectiveCamera,
     Scene,
+    Shape,
+    ShapeGeometry,
+    SphereGeometry,
     WebGLRenderer,
 } from "three";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 import Stats from "stats.js";
+import { RapierPhysics } from "../RapierPhysics";
 
 export default class App {
     constructor() {
         console.log("App constructor");
     }
 
-    init() {
+    async init() {
         // RENDERER
         this._gl = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
@@ -28,20 +34,77 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(60, aspect, 1, 100);
-        this._camera.position.y = 0.8;
-        this._camera.position.z = 5;
+        this._camera.position.y = 20;
+        this._camera.position.z = 30;
+        this._camera.position.x = 20;
+
+        this._physics = await RapierPhysics();
 
         // SCENE
         this._scene = new Scene();
 
         // OBJECT
-        const cubeGeometry = new BoxGeometry(1, 1, 1);
+        // made complex geometry to test physics
 
-        const cubeMaterial = new MeshBasicMaterial();
+        const heartShape = new Shape();
 
-        const cubeMesh = new Mesh(cubeGeometry, cubeMaterial);
+        const x = 0;
+        const y = 0;
 
-        this._scene.add(cubeMesh);
+        heartShape.moveTo(x + 5, y + 5);
+        heartShape.bezierCurveTo(x + 5, y + 5, x + 4, y, x, y);
+        heartShape.bezierCurveTo(x - 6, y, x - 6, y + 7, x - 6, y + 7);
+        heartShape.bezierCurveTo(x - 6, y + 11, x - 3, y + 15.4, x + 5, y + 19);
+        heartShape.bezierCurveTo(
+            x + 12,
+            y + 15.4,
+            x + 16,
+            y + 11,
+            x + 16,
+            y + 7
+        );
+        heartShape.bezierCurveTo(x + 16, y + 7, x + 16, y, x + 10, y);
+        heartShape.bezierCurveTo(x + 7, y, x + 5, y + 5, x + 5, y + 5);
+
+        for (let i = 0; i < 100; i++) {
+            const geometry = new ShapeGeometry(heartShape);
+
+            const material = new MeshBasicMaterial({
+                color: 0xff0000,
+                side: 2,
+            });
+
+            const mesh = new Mesh(geometry, material);
+
+            mesh.position.x = Math.random() * 20 - 5;
+            mesh.position.y = Math.random() * 20 - 5;
+            mesh.position.z = Math.random() * 20 - 5;
+
+            mesh.scale.set(0.1, 0.1, 0.1);
+
+            mesh.rotation.x = 1;
+            mesh.rotation.y = 1;
+            mesh.rotation.z = 1;
+
+            mesh.userData.physics = {
+                mass: 1.0,
+            };
+
+            this._scene.add(mesh);
+        }
+
+        const floor = new Mesh(
+            new BoxGeometry(30, 0.1, 30),
+            new MeshBasicMaterial({ color: 0x00ff00 })
+        );
+
+        floor.position.y = -1;
+
+        floor.userData.physics = {
+            mass: 0.0,
+        };
+
+        this._scene.add(floor);
 
         // CONTROLS
 
@@ -52,6 +115,8 @@ export default class App {
         this._stats = new Stats();
 
         this._stats.showPanel(1); // 0: fps, 1: ms, 2: mb, 3+: custom
+
+        this._physics.addScene(this._scene);
 
         document.body.appendChild(this._stats.dom);
 

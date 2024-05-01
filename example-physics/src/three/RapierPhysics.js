@@ -27,6 +27,12 @@ function getShape(geometry) {
     ) {
         const radius = parameters.radius !== undefined ? parameters.radius : 1;
         return RAPIER.ColliderDesc.ball(radius);
+    } else if (geometry.type === "ShapeGeometry") {
+        const boundingWidth = 2; // width of the heart shape
+        const boundingHeight = 2; // maximum height of the heart shape
+        const sx = boundingWidth / 2;
+        const sy = boundingHeight / 2;
+        return RAPIER.ColliderDesc.cuboid(sx, sy, 0.1);
     }
 
     return null;
