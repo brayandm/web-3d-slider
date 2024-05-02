@@ -76,7 +76,6 @@ export default class App {
             const material = new MeshBasicMaterial({
                 color: 0xff0000,
                 side: 2,
-                wireframe: true,
             });
 
             const mesh = new Mesh(geometry, material);
@@ -97,7 +96,7 @@ export default class App {
 
             const cube = new Mesh(
                 new TorusKnotGeometry(6, 3, 100, 16),
-                new MeshBasicMaterial({ color: 0x0000ff, wireframe: true })
+                new MeshBasicMaterial({ color: 0x0000ff })
             );
 
             cube.position.x = Math.random() * 20 - 10;
@@ -111,6 +110,8 @@ export default class App {
             cube.userData.physics = {
                 mass: 10,
             };
+
+            cube.userData.changable = true;
 
             this._scene.add(cube);
             this._scene.add(mesh);
@@ -159,7 +160,7 @@ export default class App {
 
         const intersects = raycaster.intersectObjects(this._scene.children);
 
-        if (intersects.length > 0) {
+        if (intersects.length > 0 && intersects[0].object.userData.changable) {
             const object = intersects[0].object;
             if (object.material.color.getHex() === 0xff0000)
                 object.material.color.set(0x0000ff); // Cambia el color a blue
