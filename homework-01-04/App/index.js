@@ -53,6 +53,7 @@ export default class App {
         // LIGHT
         const light = new DirectionalLight(0xffffff, 1);
         light.position.set(0, 2, 2);
+        light.castShadow = true;
         this._scene.add(light);
 
         // AMBIENT LIGHT
@@ -63,7 +64,16 @@ export default class App {
         const geometry = new BoxGeometry(1, 1, 1);
         const material = new MeshStandardMaterial({ color: 0xff0000 });
         const mesh = new Mesh(geometry, material);
+        mesh.castShadow = true;
         this._scene.add(mesh);
+
+        // PLANE
+        const planeGeometry = new BoxGeometry(10, 0.1, 10);
+        const planeMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
+        const plane = new Mesh(planeGeometry, planeMaterial);
+        plane.position.y = -1;
+        plane.receiveShadow = true;
+        this._scene.add(plane);
 
         // START
         this._initEvents();
