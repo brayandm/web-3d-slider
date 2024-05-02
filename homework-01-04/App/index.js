@@ -14,9 +14,7 @@ export default class App {
         this._renderer = undefined;
         this._camera = undefined;
         this._scene = undefined;
-
         this._mesh = undefined;
-
         this._raf = undefined;
         this._stats = new Stats();
         document.body.appendChild(this._stats.dom);
@@ -25,17 +23,20 @@ export default class App {
     }
 
     _init() {
+        // RENDERER
         this._renderer = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
         });
-
-        const aspect = window.innerWidth / window.innerHeight;
         this._renderer.setSize(window.innerWidth, window.innerHeight);
         this._renderer.shadowMap.enabled = true;
+
+        // CAMERA
+        const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
         this._camera.position.z = 8;
         this._camera.position.y = 3;
 
+        // SCENE
         this._scene = new Scene();
 
         // CONTROLS
@@ -49,7 +50,6 @@ export default class App {
         const material = new MeshBasicMaterial({ wireframe: true });
         const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
-
         this._scene.add(this._mesh);
 
         // START
