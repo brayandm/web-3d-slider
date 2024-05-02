@@ -128,6 +128,8 @@ export default class App {
             mass: 0.0,
         };
 
+        floor.userData.generateSphere = true;
+
         this._scene.add(floor);
 
         // CONTROLS
@@ -165,6 +167,27 @@ export default class App {
             if (object.material.color.getHex() === 0xff0000)
                 object.material.color.set(0x0000ff); // Cambia el color a blue
             else object.material.color.set(0xff0000); // Cambia el color a rojo
+        }
+
+        if (
+            intersects.length > 0 &&
+            intersects[0].object.userData.generateSphere
+        ) {
+            //generate sphere at the point of intersection
+
+            const geometry = new SphereGeometry(5, 32, 32);
+            const material = new MeshBasicMaterial({ color: 0xffff00 });
+            const mesh = new Mesh(geometry, material);
+
+            mesh.position.copy(intersects[0].point);
+            mesh.position.y += 20;
+
+            mesh.userData.physics = {
+                mass: 10,
+            };
+
+            this._scene.add(mesh);
+            this._physics.addMesh(mesh, 10);
         }
     }
 
