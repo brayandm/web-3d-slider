@@ -5,6 +5,10 @@ import {
     BoxGeometry,
     MeshBasicMaterial,
     Mesh,
+    MeshStandardMaterial,
+    DirectionalLight,
+    SpotLight,
+    AmbientLight,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -14,7 +18,7 @@ export default class App {
         this._renderer = undefined;
         this._camera = undefined;
         this._scene = undefined;
-        this._mesh = undefined;
+        this._controls = undefined;
         this._raf = undefined;
         this._stats = new Stats();
         document.body.appendChild(this._stats.dom);
@@ -33,8 +37,9 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
-        this._camera.position.z = 8;
-        this._camera.position.y = 3;
+        this._camera.position.z = 4;
+        this._camera.position.y = 2;
+        this._camera.position.x = 2;
 
         // SCENE
         this._scene = new Scene();
@@ -45,12 +50,20 @@ export default class App {
             this._renderer.domElement
         );
 
+        // LIGHT
+        const light = new DirectionalLight(0xffffff, 1);
+        light.position.set(0, 2, 2);
+        this._scene.add(light);
+
+        // AMBIENT LIGHT
+        const ambientLight = new AmbientLight(0xffffff, 0.1);
+        this._scene.add(ambientLight);
+
         // MESH
         const geometry = new BoxGeometry(1, 1, 1);
-        const material = new MeshBasicMaterial({ wireframe: true });
+        const material = new MeshStandardMaterial({ color: 0xff0000 });
         const mesh = new Mesh(geometry, material);
-        this._mesh = mesh;
-        this._scene.add(this._mesh);
+        this._scene.add(mesh);
 
         // START
         this._initEvents();
