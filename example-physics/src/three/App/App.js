@@ -6,11 +6,13 @@ import {
     MeshBasicMaterial,
     OctahedronGeometry,
     PerspectiveCamera,
+    Raycaster,
     Scene,
     Shape,
     ShapeGeometry,
     SphereGeometry,
     TorusKnotGeometry,
+    Vector2,
     WebGLRenderer,
 } from "three";
 
@@ -146,8 +148,30 @@ export default class App {
         this._initEvents();
     }
 
+    _onClick(event) {
+        const mouse = new Vector2(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            -(event.clientY / window.innerHeight) * 2 + 1
+        );
+
+        const raycaster = new Raycaster();
+        raycaster.setFromCamera(mouse, this._camera);
+
+        const intersects = raycaster.intersectObjects(this._scene.children);
+
+        if (intersects.length > 0) {
+            const object = intersects[0].object;
+            if (object.material.color.getHex() === 0xff0000)
+                object.material.color.set(0x0000ff); // Cambia el color a blue
+            else object.material.color.set(0xff0000); // Cambia el color a rojo
+        }
+    }
+
     _initEvents() {
         window.addEventListener("resize", () => this._resize());
+        this._gl.domElement.addEventListener("click", (event) =>
+            this._onClick(event)
+        );
     }
 
     _resize() {
