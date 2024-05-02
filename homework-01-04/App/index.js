@@ -9,6 +9,7 @@ import {
     DirectionalLight,
     SpotLight,
     AmbientLight,
+    PCFSoftShadowMap,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -54,6 +55,8 @@ export default class App {
         const light = new DirectionalLight(0xffffff, 1);
         light.position.set(0, 2, 2);
         light.castShadow = true;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
         this._scene.add(light);
 
         // AMBIENT LIGHT
