@@ -8,10 +8,6 @@ import {
     DirectionalLight,
     AmbientLight,
     Group,
-    Color,
-    EquirectangularReflectionMapping,
-    CubeReflectionMapping,
-    CubeTextureLoader,
     PMREMGenerator,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
@@ -72,10 +68,10 @@ export default class App {
         this._scene.add(ambientLight);
 
         // PLANE
-        const planeGeometry = new BoxGeometry(10, 0.1, 10);
+        const planeGeometry = new BoxGeometry(2, 0.1, 2);
         const planeMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
         const plane = new Mesh(planeGeometry, planeMaterial);
-        plane.position.y = -2;
+        plane.position.y = -0.5;
         plane.receiveShadow = true;
         this._scene.add(plane);
 
