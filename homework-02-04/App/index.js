@@ -10,6 +10,8 @@ import {
     Group,
     PMREMGenerator,
     PCFSoftShadowMap,
+    DirectionalLightHelper,
+    CameraHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -57,18 +59,6 @@ export default class App {
             this._renderer.domElement
         );
 
-        // LIGHT
-        const light = new DirectionalLight(0xffffff, 1);
-        light.position.set(0, 2, 2);
-        light.castShadow = true;
-        light.shadow.mapSize.width = 256;
-        light.shadow.mapSize.height = 256;
-        this._scene.add(light);
-
-        // AMBIENT LIGHT
-        const ambientLight = new AmbientLight(0xffffff, 0.1);
-        this._scene.add(ambientLight);
-
         // PLANE
         const planeGeometry = new BoxGeometry(2, 0.1, 2);
         const planeMaterial = new MeshStandardMaterial({ color: 0x808080 });
@@ -80,6 +70,7 @@ export default class App {
         // START
         this._initEvents();
         this._initResources();
+        this._initLights();
 
         // ON LOADED
         this._onLoaded();
@@ -88,6 +79,37 @@ export default class App {
         document.body.appendChild(this._stats.dom);
 
         this._start();
+    }
+
+    _initLights() {
+        // DIRECTIONAL LIGHT
+        const directionalLight = new DirectionalLight(0xffffff, 1.7);
+        directionalLight.color.set("#fff");
+        directionalLight.position.y = 0.5;
+        directionalLight.position.z = 0.5;
+        directionalLight.castShadow = true;
+        this._scene.add(directionalLight);
+
+        // DIRECTIONAL LIGHT HELPER
+        const directionalLightHelper = new DirectionalLightHelper(
+            directionalLight
+        );
+        directionalLight.shadow.mapSize.set(256, 256);
+        directionalLight.shadow.camera.top = 0.15;
+        directionalLight.shadow.camera.left = -0.15;
+        directionalLight.shadow.camera.right = 0.15;
+        directionalLight.shadow.camera.bottom = -0.15;
+        directionalLight.shadow.camera.far = 1.5;
+        directionalLight.shadow.camera.near = 0.5;
+        this._scene.add(directionalLightHelper);
+
+        // CAMERA HELPER
+        const cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        this._scene.add(cameraHelper);
+
+        // AMBIENT LIGHT
+        const ambientLight = new AmbientLight(0xffffff, 0.1);
+        this._scene.add(ambientLight);
     }
 
     _initResources() {
