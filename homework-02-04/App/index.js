@@ -130,13 +130,14 @@ export default class App {
         this._scene.environment = envMap;
 
         // MODEL
-        this._model = resources.get("applevision");
+        this._model = resources.get("plane");
         this._model.scene.traverse((child) => {
             if (child.isMesh) {
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
         });
+        this._model.scene.scale.set(0.003, 0.003, 0.003);
         this._parent.add(this._model.scene);
         this._scene.add(this._parent);
     }
