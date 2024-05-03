@@ -100,6 +100,12 @@ export default class App {
 
         // MODEL
         const spaceship = resources.get("applevision");
+        spaceship.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
         this._parent.add(spaceship.scene);
         this._scene.add(this._parent);
     }
