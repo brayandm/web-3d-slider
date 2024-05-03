@@ -123,15 +123,19 @@ export default class App {
         this._scene.environment = envMap;
 
         // MODEL
-        const spaceship = resources.get("applevision");
-        spaceship.scene.traverse((child) => {
+        this._model = resources.get("applevision");
+        this._model.scene.traverse((child) => {
             if (child.isMesh) {
                 child.castShadow = true;
                 child.receiveShadow = true;
             }
         });
-        this._parent.add(spaceship.scene);
+        this._parent.add(this._model.scene);
         this._scene.add(this._parent);
+    }
+
+    _animateModel() {
+        this._parent.rotation.y += 0.01;
     }
 
     _initEvents() {
@@ -155,6 +159,7 @@ export default class App {
 
     _animate() {
         this._stats.begin();
+        this._animateModel();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
