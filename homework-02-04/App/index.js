@@ -19,7 +19,8 @@ import Stats from "stats.js";
 import resources from "./Resources";
 
 export default class App {
-    constructor() {
+    constructor(onLoaded = () => {}) {
+        this._onLoaded = onLoaded;
         this._renderer = undefined;
         this._camera = undefined;
         this._scene = undefined;
@@ -27,12 +28,14 @@ export default class App {
         this._parent = new Group();
         this._raf = undefined;
         this._stats = new Stats();
-        document.body.appendChild(this._stats.dom);
 
         this._init();
     }
 
-    _init() {
+    async _init() {
+        // RESOURCES
+        await resources.load();
+
         // RENDERER
         this._renderer = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
@@ -79,12 +82,17 @@ export default class App {
         // START
         this._initEvents();
         this._initResources();
+
+        // ON LOADED
+        this._onLoaded();
+
+        // STATS
+        document.body.appendChild(this._stats.dom);
+
         this._start();
     }
 
-    async _initResources() {
-        await resources.load();
-
+    _initResources() {
         // ENV MAP
         const hdrTexture = resources.get("envmap");
         const pmremGenerator = new PMREMGenerator(this._renderer);

@@ -1,4 +1,4 @@
-import { TextureLoader, VideoTexture } from "three";
+import { TextureLoader } from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
