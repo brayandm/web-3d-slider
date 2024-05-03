@@ -61,7 +61,14 @@ export default class App {
 
         // PLANE
         const planeGeometry = new BoxGeometry(2, 0.1, 2);
-        const planeMaterial = new MeshStandardMaterial({ color: 0x808080 });
+        const planeMaterial = new MeshStandardMaterial({
+            aoMap: resources.get("wood-ao"),
+            map: resources.get("wood-col"),
+            displacementMap: resources.get("wood-disp"),
+            metalnessMap: resources.get("wood-metalness"),
+            normalMap: resources.get("wood-nrm"),
+            roughnessMap: resources.get("wood-roughness"),
+        });
         const plane = new Mesh(planeGeometry, planeMaterial);
         plane.position.y = -0.5;
         plane.receiveShadow = true;
@@ -83,7 +90,7 @@ export default class App {
 
     _initLights() {
         // DIRECTIONAL LIGHT
-        const directionalLight = new DirectionalLight(0xffffff, 1.7);
+        const directionalLight = new DirectionalLight(0xffffff, 0.5);
         directionalLight.color.set("#fff");
         directionalLight.position.y = 0.5;
         directionalLight.position.z = 0.5;
