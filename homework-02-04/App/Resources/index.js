@@ -31,7 +31,6 @@ class Resources {
                     this._loaders.gltf.load(el.path, (model) => {
                         this._resouces.set(el.key, model);
                         res();
-                        console.log("reso");
                     });
                 });
             }
