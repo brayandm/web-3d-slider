@@ -7,9 +7,11 @@ import {
     MeshStandardMaterial,
     DirectionalLight,
     AmbientLight,
+    Group,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
+import resources from "./Resources";
 
 export default class App {
     constructor() {
@@ -17,6 +19,7 @@ export default class App {
         this._camera = undefined;
         this._scene = undefined;
         this._controls = undefined;
+        this._parent = new Group();
         this._raf = undefined;
         this._stats = new Stats();
         document.body.appendChild(this._stats.dom);
@@ -35,9 +38,9 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
-        this._camera.position.z = 4;
-        this._camera.position.y = 2;
-        this._camera.position.x = 2;
+        this._camera.position.z = 0.2;
+        this._camera.position.y = 0.2;
+        this._camera.position.x = 0.2;
 
         // SCENE
         this._scene = new Scene();
@@ -60,14 +63,6 @@ export default class App {
         const ambientLight = new AmbientLight(0xffffff, 0.1);
         this._scene.add(ambientLight);
 
-        // MESH
-        const geometry = new BoxGeometry(1, 1, 1);
-        const material = new MeshStandardMaterial({ color: 0xff0000 });
-        const mesh = new Mesh(geometry, material);
-        mesh.castShadow = true;
-        this._mesh = mesh;
-        this._scene.add(this._mesh);
-
         // PLANE
         const planeGeometry = new BoxGeometry(10, 0.1, 10);
         const planeMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
@@ -78,12 +73,16 @@ export default class App {
 
         // START
         this._initEvents();
+        this._initModels();
         this._start();
     }
 
-    _rotateMesh() {
-        this._mesh.rotation.x += 0.01;
-        this._mesh.rotation.y += 0.01;
+    async _initModels() {
+        await resources.load();
+
+        const spaceship = resources.get("applevision");
+        this._parent.add(spaceship.scene);
+        this._scene.add(this._parent);
     }
 
     _initEvents() {
@@ -108,7 +107,6 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
-        this._rotateMesh();
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
     }
