@@ -69,7 +69,7 @@ export default class App {
 
         // PLANE
         const planeGeometry = new BoxGeometry(2, 0.1, 2);
-        const planeMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
+        const planeMaterial = new MeshStandardMaterial({ color: 0x808080 });
         const plane = new Mesh(planeGeometry, planeMaterial);
         plane.position.y = -0.5;
         plane.receiveShadow = true;
