@@ -8,6 +8,11 @@ import {
     DirectionalLight,
     AmbientLight,
     Group,
+    Color,
+    EquirectangularReflectionMapping,
+    CubeReflectionMapping,
+    CubeTextureLoader,
+    PMREMGenerator,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -73,13 +78,23 @@ export default class App {
 
         // START
         this._initEvents();
-        this._initModels();
+        this._initResources();
         this._start();
     }
 
-    async _initModels() {
+    async _initResources() {
         await resources.load();
 
+        // ENV MAP
+        const hdrTexture = resources.get("envmap");
+        const pmremGenerator = new PMREMGenerator(this._renderer);
+        pmremGenerator.compileEquirectangularShader();
+        const envMap = pmremGenerator.fromEquirectangular(hdrTexture).texture;
+        pmremGenerator.dispose();
+        this._scene.background = envMap;
+        this._scene.environment = envMap;
+
+        // MODEL
         const spaceship = resources.get("applevision");
         this._parent.add(spaceship.scene);
         this._scene.add(this._parent);
