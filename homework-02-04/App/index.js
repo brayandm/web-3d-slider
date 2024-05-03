@@ -9,6 +9,7 @@ import {
     AmbientLight,
     Group,
     PMREMGenerator,
+    PCFSoftShadowMap,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -38,6 +39,7 @@ export default class App {
         });
         this._renderer.setSize(window.innerWidth, window.innerHeight);
         this._renderer.shadowMap.enabled = true;
+        this._renderer.shadowMap.type = PCFSoftShadowMap;
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
@@ -59,8 +61,8 @@ export default class App {
         const light = new DirectionalLight(0xffffff, 1);
         light.position.set(0, 2, 2);
         light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
+        light.shadow.mapSize.width = 256;
+        light.shadow.mapSize.height = 256;
         this._scene.add(light);
 
         // AMBIENT LIGHT
