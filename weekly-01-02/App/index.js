@@ -111,8 +111,8 @@ export default class App {
         this._scene.add(directionalLightHelper);
 
         // CAMERA HELPER
-        const cameraHelper = new CameraHelper(directionalLight.shadow.camera);
-        this._scene.add(cameraHelper);
+        this._cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        this._scene.add(this._cameraHelper);
 
         // AMBIENT LIGHT
         const ambientLight = new AmbientLight(0xffffff, 0.1);
@@ -170,5 +170,9 @@ export default class App {
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
+    }
+
+    toggleCameraHelper() {
+        this._cameraHelper.visible = !this._cameraHelper.visible;
     }
 }

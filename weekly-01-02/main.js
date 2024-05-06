@@ -6,10 +6,14 @@ import GUIController from "./App/GUIController/index.js";
 
 const loading = document.querySelector(".loading-container");
 
-new App(() => {
+const app = new App(() => {
     loading.style.display = "none";
     const canvas = document.querySelector("#canvas");
     canvas.style.display = "block";
-});
 
-new GUIController();
+    const onCameraHelperChange = (v) => {
+        app.toggleCameraHelper(v);
+    };
+
+    new GUIController(onCameraHelperChange);
+});
