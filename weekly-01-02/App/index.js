@@ -196,4 +196,12 @@ export default class App {
     toggleOrbitControls(v) {
         this._controls.enabled = v;
     }
+
+    togglePostprocessing(v) {
+        this._composer.togglePostprocessing(v);
+    }
+
+    togglePostprocessingCrazy(v) {
+        this._composer.togglePostprocessingCrazy(v);
+    }
 }
