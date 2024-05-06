@@ -16,6 +16,7 @@ import {
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
 import resources from "./Resources";
+import Composer from "./Postprocessing";
 
 export default class App {
     constructor(onLoaded = () => {}) {
@@ -74,6 +75,9 @@ export default class App {
         plane.receiveShadow = true;
         this._scene.add(plane);
 
+        // COMPOSER
+        this._initComposer();
+
         // START
         this._initEvents();
         this._initResources();
@@ -86,6 +90,14 @@ export default class App {
         document.body.appendChild(this._stats.dom);
 
         this._start();
+    }
+
+    _initComposer() {
+        this._composer = new Composer({
+            gl: this._renderer,
+            scene: this._scene,
+            camera: this._camera,
+        });
     }
 
     _initLights() {
@@ -171,7 +183,7 @@ export default class App {
         this._stats.begin();
         this._animateModel();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
-        this._renderer.render(this._scene, this._camera);
+        this._composer.render();
         this._stats.end();
     }
 
