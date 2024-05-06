@@ -33,4 +33,12 @@ const app = new App(() => {
         onPostprocessingChange,
         onPostprocessingCrazyChange
     );
+
+    const button = document.querySelector(".button");
+
+    button.style.display = "block";
+
+    button.addEventListener("click", () => {
+        app.changeVersion();
+    });
 });

@@ -12,11 +12,28 @@ import {
     PCFSoftShadowMap,
     DirectionalLightHelper,
     CameraHelper,
+    Color,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
 import resources from "./Resources";
 import Composer from "./Postprocessing";
+import { gsap } from "gsap";
+
+const CONFIG = {
+    light: {
+        ambientLightIntesity: 5,
+        background: "#f4d9ed",
+        envMapIntensity: 1,
+        directionalLightIntensity: 0,
+    },
+    dark: {
+        ambientLightIntesity: 0,
+        background: 0x02040a,
+        envMapIntensity: 0.13,
+        directionalLightIntensity: 400,
+    },
+};
 
 export default class App {
     constructor(onLoaded = () => {}) {
@@ -28,6 +45,7 @@ export default class App {
         this._parent = new Group();
         this._raf = undefined;
         this._stats = new Stats();
+        this._version = "light";
 
         this._init();
     }
@@ -102,35 +120,37 @@ export default class App {
 
     _initLights() {
         // DIRECTIONAL LIGHT
-        const directionalLight = new DirectionalLight(0xffffff, 0.5);
-        directionalLight.color.set("#fff");
-        directionalLight.position.y = 0.5;
-        directionalLight.position.z = 0.5;
-        directionalLight.castShadow = true;
-        this._scene.add(directionalLight);
+        this._directionalLight = new DirectionalLight(0xffffff, 0.5);
+        this._directionalLight.color.set("#fff");
+        this._directionalLight.position.y = 0.5;
+        this._directionalLight.position.z = 0.5;
+        this._directionalLight.castShadow = true;
+        this._scene.add(this._directionalLight);
 
         // DIRECTIONAL LIGHT HELPER
         this._directionalLightHelper = new DirectionalLightHelper(
-            directionalLight
+            this._directionalLight
         );
-        directionalLight.shadow.mapSize.set(256, 256);
-        directionalLight.shadow.camera.top = 0.15;
-        directionalLight.shadow.camera.left = -0.15;
-        directionalLight.shadow.camera.right = 0.15;
-        directionalLight.shadow.camera.bottom = -0.15;
-        directionalLight.shadow.camera.far = 1.5;
-        directionalLight.shadow.camera.near = 0.5;
+        this._directionalLight.shadow.mapSize.set(256, 256);
+        this._directionalLight.shadow.camera.top = 0.15;
+        this._directionalLight.shadow.camera.left = -0.15;
+        this._directionalLight.shadow.camera.right = 0.15;
+        this._directionalLight.shadow.camera.bottom = -0.15;
+        this._directionalLight.shadow.camera.far = 1.5;
+        this._directionalLight.shadow.camera.near = 0.5;
         this._directionalLightHelper.visible = false;
         this._scene.add(this._directionalLightHelper);
 
         // CAMERA HELPER
-        this._cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        this._cameraHelper = new CameraHelper(
+            this._directionalLight.shadow.camera
+        );
         this._cameraHelper.visible = false;
         this._scene.add(this._cameraHelper);
 
         // AMBIENT LIGHT
-        const ambientLight = new AmbientLight(0xffffff, 0.1);
-        this._scene.add(ambientLight);
+        this._ambientLight = new AmbientLight(0xffffff, 0.1);
+        this._scene.add(this._ambientLight);
     }
 
     _initResources() {
@@ -203,5 +223,29 @@ export default class App {
 
     togglePostprocessingCrazy(v) {
         this._composer.togglePostprocessingCrazy(v);
+    }
+
+    changeVersion() {
+        this._version = this._version === "light" ? "dark" : "light";
+
+        const config = CONFIG[this._version];
+
+        // BACKGROUND
+        const color = new Color(config.background);
+        gsap.to(this._scene.background, { r: color.r, b: color.b, g: color.g });
+
+        // LIGHTS
+        gsap.to(this._ambientLight, { intensity: config.ambientLightIntesity });
+        gsap.to(this._directionalLight, {
+            intensity: config.directionalLightIntensity,
+        });
+
+        // // ENVMAP
+        // this._scene.traverse((el) => {
+        //     if (el.isMesh && el.material.envMapIntensity) {
+        //         const { material } = el;
+        //         gsap.to(material, { envMapIntensity: config.envMapIntensity });
+        //     }
+        // });
     }
 }
