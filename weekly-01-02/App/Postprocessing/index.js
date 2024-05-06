@@ -4,13 +4,15 @@ import {
     EffectPass,
     RenderPass,
 } from "postprocessing";
-import { FloatType, Vector2 } from "three";
+import { Clock, FloatType, Vector2 } from "three";
 
 export default class Postprocessing {
     constructor({ renderer, scene, camera }) {
         this._renderer = renderer;
         this._scene = scene;
         this._camera = camera;
+        this._clock = new Clock(true);
+        this._nextUpdateTime = 0;
 
         this._init();
     }
@@ -41,7 +43,19 @@ export default class Postprocessing {
         this._composer = composer;
     }
 
+    _updateChromaticAberration() {
+        const x = (Math.random() - 0.5) * 0.05;
+        const y = (Math.random() - 0.5) * 0.01;
+        this._chromaticAberrationEffect.offset.set(x, y);
+
+        const timeInterval = Math.random() * 100 + 50;
+        this._nextUpdateTime = this._clock.elapsedTime + timeInterval / 1000;
+    }
+
     render() {
+        if (this._clock.getElapsedTime() >= this._nextUpdateTime) {
+            this._updateChromaticAberration();
+        }
         this._composer.render();
     }
 }
