@@ -12,7 +12,6 @@ import {
     PCFSoftShadowMap,
     DirectionalLightHelper,
     CameraHelper,
-    Color,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -22,16 +21,14 @@ import { gsap } from "gsap";
 
 const CONFIG = {
     light: {
-        ambientLightIntesity: 5,
-        background: "#f4d9ed",
+        ambientLightIntesity: 0.1,
         envMapIntensity: 1,
-        directionalLightIntensity: 0,
+        directionalLightIntensity: 0.5,
     },
     dark: {
         ambientLightIntesity: 0,
-        background: 0x02040a,
-        envMapIntensity: 0.13,
-        directionalLightIntensity: 400,
+        envMapIntensity: 0.1,
+        directionalLightIntensity: 0,
     },
 };
 
@@ -120,7 +117,10 @@ export default class App {
 
     _initLights() {
         // DIRECTIONAL LIGHT
-        this._directionalLight = new DirectionalLight(0xffffff, 0.5);
+        this._directionalLight = new DirectionalLight(
+            0xffffff,
+            CONFIG[this._version].directionalLightIntensity
+        );
         this._directionalLight.color.set("#fff");
         this._directionalLight.position.y = 0.5;
         this._directionalLight.position.z = 0.5;
@@ -149,7 +149,10 @@ export default class App {
         this._scene.add(this._cameraHelper);
 
         // AMBIENT LIGHT
-        this._ambientLight = new AmbientLight(0xffffff, 0.1);
+        this._ambientLight = new AmbientLight(
+            0xffffff,
+            CONFIG[this._version].ambientLightIntesity
+        );
         this._scene.add(this._ambientLight);
     }
 
@@ -230,22 +233,18 @@ export default class App {
 
         const config = CONFIG[this._version];
 
-        // BACKGROUND
-        const color = new Color(config.background);
-        gsap.to(this._scene.background, { r: color.r, b: color.b, g: color.g });
-
         // LIGHTS
         gsap.to(this._ambientLight, { intensity: config.ambientLightIntesity });
         gsap.to(this._directionalLight, {
             intensity: config.directionalLightIntensity,
         });
 
-        // // ENVMAP
-        // this._scene.traverse((el) => {
-        //     if (el.isMesh && el.material.envMapIntensity) {
-        //         const { material } = el;
-        //         gsap.to(material, { envMapIntensity: config.envMapIntensity });
-        //     }
-        // });
+        // ENVMAP
+        this._scene.traverse((el) => {
+            if (el.isMesh && el.material.envMapIntensity) {
+                const { material } = el;
+                gsap.to(material, { envMapIntensity: config.envMapIntensity });
+            }
+        });
     }
 }
