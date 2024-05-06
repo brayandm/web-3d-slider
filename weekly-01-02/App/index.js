@@ -23,11 +23,13 @@ const CONFIG = {
     light: {
         ambientLightIntesity: 0.1,
         envMapIntensity: 1,
+        cubeWrapperOpacity: 0,
         directionalLightIntensity: 0.5,
     },
     dark: {
         ambientLightIntesity: 0,
         envMapIntensity: 0,
+        cubeWrapperOpacity: 1,
         directionalLightIntensity: 0.05,
     },
 };
@@ -247,7 +249,7 @@ export default class App {
 
         // CUBE WRAPPER
         gsap.to(this._cubeWrapper.material, {
-            opacity: this._version === "dark" ? 1 : 0,
+            opacity: config.cubeWrapperOpacity,
         });
 
         // LIGHTS
