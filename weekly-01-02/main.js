@@ -11,9 +11,9 @@ const app = new App(() => {
     const canvas = document.querySelector("#canvas");
     canvas.style.display = "block";
 
-    const onCameraHelperChange = (v) => {
-        app.toggleCameraHelper(v);
+    const onHelperChange = (v) => {
+        app.toggleHelpers(v);
     };
 
-    new GUIController(onCameraHelperChange);
+    new GUIController(onHelperChange);
 });

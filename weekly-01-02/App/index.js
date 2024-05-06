@@ -98,7 +98,7 @@ export default class App {
         this._scene.add(directionalLight);
 
         // DIRECTIONAL LIGHT HELPER
-        const directionalLightHelper = new DirectionalLightHelper(
+        this._directionalLightHelper = new DirectionalLightHelper(
             directionalLight
         );
         directionalLight.shadow.mapSize.set(256, 256);
@@ -108,10 +108,12 @@ export default class App {
         directionalLight.shadow.camera.bottom = -0.15;
         directionalLight.shadow.camera.far = 1.5;
         directionalLight.shadow.camera.near = 0.5;
-        this._scene.add(directionalLightHelper);
+        this._directionalLightHelper.visible = false;
+        this._scene.add(this._directionalLightHelper);
 
         // CAMERA HELPER
         this._cameraHelper = new CameraHelper(directionalLight.shadow.camera);
+        this._cameraHelper.visible = false;
         this._scene.add(this._cameraHelper);
 
         // AMBIENT LIGHT
@@ -172,7 +174,9 @@ export default class App {
         this._stats.end();
     }
 
-    toggleCameraHelper() {
+    toggleHelpers() {
         this._cameraHelper.visible = !this._cameraHelper.visible;
+        this._directionalLightHelper.visible =
+            !this._directionalLightHelper.visible;
     }
 }
