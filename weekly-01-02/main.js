@@ -19,5 +19,18 @@ const app = new App(() => {
         app.toggleOrbitControls(v);
     };
 
-    new GUIController(onHelperChange, onOrbitControllsChange);
+    const onPostprocessingChange = (v) => {
+        app.togglePostprocessing(v);
+    };
+
+    const onPostprocessingCrazyChange = (v) => {
+        app.togglePostprocessingCrazy(v);
+    };
+
+    new GUIController(
+        onHelperChange,
+        onOrbitControllsChange,
+        onPostprocessingChange,
+        onPostprocessingCrazyChange
+    );
 });
