@@ -27,8 +27,8 @@ const CONFIG = {
     },
     dark: {
         ambientLightIntesity: 0,
-        envMapIntensity: 0.1,
-        directionalLightIntensity: 0,
+        envMapIntensity: 0,
+        directionalLightIntensity: 0.05,
     },
 };
 
@@ -89,6 +89,18 @@ export default class App {
         plane.position.y = -0.5;
         plane.receiveShadow = true;
         this._scene.add(plane);
+
+        // CUBE WRAPPER INVISIBLE
+        this._cubeWrapper = new Mesh(
+            new BoxGeometry(10, 10, 10),
+            new MeshStandardMaterial({
+                color: 0x000000,
+                transparent: true,
+                opacity: 0,
+                side: 2,
+            })
+        );
+        this._scene.add(this._cubeWrapper);
 
         // COMPOSER
         this._initComposer();
@@ -232,6 +244,11 @@ export default class App {
         this._version = this._version === "light" ? "dark" : "light";
 
         const config = CONFIG[this._version];
+
+        // CUBE WRAPPER
+        gsap.to(this._cubeWrapper.material, {
+            opacity: this._version === "dark" ? 1 : 0,
+        });
 
         // LIGHTS
         gsap.to(this._ambientLight, { intensity: config.ambientLightIntesity });
