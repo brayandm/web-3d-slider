@@ -3,7 +3,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 const ASSETS = [
-    { key: "plane", type: "gltf", path: "/plane.glb" },
+    { key: "applevision", type: "gltf", path: "/applevision.glb" },
     { key: "envmap", type: "envmap", path: "/envmap.hdr" },
     { key: "wood-ao", type: "texture", path: "/wood/ao.png" },
     { key: "wood-col", type: "texture", path: "/wood/col.png" },
