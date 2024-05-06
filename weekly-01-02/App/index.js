@@ -94,7 +94,7 @@ export default class App {
 
     _initComposer() {
         this._composer = new Composer({
-            gl: this._renderer,
+            renderer: this._renderer,
             scene: this._scene,
             camera: this._camera,
         });
