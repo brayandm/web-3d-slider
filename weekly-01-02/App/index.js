@@ -46,8 +46,8 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
-        this._camera.position.z = 0.2;
-        this._camera.position.y = 0.2;
+        this._camera.position.z = 0.15;
+        this._camera.position.y = 0.05;
         this._camera.position.x = 0.2;
 
         // SCENE
@@ -144,7 +144,8 @@ export default class App {
     }
 
     _animateModel() {
-        this._parent.rotation.y += 0.01;
+        const time = performance.now() * 0.001;
+        this._parent.rotation.y = Math.cos(time) * 0.2;
     }
 
     _initEvents() {
