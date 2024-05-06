@@ -48,3 +48,19 @@ body,
         transform: rotate(360deg);
     }
 }
+
+.button {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    padding: 20px 20px;
+    color: white;
+
+    p {
+        margin: 0;
+        font-size: 20px;
+        font-weight: semibold;
+    }
+}
