@@ -179,4 +179,8 @@ export default class App {
         this._directionalLightHelper.visible =
             !this._directionalLightHelper.visible;
     }
+
+    toggleOrbitControls(v) {
+        this._controls.enabled = v;
+    }
 }

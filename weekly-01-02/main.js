@@ -15,5 +15,9 @@ const app = new App(() => {
         app.toggleHelpers(v);
     };
 
-    new GUIController(onHelperChange);
+    const onOrbitControllsChange = (v) => {
+        app.toggleOrbitControls(v);
+    };
+
+    new GUIController(onHelperChange, onOrbitControllsChange);
 });
