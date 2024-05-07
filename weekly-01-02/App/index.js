@@ -260,7 +260,7 @@ export default class App {
 
         // ENVMAP
         this._scene.traverse((el) => {
-            if (el.isMesh && el.material.envMapIntensity) {
+            if (el.isMesh && el.material.envMapIntensity !== undefined) {
                 const { material } = el;
                 gsap.to(material, { envMapIntensity: config.envMapIntensity });
             }
