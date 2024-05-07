@@ -41,4 +41,8 @@ const app = new App(() => {
     button.addEventListener("click", () => {
         app.changeVersion();
     });
+
+    const text = document.querySelector(".text");
+
+    text.style.display = "block";
 });

@@ -250,6 +250,24 @@ export default class App {
         this._composer.togglePostprocessingCrazy(v);
     }
 
+    _rotateModelOnMouseClick() {
+        if (this._modelRotated) {
+            gsap.to(this._parent.rotation, {
+                y: 0,
+                z: 0,
+                duration: 1,
+            });
+        } else {
+            gsap.to(this._parent.rotation, {
+                y: Math.PI * 0.5,
+                z: Math.PI * 0.5,
+                duration: 1,
+            });
+        }
+
+        this._modelRotated = !this._modelRotated;
+    }
+
     _onClick(event) {
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -259,10 +277,7 @@ export default class App {
         const intersects = this._raycaster.intersectObject(this._parent, true);
 
         if (intersects.length > 0) {
-            if (this._modelRotated) this._parent.rotation.z -= Math.PI / 2;
-            else this._parent.rotation.z += Math.PI / 2;
-
-            this._modelRotated = !this._modelRotated;
+            this._rotateModelOnMouseClick();
         }
     }
 
