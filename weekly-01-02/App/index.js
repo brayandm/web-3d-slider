@@ -12,6 +12,8 @@ import {
     PCFSoftShadowMap,
     DirectionalLightHelper,
     CameraHelper,
+    Raycaster,
+    Vector2,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -44,6 +46,9 @@ export default class App {
         this._parent = new Group();
         this._raf = undefined;
         this._stats = new Stats();
+        this._raycaster = new Raycaster();
+        this._mouse = new Vector2();
+        this._modelRotated = false;
         this._version = "light";
 
         this._init();
@@ -76,6 +81,8 @@ export default class App {
             this._camera,
             this._renderer.domElement
         );
+
+        this._controls.enabled = false;
 
         // PLANE
         const planeGeometry = new BoxGeometry(2, 0.1, 2);
@@ -198,6 +205,7 @@ export default class App {
     }
 
     _initEvents() {
+        window.addEventListener("click", this._onClick.bind(this));
         window.addEventListener("resize", this._onResize.bind(this));
     }
 
@@ -240,6 +248,22 @@ export default class App {
 
     togglePostprocessingCrazy(v) {
         this._composer.togglePostprocessingCrazy(v);
+    }
+
+    _onClick(event) {
+        this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        this._raycaster.setFromCamera(this._mouse, this._camera);
+
+        const intersects = this._raycaster.intersectObject(this._parent, true);
+
+        if (intersects.length > 0) {
+            if (this._modelRotated) this._parent.rotation.z -= Math.PI / 2;
+            else this._parent.rotation.z += Math.PI / 2;
+
+            this._modelRotated = !this._modelRotated;
+        }
     }
 
     changeVersion() {

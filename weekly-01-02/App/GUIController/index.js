@@ -22,7 +22,7 @@ export default class GUIController {
             .onChange(this._onHelpersChange);
 
         this.gui
-            .add({ orbitControls: true }, "orbitControls")
+            .add({ orbitControls: false }, "orbitControls")
             .name("Orbit Controls")
             .onChange(this._onOrbitControllsChange);
 

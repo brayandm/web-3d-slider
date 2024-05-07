@@ -76,6 +76,13 @@ export default class Postprocessing {
         ) {
             this._updateChromaticAberration();
         }
+        if (this._enableAberrationCrazy === false) {
+            if (this._enableAberration) {
+                this._chromaticAberrationEffect.offset.set(0.01, 0.01);
+            } else {
+                this._chromaticAberrationEffect.offset.set(0, 0);
+            }
+        }
         this._composer.render();
     }
 }
