@@ -5,17 +5,25 @@ export default class GUIController {
         onHelpersChange = () => {},
         onOrbitControllsChange = () => {},
         onPostprocessingChange = () => {},
-        onPostprocessingCrazyChange = () => {}
+        onPostprocessingCrazyChange = () => {},
+        onLowPolyModelChange = () => {}
     ) {
         this._onHelpersChange = onHelpersChange;
         this._onOrbitControllsChange = onOrbitControllsChange;
         this._onPostprocessingChange = onPostprocessingChange;
         this._onPostprocessingCrazyChange = onPostprocessingCrazyChange;
+        this._onLowPolyModelChange = onLowPolyModelChange;
+
         this.gui = new GUI();
         this.init();
     }
 
     init() {
+        this.gui
+            .add({ lowpolymodel: true }, "lowpolymodel")
+            .name("Low Poly Model")
+            .onChange(this._onLowPolyModelChange);
+
         this.gui
             .add({ helpers: false }, "helpers")
             .name("Helpers")

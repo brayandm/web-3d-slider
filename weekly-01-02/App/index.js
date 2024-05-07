@@ -50,6 +50,7 @@ export default class App {
         this._mouse = new Vector2();
         this._modelRotated = false;
         this._version = "light";
+        this._modelLowpoly = true;
 
         this._init();
     }
@@ -196,6 +197,20 @@ export default class App {
             }
         });
         this._parent.add(this._model.scene);
+        this._model.scene.visible = false;
+        this._scene.add(this._parent);
+
+        // MODEL LOWPOLY
+        this._modelLowpoly = resources.get("plane");
+        this._modelLowpoly.scene.traverse((child) => {
+            if (child.isMesh) {
+                child.castShadow = true;
+                child.receiveShadow = true;
+            }
+        });
+        this._modelLowpoly.scene.scale.set(0.005, 0.005, 0.005);
+        this._modelLowpoly.scene.rotation.y = Math.PI * 0.5;
+        this._parent.add(this._modelLowpoly.scene);
         this._scene.add(this._parent);
     }
 
@@ -248,6 +263,11 @@ export default class App {
 
     togglePostprocessingCrazy(v) {
         this._composer.togglePostprocessingCrazy(v);
+    }
+
+    toggleLowPolyModel(v) {
+        this._modelLowpoly.scene.visible = v;
+        this._model.scene.visible = !v;
     }
 
     _rotateModelOnMouseClick() {

@@ -27,11 +27,16 @@ const app = new App(() => {
         app.togglePostprocessingCrazy(v);
     };
 
+    const onLowPolyModelChange = (v) => {
+        app.toggleLowPolyModel(v);
+    };
+
     new GUIController(
         onHelperChange,
         onOrbitControllsChange,
         onPostprocessingChange,
-        onPostprocessingCrazyChange
+        onPostprocessingCrazyChange,
+        onLowPolyModelChange
     );
 
     const button = document.querySelector(".button");

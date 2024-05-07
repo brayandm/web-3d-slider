@@ -4,6 +4,7 @@ import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 const ASSETS = [
     { key: "applevision", type: "gltf", path: "/applevision.glb" },
+    { key: "plane", type: "gltf", path: "/plane.glb" },
     { key: "envmap", type: "envmap", path: "/envmap.hdr" },
     { key: "wood-ao", type: "texture", path: "/wood/ao.png" },
     { key: "wood-col", type: "texture", path: "/wood/col.png" },
