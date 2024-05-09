@@ -133,7 +133,7 @@ void main() {
         this._slider = new Slider();
         this._scene.add(this._slider);
 
-        const geometry = new PlaneGeometry(10000, 2000);
+        const geometry = new PlaneGeometry(100000, 20000);
         const material = new ShaderMaterial({
             uniforms: {
                 time: { type: "f", value: 0 },
