@@ -5,13 +5,17 @@ import {
     DirectionalLight,
     AmbientLight,
     MathUtils,
+    PMREMGenerator,
+    Color,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
 import Slider from "./Slider";
+import resources from "./Resources";
 
 export default class App {
-    constructor() {
+    constructor(onLoaded = () => {}) {
+        this._onLoaded = onLoaded;
         this._renderer = undefined;
         this._camera = undefined;
         this._scene = undefined;
@@ -23,7 +27,10 @@ export default class App {
         this._init();
     }
 
-    _init() {
+    async _init() {
+        // RESOURCES
+        await resources.load();
+
         // RENDERER
         this._renderer = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
@@ -63,11 +70,20 @@ export default class App {
 
         // START
         this._initEvents();
+        this._initResources();
         this._initScene();
+
+        // ON LOADED
+        this._onLoaded();
+
+        // START
         this._start();
     }
 
+    _initResources() {}
+
     _initScene() {
+        this._scene.background = new Color(0x808080);
         this._slider = new Slider();
         this._scene.add(this._slider);
     }
