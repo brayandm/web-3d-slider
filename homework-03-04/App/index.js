@@ -60,30 +60,9 @@ export default class App {
         const ambientLight = new AmbientLight(0xffffff, 0.1);
         this._scene.add(ambientLight);
 
-        // MESH
-        const geometry = new BoxGeometry(1, 1, 1);
-        const material = new MeshStandardMaterial({ color: 0xff0000 });
-        const mesh = new Mesh(geometry, material);
-        mesh.castShadow = true;
-        this._mesh = mesh;
-        this._scene.add(this._mesh);
-
-        // PLANE
-        const planeGeometry = new BoxGeometry(10, 0.1, 10);
-        const planeMaterial = new MeshStandardMaterial({ color: 0x00ff00 });
-        const plane = new Mesh(planeGeometry, planeMaterial);
-        plane.position.y = -2;
-        plane.receiveShadow = true;
-        this._scene.add(plane);
-
         // START
         this._initEvents();
         this._start();
-    }
-
-    _rotateMesh() {
-        this._mesh.rotation.x += 0.01;
-        this._mesh.rotation.y += 0.01;
     }
 
     _initEvents() {
@@ -108,7 +87,6 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
-        this._rotateMesh();
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
     }
