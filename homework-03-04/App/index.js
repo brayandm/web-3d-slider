@@ -83,7 +83,7 @@ export default class App {
     _initResources() {}
 
     _initScene() {
-        this._scene.background = new Color(0x808080);
+        this._scene.background = new Color(0x0f0f0f);
         this._slider = new Slider();
         this._scene.add(this._slider);
     }
