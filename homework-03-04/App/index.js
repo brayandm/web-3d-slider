@@ -34,6 +34,7 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
+        this._camera.position.z = 100;
 
         // SETUP CAMERA
         this._resize();
