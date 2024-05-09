@@ -47,6 +47,7 @@ export default class App {
             this._camera,
             this._renderer.domElement
         );
+        this._controls.enabled = false;
 
         // LIGHT
         const light = new DirectionalLight(0xffffff, 1);

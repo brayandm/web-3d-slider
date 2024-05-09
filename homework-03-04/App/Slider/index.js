@@ -1,4 +1,10 @@
-import { Group, Mesh, MeshBasicMaterial, PlaneGeometry } from "three";
+import {
+    Group,
+    MathUtils,
+    Mesh,
+    MeshBasicMaterial,
+    PlaneGeometry,
+} from "three";
 
 export default class Slider extends Group {
     constructor() {
@@ -16,6 +22,7 @@ export default class Slider extends Group {
             const mesh = new Mesh(geometry, material);
 
             mesh.scale.set(this._width, this._width, 1);
+            mesh.position.x = this._width * i * 1.5;
 
             this.add(mesh);
         }
