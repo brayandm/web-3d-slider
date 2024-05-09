@@ -16,6 +16,8 @@ export default class Slider extends Group {
         this._height = 1920 * 0.2;
         this._width = 1080 * 0.2;
         this._objects = [];
+        this._randMap = [];
+        this._senseRandMap = [];
 
         this._isDragging = false;
 
@@ -48,6 +50,8 @@ export default class Slider extends Group {
 
             this.add(mesh);
             this._objects.push(mesh);
+            this._randMap.push(MathUtils.randFloat(0, 10));
+            this._senseRandMap.push(Math.random() < 0.5 ? -1 : 1);
         }
     }
 
@@ -69,7 +73,21 @@ export default class Slider extends Group {
         });
     }
 
+    animate() {
+        this._objects.forEach((el, index) => {
+            el.userData.destinationPosition.x +=
+                Math.cos(Date.now() * 0.001 + this._randMap[index]) *
+                0.2 *
+                this._senseRandMap[index];
+            el.position.y +=
+                Math.sin(Date.now() * 0.001 + this._randMap[index]) *
+                0.2 *
+                this._senseRandMap[index];
+        });
+    }
+
     update(delta) {
+        this.animate();
         this._objects.forEach((el) => {
             damp(
                 el.position,
