@@ -37,8 +37,8 @@ float random(vec2 st) {
 
 void main() {
     vec2 st = gl_FragCoord.xy / resolution.xy;
-    float brightness = random(st + time * 0.000001); // Reducir el coeficiente para ralentizar el cambio
-    brightness = step(0.9991, brightness); // Ajusta para más esparcimiento
+    float brightness = random(st + time * 0.000001);
+    brightness = step(0.9991, brightness); 
     gl_FragColor = vec4(vec3(brightness), 1.0);
 }
 `;
