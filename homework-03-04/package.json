@@ -12,6 +12,8 @@
         "vite": "^4.4.0"
     },
     "dependencies": {
+        "@use-gesture/vanilla": "^10.3.1",
+        "maath": "^0.10.7",
         "stats.js": "^0.17.0",
         "three": "^0.154.0"
     }
