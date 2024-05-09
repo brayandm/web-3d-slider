@@ -25,7 +25,7 @@ export default class Slider extends Group {
     }
 
     _init() {
-        for (let i = 1; i <= 12; i++) {
+        for (let i = 1; i <= 20; i++) {
             const geometry = new PlaneGeometry(1, 1);
 
             const texture = new TextureLoader().load(
