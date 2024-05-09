@@ -51,7 +51,7 @@ export default class Slider extends Group {
     }
 
     hover(object) {
-        object.position.z = Math.max(object.position.z + 0.1, 0);
+        if (!this._isDragging) object.position.z += 1;
     }
 
     onDrag(e, delta) {
