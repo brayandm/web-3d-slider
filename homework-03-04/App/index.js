@@ -61,10 +61,14 @@ export default class App {
 
         // START
         this._initEvents();
+        this._initScene();
         this._start();
     }
 
-    _initScene() {}
+    _initScene() {
+        this._slider = new Slider();
+        this._scene.add(this._slider);
+    }
 
     _initEvents() {
         window.addEventListener("resize", this._resize.bind(this));
