@@ -7,6 +7,8 @@ import {
     MathUtils,
     Color,
     Clock,
+    Raycaster,
+    Vector2,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -22,6 +24,8 @@ export default class App {
         this._scene = undefined;
         this._controls = undefined;
         this._raf = undefined;
+        this._raycaster = new Raycaster();
+        this._mouse = new Vector2();
         this._stats = new Stats();
         document.body.appendChild(this._stats.dom);
 
@@ -105,6 +109,13 @@ export default class App {
 
     _initEvents() {
         window.addEventListener("resize", this._resize.bind(this));
+        window.addEventListener("mousemove", this._onMouseMove.bind(this));
+    }
+
+    _onMouseMove(event) {
+        event.preventDefault();
+        this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
     }
 
     onDrag(e, delta) {
@@ -134,10 +145,26 @@ export default class App {
 
     _animate() {
         this._stats.begin();
+        this._updateHoverEffect();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
         this._clock.delta = this._clock.getDelta();
         this._slider.update();
         this._composer.render();
         this._stats.end();
+    }
+
+    _updateHoverEffect() {
+        this._raycaster.setFromCamera(this._mouse, this._camera);
+
+        const intersects = this._raycaster.intersectObjects(
+            this._scene.children,
+            true
+        );
+
+        if (intersects.length > 0) {
+            const intersected = intersects[0].object;
+
+            this._slider.hover(intersected);
+        }
     }
 }

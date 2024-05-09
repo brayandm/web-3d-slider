@@ -50,6 +50,10 @@ export default class Slider extends Group {
         }
     }
 
+    hover(object) {
+        object.position.z = Math.max(object.position.z + 0.1, 0);
+    }
+
     onDrag(e, delta) {
         this._isDragging = e.dragging;
         this._objects.forEach((el) => {
