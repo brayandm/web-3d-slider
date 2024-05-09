@@ -47,6 +47,7 @@ export default class Slider extends Group {
             mesh.userData.initialPosition = mesh.position.clone();
             mesh.userData.dragPosition = mesh.position.clone();
             mesh.userData.dragPosition.z += MathUtils.randFloat(-50, -30);
+            mesh.userData.isSlide = true;
 
             this.add(mesh);
             this._objects.push(mesh);
