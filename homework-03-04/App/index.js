@@ -8,6 +8,7 @@ import {
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
+import Slider from "./Slider";
 
 export default class App {
     constructor() {
@@ -62,6 +63,8 @@ export default class App {
         this._initEvents();
         this._start();
     }
+
+    _initScene() {}
 
     _initEvents() {
         window.addEventListener("resize", this._resize.bind(this));
