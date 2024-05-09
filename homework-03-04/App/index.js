@@ -12,6 +12,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
 import Slider from "./Slider";
 import resources from "./Resources";
+import Composer from "./Postprocessing";
 
 export default class App {
     constructor(onLoaded = () => {}) {
@@ -77,12 +78,21 @@ export default class App {
         this._initEvents();
         this._initResources();
         this._initScene();
+        this._initComposer();
 
         // ON LOADED
         this._onLoaded();
 
         // START
         this._start();
+    }
+
+    _initComposer() {
+        this._composer = new Composer({
+            renderer: this._renderer,
+            scene: this._scene,
+            camera: this._camera,
+        });
     }
 
     _initResources() {}
@@ -127,7 +137,7 @@ export default class App {
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
         this._clock.delta = this._clock.getDelta();
         this._slider.update();
-        this._renderer.render(this._scene, this._camera);
+        this._composer.render();
         this._stats.end();
     }
 }
