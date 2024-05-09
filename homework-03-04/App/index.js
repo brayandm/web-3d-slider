@@ -5,8 +5,8 @@ import {
     DirectionalLight,
     AmbientLight,
     MathUtils,
-    PMREMGenerator,
     Color,
+    Clock,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -45,6 +45,9 @@ export default class App {
 
         // SETUP CAMERA
         this._resize();
+
+        // CLOCK
+        this._clock = new Clock();
 
         // SCENE
         this._scene = new Scene();
@@ -92,6 +95,10 @@ export default class App {
         window.addEventListener("resize", this._resize.bind(this));
     }
 
+    onDrag(e, delta) {
+        this._slider.onDrag(e, delta);
+    }
+
     _resize() {
         let fov =
             Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
@@ -116,6 +123,8 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
+        this._clock.delta = this._clock.getDelta();
+        this._slider.update();
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
     }
