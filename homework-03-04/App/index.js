@@ -37,9 +37,11 @@ float random(vec2 st) {
 
 void main() {
     vec2 st = gl_FragCoord.xy / resolution.xy;
-    float brightness = random(st + time * 0.000001);
+    float brightness = random(st + time * 0.0000005);
     brightness = step(0.9991, brightness); 
-    gl_FragColor = vec4(vec3(brightness), 1.0);
+    vec3 starColor = vec3(brightness);
+    vec3 backgroundColor = vec3(0.01, 0.01, 0.01);
+    gl_FragColor = vec4(mix(backgroundColor, starColor, brightness), 1.0);
 }
 `;
 
@@ -128,7 +130,6 @@ void main() {
     _initResources() {}
 
     _initScene() {
-        this._scene.background = new Color(0x0f0f0f);
         this._slider = new Slider();
         this._scene.add(this._slider);
 
