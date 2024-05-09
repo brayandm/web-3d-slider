@@ -9,6 +9,10 @@ import {
     Clock,
     Raycaster,
     Vector2,
+    DoubleSide,
+    Mesh,
+    ShaderMaterial,
+    PlaneGeometry,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -17,6 +21,28 @@ import resources from "./Resources";
 import Composer from "./Postprocessing";
 
 export default class App {
+    vertexShaderCode = `
+void main() {
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+`;
+
+    fragmentShaderCode = `
+uniform float time;
+uniform vec2 resolution;
+
+float random(vec2 st) {
+    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy / resolution.xy;
+    float brightness = random(st + time * 0.5); // Modifica la velocidad de parpadeo aquí
+    brightness = step(0.95, brightness); // Controla la densidad de las estrellas
+    gl_FragColor = vec4(vec3(brightness), 1.0);
+}
+`;
+
     constructor(onLoaded = () => {}) {
         this._onLoaded = onLoaded;
         this._renderer = undefined;
@@ -105,6 +131,24 @@ export default class App {
         this._scene.background = new Color(0x0f0f0f);
         this._slider = new Slider();
         this._scene.add(this._slider);
+
+        const geometry = new PlaneGeometry(10000, 2000);
+        const material = new ShaderMaterial({
+            uniforms: {
+                time: { type: "f", value: 0 },
+                resolution: {
+                    type: "v2",
+                    value: new Vector2(window.innerWidth, window.innerHeight),
+                },
+            },
+            vertexShader: this.vertexShaderCode,
+            fragmentShader: this.fragmentShaderCode,
+            side: DoubleSide,
+        });
+
+        const background = new Mesh(geometry, material);
+        background.position.z = -100;
+        this._scene.add(background);
     }
 
     _initEvents() {
@@ -160,6 +204,16 @@ export default class App {
         this._slider.update();
         this._composer.render();
         this._stats.end();
+
+        this._scene.children.forEach((child) => {
+            if (
+                child.material &&
+                child.material.uniforms &&
+                child.material.uniforms.time
+            ) {
+                child.material.uniforms.time.value += this._clock.getDelta();
+            }
+        });
     }
 
     _updateHoverEffect() {
@@ -173,7 +227,9 @@ export default class App {
         if (intersects.length > 0) {
             const intersected = intersects[0].object;
 
-            this._slider.hover(intersected);
+            if (intersected.userData.isSlide) {
+                this._slider.hover(intersected);
+            }
         }
     }
 
