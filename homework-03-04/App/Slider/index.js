@@ -32,6 +32,7 @@ export default class Slider extends Group {
 
             const material = new MeshBasicMaterial({
                 map: texture,
+                side: 2,
             });
             const mesh = new Mesh(geometry, material);
 
@@ -53,6 +54,11 @@ export default class Slider extends Group {
     hover(object) {
         if (!this._isDragging) {
             object.position.z += 1;
+        }
+    }
+
+    click(object) {
+        if (!this._isDragging) {
         }
     }
 

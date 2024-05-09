@@ -110,12 +110,21 @@ export default class App {
     _initEvents() {
         window.addEventListener("resize", this._resize.bind(this));
         window.addEventListener("mousemove", this._onMouseMove.bind(this));
+        window.addEventListener("click", this._onClick.bind(this));
     }
 
     _onMouseMove(event) {
         event.preventDefault();
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    _onClick(event) {
+        event.preventDefault();
+        this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        this._updateClickEffect();
     }
 
     onDrag(e, delta) {
@@ -165,6 +174,20 @@ export default class App {
             const intersected = intersects[0].object;
 
             this._slider.hover(intersected);
+        }
+    }
+
+    _updateClickEffect() {
+        this._raycaster.setFromCamera(this._mouse, this._camera);
+        const intersects = this._raycaster.intersectObjects(
+            this._scene.children,
+            true
+        );
+
+        if (intersects.length > 0) {
+            const intersected = intersects[0].object;
+
+            this._slider.click(intersected);
         }
     }
 }
