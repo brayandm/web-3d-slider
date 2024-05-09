@@ -2,11 +2,9 @@ import {
     WebGLRenderer,
     Scene,
     PerspectiveCamera,
-    BoxGeometry,
-    Mesh,
-    MeshStandardMaterial,
     DirectionalLight,
     AmbientLight,
+    MathUtils,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -35,9 +33,9 @@ export default class App {
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
-        this._camera.position.z = 4;
-        this._camera.position.y = 2;
-        this._camera.position.x = 2;
+
+        // SETUP CAMERA
+        this._resize();
 
         // SCENE
         this._scene = new Scene();
@@ -66,13 +64,19 @@ export default class App {
     }
 
     _initEvents() {
-        window.addEventListener("resize", this._onResize.bind(this));
+        window.addEventListener("resize", this._resize.bind(this));
     }
 
-    _onResize() {
+    _resize() {
+        let fov =
+            Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
+        fov = MathUtils.radToDeg(fov);
+        this._camera.fov = fov;
+
         const aspect = window.innerWidth / window.innerHeight;
         this._camera.aspect = aspect;
         this._camera.updateProjectionMatrix();
+
         this._renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
