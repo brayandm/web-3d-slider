@@ -13,8 +13,8 @@ export default class Slider extends Group {
     constructor() {
         super();
 
-        this._height = 1920 * 0.3;
-        this._width = 1080 * 0.3;
+        this._height = 1920 * 0.2;
+        this._width = 1080 * 0.2;
         this._objects = [];
 
         this._isDragging = false;
@@ -37,6 +37,8 @@ export default class Slider extends Group {
 
             mesh.scale.set(this._width, this._height, 1);
             mesh.position.x = this._width * i * 1.5;
+            mesh.position.y = MathUtils.randFloat(-75, 75);
+            mesh.position.z = MathUtils.randFloat(-10, 10);
 
             mesh.userData.destinationPosition = mesh.position.clone();
             mesh.userData.initialPosition = mesh.position.clone();
