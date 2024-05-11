@@ -6,7 +6,7 @@ import GUIController from "./App/GUIController/index.js";
 const config = {
     primaryColor: "#fff",
     secondaryColor: "#000",
-    velocity: 0.01,
+    velocity: 1,
 };
 
 const app = new App(config, () => {

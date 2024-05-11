@@ -106,7 +106,7 @@ export default class App {
             uniforms: {
                 uColor1: { value: new Color(this._config.primaryColor) },
                 uColor2: { value: new Color(this._config.secondaryColor) },
-                uIntensity: { value: 0.3 },
+                uVelocity: { value: this._config.velocity },
                 uTime: { value: 0 },
             },
         });
@@ -146,12 +146,14 @@ export default class App {
     }
 
     changeConfiguration(config) {
+        this._config = config;
+
         this._mesh.material.uniforms.uColor1.value = new Color(
-            config.primaryColor
+            this._config.primaryColor
         );
         this._mesh.material.uniforms.uColor2.value = new Color(
-            config.secondaryColor
+            this._config.secondaryColor
         );
-        // this._mesh.material.uniforms.uIntensity.value = config.velocity;
+        this._mesh.material.uniforms.uVelocity.value = this._config.velocity;
     }
 }
