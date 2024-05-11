@@ -2,7 +2,6 @@ import {
     WebGLRenderer,
     Scene,
     PerspectiveCamera,
-    PlaneGeometry,
     ShaderMaterial,
     DirectionalLight,
     AmbientLight,
@@ -10,7 +9,7 @@ import {
     Color,
     Mesh,
     Clock,
-    IcosahedronGeometry,
+    SphereGeometry,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -60,18 +59,6 @@ export default class App {
             this._renderer.domElement
         );
 
-        // LIGHT
-        const light = new DirectionalLight(0xffffff, 1);
-        light.position.set(0, 2, 2);
-        light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        this._scene.add(light);
-
-        // AMBIENT LIGHT
-        const ambientLight = new AmbientLight(0xffffff, 0.1);
-        this._scene.add(ambientLight);
-
         // START
         this._initEvents();
         this._initMesh();
@@ -79,11 +66,10 @@ export default class App {
     }
 
     _initMesh() {
-        const g = new IcosahedronGeometry(1, 40);
+        const geometry = new SphereGeometry(1, 300, 300);
 
         const randomArray = [];
-        const amount = g.attributes.position.count;
-        console.log(amount);
+        const amount = geometry.attributes.position.count;
 
         // RANDOM ATTRIBUTE
         for (let i = 0; i < amount; i++) {
@@ -94,7 +80,7 @@ export default class App {
             new Float32Array(randomArray),
             1
         );
-        g.setAttribute("aRandom", bufferAttribute);
+        geometry.setAttribute("aRandom", bufferAttribute);
 
         // COLOR ATTRIBUTE
         const colorArray = [];
@@ -111,9 +97,9 @@ export default class App {
             3
         );
 
-        g.setAttribute("aColor", colorAttribute);
+        geometry.setAttribute("aColor", colorAttribute);
 
-        const m = new ShaderMaterial({
+        const material = new ShaderMaterial({
             vertexShader: vertex,
             fragmentShader: fragment,
             uniforms: {
@@ -124,7 +110,7 @@ export default class App {
             },
         });
 
-        const mesh = new Mesh(g, m);
+        const mesh = new Mesh(geometry, material);
         this._mesh = mesh;
 
         this._scene.add(mesh);
@@ -153,6 +139,7 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
+        this._mesh.material.uniforms.uTime.value = this._clock.elapsedTime;
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
     }
