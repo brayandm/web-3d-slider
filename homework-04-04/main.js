@@ -4,8 +4,8 @@ import App from "./App/index.js";
 import GUIController from "./App/GUIController/index.js";
 
 const config = {
-    primaryColor: "#5afffe",
-    secondaryColor: "#e10d31",
+    primaryColor: "#fff",
+    secondaryColor: "#000",
     velocity: 0.01,
 };
 
