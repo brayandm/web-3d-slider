@@ -32,5 +32,18 @@ export default class GUIController {
                 this.config.velocity = v;
                 this._changeConfiguration(this.config);
             });
+
+        this.gui
+            .add({ option: "Type 1" }, "option", [
+                "Type 1",
+                "Type 2",
+                "Type 3",
+                "Type 4",
+            ])
+            .name("Movement Type")
+            .onChange((v) => {
+                this.config.movementType = parseInt(v[v.length - 1]);
+                this._changeConfiguration(this.config);
+            });
     }
 }
