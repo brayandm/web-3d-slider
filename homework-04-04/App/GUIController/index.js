@@ -1,13 +1,8 @@
 import GUI from "lil-gui";
 
 export default class GUIController {
-    config = {
-        primaryColor: "#5afffe",
-        secondaryColor: "#e10d31",
-        velocity: 0.01,
-    };
-
-    constructor(changeConfiguration = () => {}) {
+    constructor(config, changeConfiguration = () => {}) {
+        this.config = config;
         this._changeConfiguration = changeConfiguration;
         this.gui = new GUI();
         this.init();

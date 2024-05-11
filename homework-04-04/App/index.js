@@ -16,7 +16,8 @@ import vertex from "./shader/index.vert";
 import fragment from "./shader/index.frag";
 
 export default class App {
-    constructor(onLoaded = () => {}) {
+    constructor(config, onLoaded = () => {}) {
+        this._config = config;
         this._onLoaded = onLoaded;
         this._renderer = undefined;
         this._camera = undefined;
@@ -103,8 +104,8 @@ export default class App {
             vertexShader: vertex,
             fragmentShader: fragment,
             uniforms: {
-                uColor1: { value: new Color(0x5afffe) },
-                uColor2: { value: new Color(0xe10d31) },
+                uColor1: { value: new Color(this._config.primaryColor) },
+                uColor2: { value: new Color(this._config.secondaryColor) },
                 uIntensity: { value: 0.3 },
                 uTime: { value: 0 },
             },
