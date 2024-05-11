@@ -7,6 +7,7 @@ const config = {
     primaryColor: "#fff",
     secondaryColor: "#000",
     velocity: 1,
+    movementType: 1,
 };
 
 const app = new App(config, () => {
