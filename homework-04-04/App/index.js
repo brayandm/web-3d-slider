@@ -6,8 +6,11 @@ import {
     ShaderMaterial,
     DirectionalLight,
     AmbientLight,
+    BufferAttribute,
+    Color,
     Mesh,
     Clock,
+    IcosahedronGeometry,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -69,18 +72,62 @@ export default class App {
         const ambientLight = new AmbientLight(0xffffff, 0.1);
         this._scene.add(ambientLight);
 
-        // PLANE
-        const geometry = new PlaneGeometry(1, 1);
-        const material = new ShaderMaterial({
-            vertexShader: vertex,
-            fragmentShader: fragment,
-        });
-        const mesh = new Mesh(geometry, material);
-        this._scene.add(mesh);
-
         // START
         this._initEvents();
+        this._initMesh();
         this._start();
+    }
+
+    _initMesh() {
+        const g = new IcosahedronGeometry(1, 40);
+
+        const randomArray = [];
+        const amount = g.attributes.position.count;
+        console.log(amount);
+
+        // RANDOM ATTRIBUTE
+        for (let i = 0; i < amount; i++) {
+            randomArray.push(Math.random());
+        }
+
+        const bufferAttribute = new BufferAttribute(
+            new Float32Array(randomArray),
+            1
+        );
+        g.setAttribute("aRandom", bufferAttribute);
+
+        // COLOR ATTRIBUTE
+        const colorArray = [];
+        for (let i = 0; i < amount; i++) {
+            const r = Math.random();
+            const g = Math.random();
+            const b = Math.random();
+
+            colorArray.push(r, g, b);
+        }
+
+        const colorAttribute = new BufferAttribute(
+            new Float32Array(colorArray),
+            3
+        );
+
+        g.setAttribute("aColor", colorAttribute);
+
+        const m = new ShaderMaterial({
+            vertexShader: vertex,
+            fragmentShader: fragment,
+            uniforms: {
+                uColor1: { value: new Color(0x5afffe) },
+                uColor2: { value: new Color(0xe10d31) },
+                uIntensity: { value: 0.3 },
+                uTime: { value: 0 },
+            },
+        });
+
+        const mesh = new Mesh(g, m);
+        this._mesh = mesh;
+
+        this._scene.add(mesh);
     }
 
     _initEvents() {
