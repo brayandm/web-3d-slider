@@ -110,10 +110,9 @@ export default class App {
             },
         });
 
-        const mesh = new Mesh(geometry, material);
-        this._mesh = mesh;
+        this._mesh = new Mesh(geometry, material);
 
-        this._scene.add(mesh);
+        this._scene.add(this._mesh);
     }
 
     _initEvents() {
