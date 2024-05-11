@@ -3,8 +3,6 @@ import {
     Scene,
     PerspectiveCamera,
     ShaderMaterial,
-    DirectionalLight,
-    AmbientLight,
     BufferAttribute,
     Color,
     Mesh,
