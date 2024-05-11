@@ -151,6 +151,6 @@ export default class App {
         this._mesh.material.uniforms.uColor2.value = new Color(
             config.secondaryColor
         );
-        this._mesh.material.uniforms.uIntensity.value = config.velocity;
+        // this._mesh.material.uniforms.uIntensity.value = config.velocity;
     }
 }
