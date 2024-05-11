@@ -135,6 +135,7 @@ export default class App {
 
     _animate() {
         this._stats.begin();
+        this._clock.delta = this._clock.getDelta();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
         this._mesh.material.uniforms.uTime.value = this._clock.elapsedTime;
         this._renderer.render(this._scene, this._camera);
