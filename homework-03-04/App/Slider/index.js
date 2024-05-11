@@ -39,7 +39,7 @@ export default class Slider extends Group {
             const mesh = new Mesh(geometry, material);
 
             mesh.scale.set(this._width, this._height, 1);
-            mesh.position.x = this._width * i * 1.5;
+            mesh.position.x = this._width * (i - 1) * 1.5;
             mesh.position.y = MathUtils.randFloat(-75, 75);
             mesh.position.z = MathUtils.randFloat(-10, 10);
 
