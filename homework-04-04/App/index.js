@@ -72,11 +72,9 @@ export default class App {
         const count = geometry.attributes.position.count;
 
         const randomArray = [];
-        const colorArray = [];
 
         for (let i = 0; i < count; i++) {
             randomArray.push(Math.random());
-            colorArray.push(Math.random(), Math.random(), Math.random());
         }
 
         const bufferAttribute = new BufferAttribute(
@@ -84,13 +82,7 @@ export default class App {
             1
         );
 
-        const colorAttribute = new BufferAttribute(
-            new Float32Array(colorArray),
-            3
-        );
-
         geometry.setAttribute("aRandom", bufferAttribute);
-        geometry.setAttribute("aColor", colorAttribute);
 
         const material = new ShaderMaterial({
             vertexShader: vertex,
