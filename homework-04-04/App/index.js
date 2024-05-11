@@ -28,6 +28,7 @@ export default class App {
         // RENDERER
         this._renderer = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
+            antialias: true,
         });
         this._renderer.setSize(window.innerWidth, window.innerHeight);
         this._renderer.setPixelRatio(window.devicePixelRatio);
