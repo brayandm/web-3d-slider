@@ -26,7 +26,7 @@ export default class GUIController {
             });
 
         this.gui
-            .add({ velocity: this.config.velocity }, "velocity")
+            .add({ velocity: this.config.velocity }, "velocity", 0, 10)
             .name("Velocity")
             .onChange((v) => {
                 this.config.velocity = v;
