@@ -177,6 +177,9 @@ void main() {
     }
 
     _resize() {
+        this._renderer.setSize(window.innerWidth, window.innerHeight);
+        this._renderer.setPixelRatio(window.devicePixelRatio);
+
         let fov =
             Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
         fov = MathUtils.radToDeg(fov);
@@ -185,9 +188,6 @@ void main() {
         const aspect = window.innerWidth / window.innerHeight;
         this._camera.aspect = aspect;
         this._camera.updateProjectionMatrix();
-
-        this._renderer.setSize(window.innerWidth, window.innerHeight);
-        this._renderer.setPixelRatio(window.devicePixelRatio);
     }
 
     _start() {
