@@ -2,14 +2,18 @@ import {
     WebGLRenderer,
     Scene,
     PerspectiveCamera,
-    BoxGeometry,
-    Mesh,
-    MeshStandardMaterial,
+    PlaneGeometry,
+    ShaderMaterial,
     DirectionalLight,
     AmbientLight,
+    Mesh,
+    Clock,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
+
+import vertex from "./shader/index.vert";
+import fragment from "./shader/index.frag";
 
 export default class App {
     constructor() {
@@ -41,6 +45,9 @@ export default class App {
         this._camera.position.y = 2;
         this._camera.position.x = 2;
 
+        // CLOCK
+        this._clock = new Clock();
+
         // SCENE
         this._scene = new Scene();
 
@@ -62,13 +69,14 @@ export default class App {
         const ambientLight = new AmbientLight(0xffffff, 0.1);
         this._scene.add(ambientLight);
 
-        // MESH
-        const geometry = new BoxGeometry(1, 1, 1);
-        const material = new MeshStandardMaterial({ color: 0xff0000 });
+        // PLANE
+        const geometry = new PlaneGeometry(1, 1);
+        const material = new ShaderMaterial({
+            vertexShader: vertex,
+            fragmentShader: fragment,
+        });
         const mesh = new Mesh(geometry, material);
-        mesh.castShadow = true;
-        this._mesh = mesh;
-        this._scene.add(this._mesh);
+        this._scene.add(mesh);
 
         // START
         this._initEvents();
