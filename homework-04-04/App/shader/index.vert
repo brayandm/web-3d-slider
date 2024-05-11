@@ -15,6 +15,9 @@ void main() {
     newPosition.x += aRandom * tan(uTime * uVelocity);
   } else if (uMovementType == 3) {
     newPosition.x += aRandom * tan(uTime * uVelocity) / cos(uTime * uVelocity);
+  } else if (uMovementType == 4) {
+    newPosition.x += aRandom * tan(uTime * uVelocity) / cos(uTime * uVelocity);
+    newPosition.y += aRandom * tan(uTime * uVelocity) / sin(uTime * uVelocity);
   }
 
   gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
