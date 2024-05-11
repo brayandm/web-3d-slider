@@ -187,6 +187,7 @@ void main() {
         this._camera.updateProjectionMatrix();
 
         this._renderer.setSize(window.innerWidth, window.innerHeight);
+        this._renderer.setPixelRatio(window.devicePixelRatio);
     }
 
     _start() {
