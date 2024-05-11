@@ -92,6 +92,7 @@ export default class App {
                 uColor2: { value: new Color(this._config.secondaryColor) },
                 uVelocity: { value: this._config.velocity },
                 uTime: { value: 0 },
+                uMovementType: { value: this._config.movementType },
             },
         });
 
@@ -139,5 +140,8 @@ export default class App {
             this._config.secondaryColor
         );
         this._mesh.material.uniforms.uVelocity.value = this._config.velocity;
+
+        this._mesh.material.uniforms.uMovementType.value =
+            this._config.movementType;
     }
 }
