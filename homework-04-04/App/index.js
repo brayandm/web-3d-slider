@@ -16,7 +16,8 @@ import vertex from "./shader/index.vert";
 import fragment from "./shader/index.frag";
 
 export default class App {
-    constructor() {
+    constructor(onLoaded = () => {}) {
+        this._onLoaded = onLoaded;
         this._renderer = undefined;
         this._camera = undefined;
         this._scene = undefined;
@@ -60,6 +61,7 @@ export default class App {
         // START
         this._initEvents();
         this._initMesh();
+        this._onLoaded();
         this._start();
     }
 
@@ -140,5 +142,15 @@ export default class App {
         this._mesh.material.uniforms.uTime.value = this._clock.elapsedTime;
         this._renderer.render(this._scene, this._camera);
         this._stats.end();
+    }
+
+    changeConfiguration(config) {
+        this._mesh.material.uniforms.uColor1.value = new Color(
+            config.primaryColor
+        );
+        this._mesh.material.uniforms.uColor2.value = new Color(
+            config.secondaryColor
+        );
+        this._mesh.material.uniforms.uIntensity.value = config.velocity;
     }
 }
