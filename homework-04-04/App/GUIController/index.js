@@ -17,24 +17,24 @@ export default class GUIController {
         this.gui
             .addColor({ color: this.config.primaryColor }, "color")
             .name("Primary Color")
-            .onChange(() => {
-                this.config.primaryColor = this.gui.color;
+            .onChange((v) => {
+                this.config.primaryColor = v;
                 this._changeConfiguration(this.config);
             });
 
         this.gui
             .addColor({ color: this.config.secondaryColor }, "color")
             .name("Secondary Color")
-            .onChange(() => {
-                this.config.secondaryColor = this.gui.color;
+            .onChange((v) => {
+                this.config.secondaryColor = v;
                 this._changeConfiguration(this.config);
             });
 
         this.gui
             .add({ velocity: this.config.velocity }, "velocity")
             .name("Velocity")
-            .onChange(() => {
-                this.config.velocity = this.gui.velocity;
+            .onChange((v) => {
+                this.config.velocity = v;
                 this._changeConfiguration(this.config);
             });
     }
