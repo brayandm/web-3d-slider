@@ -67,37 +67,29 @@ export default class App {
     }
 
     _initMesh() {
-        const geometry = new SphereGeometry(1, 300, 300);
+        const geometry = new SphereGeometry(1, 250, 250);
+
+        const count = geometry.attributes.position.count;
 
         const randomArray = [];
-        const amount = geometry.attributes.position.count;
+        const colorArray = [];
 
-        // RANDOM ATTRIBUTE
-        for (let i = 0; i < amount; i++) {
+        for (let i = 0; i < count; i++) {
             randomArray.push(Math.random());
+            colorArray.push(Math.random(), Math.random(), Math.random());
         }
 
         const bufferAttribute = new BufferAttribute(
             new Float32Array(randomArray),
             1
         );
-        geometry.setAttribute("aRandom", bufferAttribute);
-
-        // COLOR ATTRIBUTE
-        const colorArray = [];
-        for (let i = 0; i < amount; i++) {
-            const r = Math.random();
-            const g = Math.random();
-            const b = Math.random();
-
-            colorArray.push(r, g, b);
-        }
 
         const colorAttribute = new BufferAttribute(
             new Float32Array(colorArray),
             3
         );
 
+        geometry.setAttribute("aRandom", bufferAttribute);
         geometry.setAttribute("aColor", colorAttribute);
 
         const material = new ShaderMaterial({
