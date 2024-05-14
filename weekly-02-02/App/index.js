@@ -160,8 +160,16 @@ export default class App {
         geometry.setAttribute("color", new Float32BufferAttribute(colors, 3));
 
         this._fairyFlies = new Points(geometry, material);
+        this._fairyFlies.userData.initialPosition =
+            this._fairyFlies.position.clone();
         this._fairyFlies.userData.destinationPosition =
             this._fairyFlies.position.clone();
+        this._fairyFlies.userData.dragPosition =
+            this._fairyFlies.position.clone();
+        this._fairyFlies.userData.dragPosition.z += MathUtils.randFloat(
+            -50,
+            -30
+        );
         this._scene.add(this._fairyFlies);
     }
 
@@ -221,6 +229,7 @@ export default class App {
     }
 
     onDrag(e, delta) {
+        this._isDragging = e.dragging;
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
@@ -271,6 +280,11 @@ export default class App {
             this._fairyFlies.userData.destinationPosition.x,
             0.1
         );
+        const zTarget = this._isDragging
+            ? this._fairyFlies.userData.dragPosition.z
+            : this._fairyFlies.userData.initialPosition.z;
+
+        damp(this._fairyFlies.position, "z", zTarget, 0.2);
 
         this._composer.render();
         this._stats.end();
