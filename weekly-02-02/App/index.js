@@ -137,7 +137,7 @@ export default class App {
         for (let i = 0; i < particles; i++) {
             positions.push((Math.random() - 0.5) * window.innerWidth);
             positions.push((Math.random() - 0.5) * window.innerHeight);
-            positions.push((Math.random() - 0.5) * 30);
+            positions.push((Math.random() - 0.5) * 50);
 
             const fairyColors = [
                 0x4caf50, 0x2196f3, 0xffeb3b, 0xff5722, 0x9c27b0,
