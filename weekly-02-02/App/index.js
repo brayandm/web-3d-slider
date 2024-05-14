@@ -5,7 +5,6 @@ import {
     DirectionalLight,
     AmbientLight,
     MathUtils,
-    Color,
     Clock,
     Raycaster,
     Vector2,
@@ -20,31 +19,10 @@ import Slider from "./Slider";
 import resources from "./Resources";
 import Composer from "./Postprocessing";
 
+import vertex from "./Shaders/Background/index.vert";
+import fragment from "./Shaders/Background/index.frag";
+
 export default class App {
-    vertexShaderCode = `
-void main() {
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-}
-`;
-
-    fragmentShaderCode = `
-uniform float time;
-uniform vec2 resolution;
-
-float random(vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-}
-
-void main() {
-    vec2 st = gl_FragCoord.xy / resolution.xy;
-    float brightness = random(st + time * 0.0000005);
-    brightness = step(0.9991, brightness); 
-    vec3 starColor = vec3(brightness);
-    vec3 backgroundColor = vec3(0.01, 0.01, 0.01);
-    gl_FragColor = vec4(mix(backgroundColor, starColor, brightness), 1.0);
-}
-`;
-
     constructor(onLoaded = () => {}) {
         this._onLoaded = onLoaded;
         this._renderer = undefined;
@@ -142,8 +120,8 @@ void main() {
                     value: new Vector2(window.innerWidth, window.innerHeight),
                 },
             },
-            vertexShader: this.vertexShaderCode,
-            fragmentShader: this.fragmentShaderCode,
+            vertexShader: vertex,
+            fragmentShader: fragment,
             side: DoubleSide,
         });
 
