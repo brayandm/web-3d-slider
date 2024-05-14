@@ -1,11 +1,12 @@
 uniform float uTime;
+uniform float uVelocity;
 varying vec3 vColor;
 
 void main() {
     vec3 newPosition = position;
-    newPosition.x += sin(uTime + position.y * 10.0) * 3.0;
-    newPosition.y += sin(uTime + position.x * 10.0) * 3.0;
-    newPosition.z += sin(uTime + position.z * 10.0) * 3.0;
+    newPosition.x += sin(uTime * uVelocity + position.y * 10.0) * 3.0;
+    newPosition.y += sin(uTime * uVelocity + position.x * 10.0) * 3.0;
+    newPosition.z += sin(uTime * uVelocity + position.z * 10.0) * 3.0;
     
     vColor = color;
 
