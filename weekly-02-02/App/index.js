@@ -208,10 +208,12 @@ export default class App {
         );
 
         if (intersects.length > 0) {
-            const intersected = intersects[0].object;
+            for (let i = 0; i < intersects.length; i++) {
+                const intersected = intersects[i].object;
 
-            if (intersected.userData.isSlide) {
-                this._slider.hover(intersected);
+                if (intersected.userData.isSlide) {
+                    this._slider.hover(intersected);
+                }
             }
         }
     }
@@ -224,9 +226,13 @@ export default class App {
         );
 
         if (intersects.length > 0) {
-            const intersected = intersects[0].object;
+            for (let i = 0; i < intersects.length; i++) {
+                const intersected = intersects[i].object;
 
-            this._slider.click(intersected);
+                if (intersected.userData.isSlide) {
+                    this._slider.click(intersected);
+                }
+            }
         }
     }
 
