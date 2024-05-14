@@ -25,6 +25,8 @@ import Composer from "./Postprocessing";
 
 import backgroundVertexShader from "./Shaders/Background/index.vert";
 import backgroundFragmentShader from "./Shaders/Background/index.frag";
+import fairyFliesVertexShader from "./Shaders/FairyFlies/index.vert";
+import fairyFliesFragmentShader from "./Shaders/FairyFlies/index.frag";
 
 export default class App {
     constructor(config, onLoaded = () => {}) {
@@ -118,42 +120,12 @@ export default class App {
     }
 
     _initFairyFlies() {
-        const vertexShader = `uniform float uTime;
-varying vec3 vColor;
-
-void main() {
-    // Modificar la posición de los puntos para simular el vuelo de las hadas
-    vec3 newPosition = position;
-    newPosition.x += sin(uTime + position.y * 10.0) * 3.0;
-    newPosition.y += sin(uTime + position.x * 10.0) * 3.0;
-    newPosition.z += sin(uTime + position.z * 10.0) * 3.0;
-    
-    vColor = color;
-
-    gl_PointSize = 10.0; // Ajustar el tamaño del punto
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-}`;
-
-        const fragmentShader = `varying vec3 vColor;
-
-void main() {
-    // Crear un borde suave para los puntos
-    float distanceToCenter = length(gl_PointCoord - vec2(0.5));
-    if (distanceToCenter > 0.5) {
-        discard;
-    }
-
-    // Hacer que los puntos brillen como hadas
-    float brightness = sin(vColor.r * 10.0) * 0.5 + 0.5;
-    gl_FragColor = vec4(vColor * brightness, 1.0);
-}`;
-
         const material = new ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
             },
-            vertexShader: vertexShader,
-            fragmentShader: fragmentShader,
+            vertexShader: fairyFliesVertexShader,
+            fragmentShader: fairyFliesFragmentShader,
             vertexColors: true,
         });
 
@@ -161,6 +133,7 @@ void main() {
         const geometry = new BufferGeometry();
         const positions = [];
         const colors = [];
+
         for (let i = 0; i < particles; i++) {
             positions.push((Math.random() - 0.5) * window.innerWidth);
             positions.push((Math.random() - 0.5) * window.innerHeight);
@@ -170,6 +143,7 @@ void main() {
             colors.push(Math.random());
             colors.push(Math.random());
         }
+
         geometry.setAttribute(
             "position",
             new Float32BufferAttribute(positions, 3)
