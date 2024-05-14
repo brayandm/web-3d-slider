@@ -101,6 +101,14 @@ export default class App {
                     type: "v2",
                     value: new Vector2(window.innerWidth, window.innerHeight),
                 },
+                velocity: {
+                    type: "f",
+                    value: this._config.backgroundStarsVelocity,
+                },
+                spread: {
+                    type: "f",
+                    value: this._config.backgroundStarsSpread,
+                },
             },
             vertexShader: backgroundVertexShader,
             fragmentShader: backgroundFragmentShader,
@@ -202,5 +210,11 @@ export default class App {
 
     changeConfiguration(config) {
         this._config = config;
+
+        this._background.material.uniforms.spread.value =
+            this._config.backgroundStarsSpread;
+
+        this._background.material.uniforms.velocity.value =
+            this._config.backgroundStarsVelocity;
     }
 }

@@ -13,8 +13,8 @@ export default class GUIController {
             .add(
                 { backgroundStarsSpread: this.config.backgroundStarsSpread },
                 "backgroundStarsSpread",
-                0,
-                10
+                0.999,
+                1.003
             )
             .name("Spread of stars in Background")
             .onChange((v) => {
@@ -30,7 +30,7 @@ export default class GUIController {
                 },
                 "backgroundStarsVelocity",
                 0,
-                10
+                100
             )
             .name("Velocity of stars in Background")
             .onChange((v) => {
