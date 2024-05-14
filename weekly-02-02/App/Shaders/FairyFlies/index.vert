@@ -1,5 +1,6 @@
 uniform float uTime;
 uniform float uVelocity;
+uniform float uPointSize;
 varying vec3 vColor;
 
 void main() {
@@ -10,6 +11,6 @@ void main() {
     
     vColor = color;
 
-    gl_PointSize = 8.0;
+    gl_PointSize = uPointSize;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }

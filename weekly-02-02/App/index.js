@@ -127,6 +127,7 @@ export default class App {
             uniforms: {
                 uTime: { value: 0.0 },
                 uVelocity: { value: this._config.fairyFliesVelocity },
+                uPointSize: { value: this._config.fairyFliesSize },
             },
             vertexShader: fairyFliesVertexShader,
             fragmentShader: fairyFliesFragmentShader,
@@ -366,6 +367,9 @@ export default class App {
 
         this._background.material.uniforms.velocity.value =
             this._config.backgroundStarsVelocity;
+
+        this._fairyFlies.material.uniforms.uPointSize.value =
+            this._config.fairyFliesSize;
 
         this._fairyFlies.material.uniforms.uVelocity.value =
             this._config.fairyFliesVelocity;
