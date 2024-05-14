@@ -165,7 +165,7 @@ export default class App {
 
     onDrag(e, delta) {
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
-        this._composer.updateOffset(offset, 0);
+        this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
     }
 
@@ -197,7 +197,7 @@ export default class App {
         this._deltaTimeComposer += this._deltaClock;
 
         if (!this._deltaTimeComposer || this._deltaTimeComposer > 0.01) {
-            this._composer.updateOffset(0, 0);
+            this._composer.updateOffset(0.001, 0.001);
             this._deltaTimeComposer = 0;
         }
         this._updateHoverEffect();

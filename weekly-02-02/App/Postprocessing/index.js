@@ -26,7 +26,7 @@ export default class Postprocessing {
 
         // EFFECTPASS
         this._chromaticAberrationEffect = new ChromaticAberrationEffect({
-            offset: new Vector2(0, 0),
+            offset: new Vector2(0.001, 0.001),
         });
 
         this._effectPass = new EffectPass(
