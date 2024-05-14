@@ -2,7 +2,7 @@ import {
     Group,
     MathUtils,
     Mesh,
-    MeshBasicMaterial,
+    MeshStandardMaterial,
     PlaneGeometry,
     TextureLoader,
 } from "three";
@@ -32,7 +32,7 @@ export default class Slider extends Group {
                 `./unsamples/image-` + i + `.jpg`
             );
 
-            const material = new MeshBasicMaterial({
+            const material = new MeshStandardMaterial({
                 map: texture,
                 side: 2,
             });
@@ -42,6 +42,8 @@ export default class Slider extends Group {
             mesh.position.x = this._width * (i - 1) * 1.5;
             mesh.position.y = MathUtils.randFloat(-75, 75);
             mesh.position.z = MathUtils.randFloat(-10, 10);
+
+            mesh.rotation.y = MathUtils.randFloat(-0.025, 0.025);
 
             mesh.userData.destinationPosition = mesh.position.clone();
             mesh.userData.initialPosition = mesh.position.clone();
