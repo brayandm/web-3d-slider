@@ -41,6 +41,10 @@ export default class Postprocessing {
         this._composer = composer;
     }
 
+    setSize(width, height) {
+        this._composer.setSize(width, height);
+    }
+
     render() {
         this._composer.render();
     }
