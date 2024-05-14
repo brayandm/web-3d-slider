@@ -32,6 +32,7 @@ export default class App {
         this._camera = undefined;
         this._scene = undefined;
         this._controls = undefined;
+        this._deltaTimeComposer = 0;
         this._raf = undefined;
         this._raycaster = new Raycaster();
         this._mouse = new Vector2();
@@ -163,6 +164,8 @@ export default class App {
     }
 
     onDrag(e, delta) {
+        const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
+        this._composer.updateOffset(offset, 0);
         this._slider.onDrag(e, delta);
     }
 
@@ -190,10 +193,16 @@ export default class App {
     _animate() {
         this._stats.begin();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
+        this._deltaClock = this._clock.getDelta();
+        this._deltaTimeComposer += this._deltaClock;
 
+        if (!this._deltaTimeComposer || this._deltaTimeComposer > 0.01) {
+            this._composer.updateOffset(0, 0);
+            this._deltaTimeComposer = 0;
+        }
         this._updateHoverEffect();
         this._slider.update();
-        this._background.material.uniforms.time.value += this._clock.getDelta();
+        this._background.material.uniforms.time.value += this._deltaClock;
 
         this._composer.render();
         this._stats.end();
