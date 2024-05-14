@@ -10,39 +10,31 @@ export default class GUIController {
 
     init() {
         this.gui
-            .addColor({ color: this.config.primaryColor }, "color")
-            .name("Primary Color")
+            .add(
+                { backgroundStarsSpread: this.config.backgroundStarsSpread },
+                "backgroundStarsSpread",
+                0,
+                10
+            )
+            .name("Spread of stars in Background")
             .onChange((v) => {
-                this.config.primaryColor = v;
+                this.config.backgroundStarsSpread = v;
                 this._changeConfiguration(this.config);
             });
 
         this.gui
-            .addColor({ color: this.config.secondaryColor }, "color")
-            .name("Secondary Color")
+            .add(
+                {
+                    backgroundStarsVelocity:
+                        this.config.backgroundStarsVelocity,
+                },
+                "backgroundStarsVelocity",
+                0,
+                10
+            )
+            .name("Velocity of stars in Background")
             .onChange((v) => {
-                this.config.secondaryColor = v;
-                this._changeConfiguration(this.config);
-            });
-
-        this.gui
-            .add({ velocity: this.config.velocity }, "velocity", 0, 10)
-            .name("Velocity")
-            .onChange((v) => {
-                this.config.velocity = v;
-                this._changeConfiguration(this.config);
-            });
-
-        this.gui
-            .add({ option: "Type 1" }, "option", [
-                "Type 1",
-                "Type 2",
-                "Type 3",
-                "Type 4",
-            ])
-            .name("Movement Type")
-            .onChange((v) => {
-                this.config.movementType = parseInt(v[v.length - 1]);
+                this.config.backgroundStarsVelocity = v;
                 this._changeConfiguration(this.config);
             });
     }

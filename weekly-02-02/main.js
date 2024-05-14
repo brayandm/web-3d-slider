@@ -5,10 +5,8 @@ import { DragGesture } from "@use-gesture/vanilla";
 import GUIController from "./App/GUIController/index.js";
 
 const config = {
-    primaryColor: "#fff",
-    secondaryColor: "#000",
-    velocity: 1,
-    movementType: 1,
+    backgroundStarsSpread: 1,
+    backgroundStarsVelocity: 1,
 };
 
 const loading = document.querySelector(".loading-container");
