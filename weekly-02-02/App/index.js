@@ -48,10 +48,10 @@ export default class App {
             stencil: true,
             depth: true,
         });
-        this._renderer.setSize(window.innerWidth, window.innerHeight);
         if (window.devicePixelRatio > 1) {
             this._renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }
+        this._renderer.setSize(window.innerWidth, window.innerHeight);
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
@@ -146,9 +146,6 @@ export default class App {
 
     _resize() {
         this._renderer.setSize(window.innerWidth, window.innerHeight);
-        if (window.devicePixelRatio > 1) {
-            this._renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        }
 
         let fov =
             Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
