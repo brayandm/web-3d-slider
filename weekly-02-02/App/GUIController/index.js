@@ -39,6 +39,21 @@ export default class GUIController {
             });
 
         this.gui
+            .add(
+                {
+                    fairyFliesVelocity: this.config.fairyFliesVelocity,
+                },
+                "fairyFliesVelocity",
+                0,
+                10
+            )
+            .name("Velocity of Fairy Flies")
+            .onChange((v) => {
+                this.config.fairyFliesVelocity = v;
+                this._changeConfiguration(this.config);
+            });
+
+        this.gui
             .add({ lightHelper: this.config.lightHelper }, "lightHelper")
             .name("Spot Light Helper")
             .onChange((v) => {
