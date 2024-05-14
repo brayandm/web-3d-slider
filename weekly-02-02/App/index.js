@@ -21,7 +21,8 @@ import backgroundVertexShader from "./Shaders/Background/index.vert";
 import backgroundFragmentShader from "./Shaders/Background/index.frag";
 
 export default class App {
-    constructor(onLoaded = () => {}) {
+    constructor(config, onLoaded = () => {}) {
+        this._config = config;
         this._onLoaded = onLoaded;
         this._gl = undefined;
         this._composer = undefined;
@@ -197,5 +198,9 @@ export default class App {
 
             this._slider.click(intersected);
         }
+    }
+
+    changeConfiguration(config) {
+        this._config = config;
     }
 }
