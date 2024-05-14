@@ -117,10 +117,14 @@ export default class App {
         this._slider = new Slider();
         this._scene.add(this._slider);
 
-        const geometry = new PlaneGeometry(100000, 20000);
+        const geometry = new PlaneGeometry(
+            window.innerWidth * 2,
+            window.innerHeight * 2
+        );
         const material = new ShaderMaterial({
             uniforms: {
                 time: { type: "f", value: 0 },
+                uMouse: { type: "v2", value: new Vector2() },
                 resolution: {
                     type: "v2",
                     value: new Vector2(window.innerWidth, window.innerHeight),
@@ -140,7 +144,7 @@ export default class App {
         });
 
         this._background = new Mesh(geometry, material);
-        this._background.position.z = -100;
+        this._background.position.z = -50;
         this._scene.add(this._background);
     }
 
@@ -154,6 +158,7 @@ export default class App {
         event.preventDefault();
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        this._background.material.uniforms.uMouse.value = this._mouse;
     }
 
     _onClick(event) {
@@ -180,6 +185,9 @@ export default class App {
         const aspect = window.innerWidth / window.innerHeight;
         this._camera.aspect = aspect;
         this._camera.updateProjectionMatrix();
+
+        this._background.material.uniforms.resolution.value.x =
+            window.innerWidth;
     }
 
     _start() {
