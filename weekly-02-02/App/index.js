@@ -23,7 +23,7 @@ import backgroundFragmentShader from "./Shaders/Background/index.frag";
 export default class App {
     constructor(onLoaded = () => {}) {
         this._onLoaded = onLoaded;
-        this._renderer = undefined;
+        this._gl = undefined;
         this._composer = undefined;
         this._camera = undefined;
         this._scene = undefined;
@@ -41,25 +41,21 @@ export default class App {
         // RESOURCES
         await resources.load();
 
-        // RENDERER
-        this._renderer = new WebGLRenderer({
+        // GL
+        this._gl = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
             antialias: window.devicePixelRatio <= 1,
             stencil: true,
             depth: true,
         });
         if (window.devicePixelRatio > 1) {
-            this._renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            this._gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }
-        this._renderer.setSize(window.innerWidth, window.innerHeight);
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
         this._camera = new PerspectiveCamera(75, aspect, 0.1, 1000);
         this._camera.position.z = 100;
-
-        // SETUP CAMERA
-        this._resize();
 
         // CLOCK
         this._clock = new Clock();
@@ -67,18 +63,23 @@ export default class App {
         // SCENE
         this._scene = new Scene();
 
+        // COMPOSER
+        this._composer = new Composer({
+            renderer: this._gl,
+            scene: this._scene,
+            camera: this._camera,
+        });
+
         // CONTROLS
-        this._controls = new OrbitControls(
-            this._camera,
-            this._renderer.domElement
-        );
+        this._controls = new OrbitControls(this._camera, this._gl.domElement);
         this._controls.enabled = false;
 
         // START
         this._initEvents();
-        this._initResources();
         this._initScene();
-        this._initComposer();
+
+        // SETUP CAMERA
+        this._resize();
 
         // ON LOADED
         this._onLoaded();
@@ -86,16 +87,6 @@ export default class App {
         // START
         this._start();
     }
-
-    _initComposer() {
-        this._composer = new Composer({
-            renderer: this._renderer,
-            scene: this._scene,
-            camera: this._camera,
-        });
-    }
-
-    _initResources() {}
 
     _initScene() {
         this._slider = new Slider();
@@ -145,7 +136,7 @@ export default class App {
     }
 
     _resize() {
-        this._renderer.setSize(window.innerWidth, window.innerHeight);
+        this._composer.setSize(window.innerWidth, window.innerHeight);
 
         let fov =
             Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
