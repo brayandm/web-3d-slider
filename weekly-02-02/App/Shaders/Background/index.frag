@@ -7,7 +7,7 @@ float random(vec2 st) {
 
 void main() {
     vec2 st = gl_FragCoord.xy / resolution.xy;
-    float brightness = random(st + time * 0.0000005);
+    float brightness = random(st + time * 0.00000005);
     brightness = step(0.9991, brightness); 
     vec3 starColor = vec3(brightness);
     vec3 backgroundColor = vec3(0.01, 0.01, 0.01);

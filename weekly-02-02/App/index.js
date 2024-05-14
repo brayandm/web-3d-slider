@@ -125,9 +125,9 @@ export default class App {
             side: DoubleSide,
         });
 
-        const background = new Mesh(geometry, material);
-        background.position.z = -100;
-        this._scene.add(background);
+        this._background = new Mesh(geometry, material);
+        this._background.position.z = -100;
+        this._scene.add(this._background);
     }
 
     _initEvents() {
@@ -178,22 +178,14 @@ export default class App {
 
     _animate() {
         this._stats.begin();
-        this._updateHoverEffect();
         this._raf = window.requestAnimationFrame(this._animate.bind(this));
-        this._clock.delta = this._clock.getDelta();
+
+        this._updateHoverEffect();
         this._slider.update();
+        this._background.material.uniforms.time.value += this._clock.getDelta();
+
         this._composer.render();
         this._stats.end();
-
-        this._scene.children.forEach((child) => {
-            if (
-                child.material &&
-                child.material.uniforms &&
-                child.material.uniforms.time
-            ) {
-                child.material.uniforms.time.value += this._clock.getDelta();
-            }
-        });
     }
 
     _updateHoverEffect() {
