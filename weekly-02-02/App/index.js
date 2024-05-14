@@ -19,8 +19,8 @@ import Slider from "./Slider";
 import resources from "./Resources";
 import Composer from "./Postprocessing";
 
-import vertex from "./Shaders/Background/index.vert";
-import fragment from "./Shaders/Background/index.frag";
+import backgroundVertexShader from "./Shaders/Background/index.vert";
+import backgroundFragmentShader from "./Shaders/Background/index.frag";
 
 export default class App {
     constructor(onLoaded = () => {}) {
@@ -120,8 +120,8 @@ export default class App {
                     value: new Vector2(window.innerWidth, window.innerHeight),
                 },
             },
-            vertexShader: vertex,
-            fragmentShader: fragment,
+            vertexShader: backgroundVertexShader,
+            fragmentShader: backgroundFragmentShader,
             side: DoubleSide,
         });
 
