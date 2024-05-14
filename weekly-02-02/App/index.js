@@ -10,9 +10,9 @@ import {
     Mesh,
     ShaderMaterial,
     PlaneGeometry,
-    DirectionalLight,
     AmbientLight,
-    DirectionalLightHelper,
+    SpotLight,
+    SpotLightHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -67,19 +67,19 @@ export default class App {
         // SCENE
         this._scene = new Scene();
 
-        // DIRECTIONAL LIGHT
-        const light = new DirectionalLight(0xffffff, 2);
-        light.position.set(250, 0, 30);
-        light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        this._light = light;
+        // SPOT LIGHT
+        const spotLight = new SpotLight(0xffffff, 1);
+        spotLight.position.set(0, 0, 500);
+        spotLight.penumbra = 0.5;
+        spotLight.decay = 2;
+        spotLight.distance = 2000;
+        this._light = spotLight;
         this._scene.add(this._light);
 
-        // DIRECTIONAL HELPER
-        const helper = new DirectionalLightHelper(light, 5);
-        helper.visible = false;
-        this._lightHelper = helper;
+        // LIGHT HELPER
+        const lightHelper = new SpotLightHelper(spotLight);
+        lightHelper.visible = this._config.lightHelper;
+        this._lightHelper = lightHelper;
         this._scene.add(this._lightHelper);
 
         // AMBIENT LIGHT
