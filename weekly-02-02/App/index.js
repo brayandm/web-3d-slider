@@ -2,8 +2,6 @@ import {
     WebGLRenderer,
     Scene,
     PerspectiveCamera,
-    DirectionalLight,
-    AmbientLight,
     MathUtils,
     Clock,
     Raycaster,
@@ -26,6 +24,7 @@ export default class App {
     constructor(onLoaded = () => {}) {
         this._onLoaded = onLoaded;
         this._renderer = undefined;
+        this._composer = undefined;
         this._camera = undefined;
         this._scene = undefined;
         this._controls = undefined;
@@ -45,11 +44,14 @@ export default class App {
         // RENDERER
         this._renderer = new WebGLRenderer({
             canvas: document.querySelector("#canvas"),
-            antialias: true,
+            antialias: window.devicePixelRatio <= 1,
+            stencil: true,
+            depth: true,
         });
         this._renderer.setSize(window.innerWidth, window.innerHeight);
-        this._renderer.setPixelRatio(window.devicePixelRatio);
-        this._renderer.shadowMap.enabled = true;
+        if (window.devicePixelRatio > 1) {
+            this._renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
