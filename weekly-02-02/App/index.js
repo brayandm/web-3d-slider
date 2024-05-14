@@ -13,6 +13,9 @@ import {
     AmbientLight,
     SpotLight,
     SpotLightHelper,
+    BufferGeometry,
+    Float32BufferAttribute,
+    Points,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -102,6 +105,7 @@ export default class App {
         // START
         this._initEvents();
         this._initScene();
+        this._initFairyFlies();
 
         // RESIZE RENDERER AND CAMERA
         this._resize();
@@ -111,6 +115,69 @@ export default class App {
 
         // START
         this._start();
+    }
+
+    _initFairyFlies() {
+        const vertexShader = `uniform float uTime;
+varying vec3 vColor;
+
+void main() {
+    // Modificar la posición de los puntos para simular el vuelo de las hadas
+    vec3 newPosition = position;
+    newPosition.x += sin(uTime + position.y * 10.0) * 3.0;
+    newPosition.y += sin(uTime + position.x * 10.0) * 3.0;
+    newPosition.z += sin(uTime + position.z * 10.0) * 3.0;
+    
+    vColor = color;
+
+    gl_PointSize = 10.0; // Ajustar el tamaño del punto
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
+}`;
+
+        const fragmentShader = `varying vec3 vColor;
+
+void main() {
+    // Crear un borde suave para los puntos
+    float distanceToCenter = length(gl_PointCoord - vec2(0.5));
+    if (distanceToCenter > 0.5) {
+        discard;
+    }
+
+    // Hacer que los puntos brillen como hadas
+    float brightness = sin(vColor.r * 10.0) * 0.5 + 0.5;
+    gl_FragColor = vec4(vColor * brightness, 1.0);
+}`;
+
+        const material = new ShaderMaterial({
+            uniforms: {
+                uTime: { value: 0.0 },
+            },
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            vertexColors: true,
+        });
+
+        const particles = 100;
+        const geometry = new BufferGeometry();
+        const positions = [];
+        const colors = [];
+        for (let i = 0; i < particles; i++) {
+            positions.push((Math.random() - 0.5) * window.innerWidth);
+            positions.push((Math.random() - 0.5) * window.innerHeight);
+            positions.push((Math.random() - 0.5) * 60);
+
+            colors.push(Math.random());
+            colors.push(Math.random());
+            colors.push(Math.random());
+        }
+        geometry.setAttribute(
+            "position",
+            new Float32BufferAttribute(positions, 3)
+        );
+        geometry.setAttribute("color", new Float32BufferAttribute(colors, 3));
+
+        this._fairyFlies = new Points(geometry, material);
+        this._scene.add(this._fairyFlies);
     }
 
     _initScene() {
@@ -211,6 +278,7 @@ export default class App {
         this._updateHoverEffect();
         this._slider.update();
         this._background.material.uniforms.time.value += this._deltaClock;
+        this._fairyFlies.material.uniforms.uTime.value += this._deltaClock;
 
         this._composer.render();
         this._stats.end();
