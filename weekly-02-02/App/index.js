@@ -146,7 +146,9 @@ export default class App {
 
     _resize() {
         this._renderer.setSize(window.innerWidth, window.innerHeight);
-        this._renderer.setPixelRatio(window.devicePixelRatio);
+        if (window.devicePixelRatio > 1) {
+            this._renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }
 
         let fov =
             Math.atan(window.innerHeight / 2 / this._camera.position.z) * 2;
