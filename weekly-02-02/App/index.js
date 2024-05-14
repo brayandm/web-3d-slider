@@ -374,7 +374,10 @@ export default class App {
 
         this._light.color.set(this._config.lightColor);
 
-        this._background.material.uniforms.uBackgroundColor.value =
-            new MathUtils.Color(this._config.backgroundColor);
+        this._background.material.uniforms.uBackgroundColor.value = new Vector3(
+            new Color(this._config.backgroundColor).r,
+            new Color(this._config.backgroundColor).g,
+            new Color(this._config.backgroundColor).b
+        );
     }
 }
