@@ -137,7 +137,7 @@ export default class App {
         const colors = [];
 
         for (let i = 0; i < particles; i++) {
-            positions.push((Math.random() - 0.1) * window.innerWidth * 4);
+            positions.push((Math.random() - 0.15) * window.innerWidth * 5);
             positions.push((Math.random() - 0.5) * window.innerHeight * 1.5);
             positions.push((Math.random() - 0.5) * 50);
 
