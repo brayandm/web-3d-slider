@@ -72,18 +72,6 @@ export default class App {
         );
         this._controls.enabled = false;
 
-        // LIGHT
-        const light = new DirectionalLight(0xffffff, 1);
-        light.position.set(0, 2, 2);
-        light.castShadow = true;
-        light.shadow.mapSize.width = 1024;
-        light.shadow.mapSize.height = 1024;
-        this._scene.add(light);
-
-        // AMBIENT LIGHT
-        const ambientLight = new AmbientLight(0xffffff, 0.1);
-        this._scene.add(ambientLight);
-
         // START
         this._initEvents();
         this._initResources();
