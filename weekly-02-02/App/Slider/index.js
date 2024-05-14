@@ -107,4 +107,12 @@ export default class Slider extends Group {
             damp(el.position, "z", zTarget, 0.2, delta);
         });
     }
+
+    getMinX() {
+        return this._objects[0].position.x;
+    }
+
+    getMaxX() {
+        return this._objects[this._objects.length - 1].position.x;
+    }
 }

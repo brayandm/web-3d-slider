@@ -137,7 +137,12 @@ export default class App {
         const colors = [];
 
         for (let i = 0; i < particles; i++) {
-            positions.push((Math.random() - 0.15) * window.innerWidth * 5);
+            positions.push(
+                (this._slider.getMaxX() - this._slider.getMinX() + 2000) *
+                    Math.random() +
+                    this._slider.getMinX() -
+                    1000
+            );
             positions.push((Math.random() - 0.5) * window.innerHeight * 1.5);
             positions.push((Math.random() - 0.5) * 50);
 
@@ -231,24 +236,13 @@ export default class App {
     onDrag(e, delta) {
         this._isDragging = e.dragging;
 
-        console.log(this._fairyFlies.position.x, delta);
-
-        if (
-            delta > 0 &&
-            this._fairyFlies.position.x + delta > 0.15 * window.innerWidth * 5
-        ) {
+        if (delta > 0 && this._slider.getMinX() + delta > 0) {
             delta = 0;
         }
 
-        if (
-            delta < 0 &&
-            this._fairyFlies.position.x + delta <
-                -(1 - 0.15) * window.innerWidth * 5
-        ) {
+        if (delta < 0 && this._slider.getMaxX() + delta < 0) {
             delta = 0;
         }
-
-        console.log(delta);
 
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
