@@ -7,6 +7,7 @@ import GUIController from "./App/GUIController/index.js";
 const config = {
     backgroundStarsSpread: 1,
     backgroundStarsVelocity: 1,
+    fairyFliesVelocity: 1,
     lightHelper: false,
     lightColor: "#ffffff",
 };

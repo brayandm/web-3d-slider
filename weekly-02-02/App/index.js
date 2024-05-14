@@ -123,6 +123,7 @@ export default class App {
         const material = new ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
+                uVelocity: { value: this._config.fairyFliesVelocity },
             },
             vertexShader: fairyFliesVertexShader,
             fragmentShader: fairyFliesFragmentShader,
@@ -310,6 +311,9 @@ export default class App {
 
         this._background.material.uniforms.velocity.value =
             this._config.backgroundStarsVelocity;
+
+        this._fairyFlies.material.uniforms.uVelocity.value =
+            this._config.fairyFliesVelocity;
 
         this._lightHelper.visible = this._config.lightHelper;
 
