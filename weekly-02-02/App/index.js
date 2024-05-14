@@ -230,6 +230,26 @@ export default class App {
 
     onDrag(e, delta) {
         this._isDragging = e.dragging;
+
+        console.log(this._fairyFlies.position.x, delta);
+
+        if (
+            delta > 0 &&
+            this._fairyFlies.position.x + delta > 0.15 * window.innerWidth * 5
+        ) {
+            delta = 0;
+        }
+
+        if (
+            delta < 0 &&
+            this._fairyFlies.position.x + delta <
+                -(1 - 0.15) * window.innerWidth * 5
+        ) {
+            delta = 0;
+        }
+
+        console.log(delta);
+
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
