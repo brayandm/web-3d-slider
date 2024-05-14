@@ -27,6 +27,7 @@ import backgroundVertexShader from "./Shaders/Background/index.vert";
 import backgroundFragmentShader from "./Shaders/Background/index.frag";
 import fairyFliesVertexShader from "./Shaders/FairyFlies/index.vert";
 import fairyFliesFragmentShader from "./Shaders/FairyFlies/index.frag";
+import { damp } from "maath/easing";
 
 export default class App {
     constructor(config, onLoaded = () => {}) {
@@ -159,6 +160,8 @@ export default class App {
         geometry.setAttribute("color", new Float32BufferAttribute(colors, 3));
 
         this._fairyFlies = new Points(geometry, material);
+        this._fairyFlies.userData.destinationPosition =
+            this._fairyFlies.position.clone();
         this._scene.add(this._fairyFlies);
     }
 
@@ -221,7 +224,7 @@ export default class App {
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
-        this._fairyFlies.position.x += delta;
+        this._fairyFlies.userData.destinationPosition.x += delta;
     }
 
     _resize() {
@@ -262,6 +265,12 @@ export default class App {
         this._slider.update();
         this._background.material.uniforms.time.value += this._deltaClock;
         this._fairyFlies.material.uniforms.uTime.value += this._deltaClock;
+        damp(
+            this._fairyFlies.position,
+            "x",
+            this._fairyFlies.userData.destinationPosition.x,
+            0.1
+        );
 
         this._composer.render();
         this._stats.end();
