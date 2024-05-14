@@ -136,7 +136,7 @@ export default class App {
         const colors = [];
 
         for (let i = 0; i < particles; i++) {
-            positions.push((Math.random() - 0.5) * window.innerWidth);
+            positions.push((Math.random() - 0.5) * window.innerWidth * 3);
             positions.push((Math.random() - 0.5) * window.innerHeight);
             positions.push((Math.random() - 0.5) * 50);
 
@@ -193,7 +193,7 @@ export default class App {
         });
 
         this._background = new Mesh(geometry, material);
-        this._background.position.z = -50;
+        this._background.position.z = -100;
         this._scene.add(this._background);
     }
 
@@ -221,6 +221,7 @@ export default class App {
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
+        this._fairyFlies.position.x += delta * 0.2;
     }
 
     _resize() {
