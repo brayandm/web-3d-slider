@@ -186,6 +186,10 @@ export default class App {
             window.innerWidth * 2,
             window.innerHeight * 2
         );
+
+        this._initialWidth = window.innerWidth;
+        this._initialHeight = window.innerHeight;
+
         const material = new ShaderMaterial({
             uniforms: {
                 time: { type: "f", value: 0 },
@@ -264,6 +268,9 @@ export default class App {
 
         this._background.material.uniforms.resolution.value.x =
             window.innerWidth;
+
+        this._background.scale.x = window.innerWidth / this._initialWidth;
+        this._background.scale.y = window.innerHeight / this._initialHeight;
     }
 
     _start() {
