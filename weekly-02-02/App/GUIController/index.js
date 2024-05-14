@@ -40,7 +40,7 @@ export default class GUIController {
 
         this.gui
             .add({ lightHelper: this.config.lightHelper }, "lightHelper")
-            .name("Light Helper")
+            .name("Spot Light Helper")
             .onChange((v) => {
                 this.config.lightHelper = v;
                 this._changeConfiguration(this.config);
@@ -48,7 +48,7 @@ export default class GUIController {
 
         this.gui
             .addColor({ lightColor: this.config.lightColor }, "lightColor")
-            .name("Light Color")
+            .name("Spot Light Color")
             .onChange((v) => {
                 this.config.lightColor = v;
                 this._changeConfiguration(this.config);
