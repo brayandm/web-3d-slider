@@ -13,6 +13,7 @@
     },
     "dependencies": {
         "@use-gesture/vanilla": "^10.3.1",
+        "lil-gui": "^0.19.2",
         "maath": "^0.10.7",
         "postprocessing": "^6.35.4",
         "stats.js": "^0.17.0",
