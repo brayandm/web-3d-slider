@@ -78,7 +78,7 @@ export default class App {
         this._initEvents();
         this._initScene();
 
-        // SETUP CAMERA
+        // RESIZE RENDERER AND CAMERA
         this._resize();
 
         // ON LOADED
