@@ -131,14 +131,14 @@ export default class App {
             vertexColors: true,
         });
 
-        const particles = 100;
+        const particles = 200;
         const geometry = new BufferGeometry();
         const positions = [];
         const colors = [];
 
         for (let i = 0; i < particles; i++) {
-            positions.push((Math.random() - 0.5) * window.innerWidth * 3);
-            positions.push((Math.random() - 0.5) * window.innerHeight);
+            positions.push((Math.random() - 0.1) * window.innerWidth * 4);
+            positions.push((Math.random() - 0.5) * window.innerHeight * 1.5);
             positions.push((Math.random() - 0.5) * 50);
 
             const fairyColors = [
