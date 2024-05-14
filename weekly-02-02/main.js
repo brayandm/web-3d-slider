@@ -7,6 +7,8 @@ import GUIController from "./App/GUIController/index.js";
 const config = {
     backgroundStarsSpread: 1,
     backgroundStarsVelocity: 1,
+    lightHelper: false,
+    lightColor: "#ffffff",
 };
 
 const loading = document.querySelector(".loading-container");

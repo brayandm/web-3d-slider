@@ -37,5 +37,21 @@ export default class GUIController {
                 this.config.backgroundStarsVelocity = v;
                 this._changeConfiguration(this.config);
             });
+
+        this.gui
+            .add({ lightHelper: this.config.lightHelper }, "lightHelper")
+            .name("Light Helper")
+            .onChange((v) => {
+                this.config.lightHelper = v;
+                this._changeConfiguration(this.config);
+            });
+
+        this.gui
+            .addColor({ lightColor: this.config.lightColor }, "lightColor")
+            .name("Light Color")
+            .onChange((v) => {
+                this.config.lightColor = v;
+                this._changeConfiguration(this.config);
+            });
     }
 }

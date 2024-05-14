@@ -10,6 +10,9 @@ import {
     Mesh,
     ShaderMaterial,
     PlaneGeometry,
+    DirectionalLight,
+    AmbientLight,
+    DirectionalLightHelper,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -63,6 +66,26 @@ export default class App {
 
         // SCENE
         this._scene = new Scene();
+
+        // DIRECTIONAL LIGHT
+        const light = new DirectionalLight(0xffffff, 2);
+        light.position.set(250, 0, 30);
+        light.castShadow = true;
+        light.shadow.mapSize.width = 1024;
+        light.shadow.mapSize.height = 1024;
+        this._light = light;
+        this._scene.add(this._light);
+
+        // DIRECTIONAL HELPER
+        const helper = new DirectionalLightHelper(light, 5);
+        helper.visible = false;
+        this._lightHelper = helper;
+        this._scene.add(this._lightHelper);
+
+        // AMBIENT LIGHT
+        const ambientLight = new AmbientLight(0xffffff, 0.1);
+        this._ambientLight = ambientLight;
+        this._scene.add(this._ambientLight);
 
         // COMPOSER
         this._composer = new Composer({
@@ -133,7 +156,6 @@ export default class App {
     }
 
     _onClick(event) {
-        event.preventDefault();
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
@@ -216,5 +238,9 @@ export default class App {
 
         this._background.material.uniforms.velocity.value =
             this._config.backgroundStarsVelocity;
+
+        this._lightHelper.visible = this._config.lightHelper;
+
+        this._light.color.set(this._config.lightColor);
     }
 }
