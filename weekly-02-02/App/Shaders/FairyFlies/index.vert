@@ -9,6 +9,6 @@ void main() {
     
     vColor = color;
 
-    gl_PointSize = 10.0;
+    gl_PointSize = 8.0;
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
 }

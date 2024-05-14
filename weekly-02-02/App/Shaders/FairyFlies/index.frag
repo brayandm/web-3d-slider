@@ -6,6 +6,6 @@ void main() {
         discard;
     }
 
-    float brightness = sin(vColor.r * 10.0) * 0.5 + 0.5;
+    float brightness = sin(vColor.r * 10.0) * 0.5 + 0.5 + 2.0;
     gl_FragColor = vec4(vColor * brightness, 1.0);
 }

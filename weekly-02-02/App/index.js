@@ -137,11 +137,18 @@ export default class App {
         for (let i = 0; i < particles; i++) {
             positions.push((Math.random() - 0.5) * window.innerWidth);
             positions.push((Math.random() - 0.5) * window.innerHeight);
-            positions.push((Math.random() - 0.5) * 60);
+            positions.push((Math.random() - 0.5) * 30);
 
-            colors.push(Math.random());
-            colors.push(Math.random());
-            colors.push(Math.random());
+            const fairyColors = [
+                0x4caf50, 0x2196f3, 0xffeb3b, 0xff5722, 0x9c27b0,
+            ];
+
+            const color =
+                fairyColors[Math.floor(Math.random() * fairyColors.length)];
+
+            colors.push(((color >> 16) & 255) / 255);
+            colors.push(((color >> 8) & 255) / 255);
+            colors.push((color & 255) / 255);
         }
 
         geometry.setAttribute(
