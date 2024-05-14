@@ -221,7 +221,7 @@ export default class App {
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
         this._slider.onDrag(e, delta);
-        this._fairyFlies.position.x += delta * 0.2;
+        this._fairyFlies.position.x += delta;
     }
 
     _resize() {
