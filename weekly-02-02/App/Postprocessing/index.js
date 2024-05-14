@@ -26,7 +26,7 @@ export default class Postprocessing {
 
         // EFFECTPASS
         this._chromaticAberrationEffect = new ChromaticAberrationEffect({
-            offset: new Vector2(0.002, 0.002),
+            offset: new Vector2(0, 0),
         });
 
         this._effectPass = new EffectPass(
@@ -39,6 +39,16 @@ export default class Postprocessing {
         composer.addPass(this._effectPass);
 
         this._composer = composer;
+    }
+
+    updateOffset(x, y) {
+        const newX = this._chromaticAberrationEffect.offset.x;
+        const newY = this._chromaticAberrationEffect.offset.y;
+
+        this._chromaticAberrationEffect.offset.set(
+            newX + (x - newX) * 0.1,
+            newY + (y - newY) * 0.1
+        );
     }
 
     setSize(width, height) {
