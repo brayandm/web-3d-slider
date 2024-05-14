@@ -10,6 +10,7 @@ const config = {
     fairyFliesVelocity: 1,
     lightHelper: false,
     lightColor: "#ffffff",
+    backgroundColor: "#191919",
 };
 
 const loading = document.querySelector(".loading-container");

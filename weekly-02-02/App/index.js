@@ -16,6 +16,8 @@ import {
     BufferGeometry,
     Float32BufferAttribute,
     Points,
+    Color,
+    Vector3,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -206,6 +208,14 @@ export default class App {
                     type: "f",
                     value: this._config.backgroundStarsSpread,
                 },
+                uBackgroundColor: {
+                    type: "c",
+                    value: new Vector3(
+                        new Color(this._config.backgroundColor).r,
+                        new Color(this._config.backgroundColor).g,
+                        new Color(this._config.backgroundColor).b
+                    ),
+                },
             },
             vertexShader: backgroundVertexShader,
             fragmentShader: backgroundFragmentShader,
@@ -363,5 +373,8 @@ export default class App {
         this._lightHelper.visible = this._config.lightHelper;
 
         this._light.color.set(this._config.lightColor);
+
+        this._background.material.uniforms.uBackgroundColor.value =
+            new MathUtils.Color(this._config.backgroundColor);
     }
 }
