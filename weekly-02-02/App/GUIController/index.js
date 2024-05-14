@@ -68,5 +68,16 @@ export default class GUIController {
                 this.config.lightColor = v;
                 this._changeConfiguration(this.config);
             });
+
+        this.gui
+            .addColor(
+                { backgroundColor: this.config.backgroundColor },
+                "backgroundColor"
+            )
+            .name("Background Color")
+            .onChange((v) => {
+                this.config.backgroundColor = v;
+                this._changeConfiguration(this.config);
+            });
     }
 }
