@@ -14,8 +14,8 @@ export default class Slider extends Group {
     constructor() {
         super();
 
-        this._height = 1920 * 0.2;
-        this._width = 1080 * 0.2;
+        this._height = 1920 * 0.15;
+        this._width = 1080 * 0.15;
         this._objects = [];
         this._randMap = [];
         this._senseRandMap = [];
@@ -109,6 +109,9 @@ export default class Slider extends Group {
                 : el.userData.initialPosition.z;
 
             damp(el.position, "z", zTarget, 0.2, delta);
+
+            el.rotation.y = -el.position.x * 0.0001;
+            el.position.z = Math.abs(el.position.x) * 0.05;
         });
     }
 
