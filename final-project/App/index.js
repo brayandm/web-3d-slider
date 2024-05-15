@@ -117,12 +117,14 @@ export default class App {
         this._controls.enabled = false;
 
         // START
-        this._initEvents();
-        this._initScene();
+        await this._initScene();
         this._initFairyFlies();
 
         // RESIZE RENDERER AND CAMERA
         this._resize();
+
+        // EVENTS
+        this._initEvents();
 
         // ON LOADED
         this._onLoaded();
@@ -190,8 +192,9 @@ export default class App {
         this._scene.add(this._fairyFlies);
     }
 
-    _initScene() {
+    async _initScene() {
         this._slider = new Slider();
+        await this._slider.init();
         this._scene.add(this._slider);
 
         const geometry = new PlaneGeometry(

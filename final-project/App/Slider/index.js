@@ -21,19 +21,31 @@ export default class Slider extends Group {
         this._senseRandMap = [];
 
         this._isDragging = false;
-
-        this._init();
     }
 
-    _init() {
+    _loadTexture(url) {
+        return new Promise((resolve, reject) => {
+            const loader = new TextureLoader();
+            loader.load(
+                url,
+                (texture) => {
+                    texture.encoding = sRGBEncoding;
+                    resolve(texture);
+                },
+                undefined,
+                (error) => {
+                    reject(error);
+                }
+            );
+        });
+    }
+
+    async init() {
         for (let i = 1; i <= 20; i++) {
             const geometry = new PlaneGeometry(1, 1);
 
-            const texture = new TextureLoader().load(
-                `./unsamples/image-` + i + `.jpg`,
-                (texture) => {
-                    texture.encoding = sRGBEncoding;
-                }
+            const texture = await this._loadTexture(
+                `./unsamples/image-` + i + `.jpg`
             );
 
             const material = new MeshStandardMaterial({
