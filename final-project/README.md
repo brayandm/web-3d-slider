@@ -19,3 +19,13 @@
 -   [ ] A README file explaining your project, what decisions you made and any information that will help me understand your thinking. For instance, "I tried adding post-processing but my computer was too slow to handle it, instead I focused on adding more elaborate animations to X and Y" etc.
 
 -   [ ] Another README that explains how to install (if repo) and make run your project. A `.nvmrc` file is obligatory, so we can run the same node. Please please please remember `.nvmrc`
+
+## Advanced features (optional for higher points):
+
+-   [ ] Add one or more post processing effects, but if you do it has to be coherent to the scene, don't add random things without logic. Keep an eye on the performances.
+
+-   [ ] Add some camera movement if not orbit-controls. You might want to drop orbit controls and add a mouse binded/scroll camera on the final version. This is more for the 3d env, if you plan to do a slider might be not necessary. You can add a more subtle animation maybe? Some mouse parallax?
+
+-   [ ] Play with render-target. We haven't covered this topic but here some hints if you want to give it a go. https://blog.maximeheckel.com/posts/beautiful-and-mind-bending-effects-with-webgl-render-targets/.
+
+-   [ ] Performance. You should optimise download size for the entire experience and make compromises to improve the render performance. 3D experiences can be larger than your normal website, but we should still be mindful of the total size and make sure we can hit 60fps on an iPhone or similar.
