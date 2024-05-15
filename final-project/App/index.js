@@ -47,7 +47,6 @@ export default class App {
         this._raycaster = new Raycaster();
         this._mouse = new Vector2();
         this._stats = new Stats();
-        document.body.appendChild(this._stats.dom);
 
         this._init();
     }
@@ -128,6 +127,9 @@ export default class App {
 
         // ON LOADED
         this._onLoaded();
+
+        // STATS
+        document.body.appendChild(this._stats.dom);
 
         // START
         this._start();
