@@ -13,6 +13,7 @@ export default class Postprocessing {
         this._scene = scene;
         this._camera = camera;
         this._blockBlur = true;
+        this._blockChromaticAberration = false;
 
         this._init();
     }
@@ -52,6 +53,8 @@ export default class Postprocessing {
     }
 
     updateOffset(x, y) {
+        if (this._blockChromaticAberration) return;
+
         const newX = this._chromaticAberrationEffect.offset.x;
         const newY = this._chromaticAberrationEffect.offset.y;
 
@@ -74,13 +77,16 @@ export default class Postprocessing {
     }
 
     setBlurEnabled(enabled) {
-        console.log("setBlurEnabled", enabled, this._blockBlur);
         if (this._blockBlur === false) {
             this._blurPass.enabled = enabled;
         }
     }
 
     setChromaticAberrationEnabled(enabled) {
-        this._chromaticAberrationEffect.enabled = enabled;
+        this._blockChromaticAberration = !enabled;
+
+        if (this._blockChromaticAberration === true) {
+            this._chromaticAberrationEffect.offset.set(0, 0);
+        }
     }
 }
