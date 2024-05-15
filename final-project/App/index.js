@@ -195,8 +195,8 @@ export default class App {
         this._scene.add(this._slider);
 
         const geometry = new PlaneGeometry(
-            window.innerWidth * 2,
-            window.innerHeight * 2
+            window.innerWidth * 2.5,
+            window.innerHeight * 2.5
         );
 
         this._initialWidth = window.innerWidth;
@@ -248,6 +248,8 @@ export default class App {
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
         this._background.material.uniforms.uMouse.value = this._mouse;
+        this._camera.position.x = -this._mouse.x * 25;
+        this._camera.position.y = -this._mouse.y * 25;
     }
 
     _onClick(event) {
