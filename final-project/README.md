@@ -24,7 +24,7 @@
 
 -   [x] Add one or more post processing effects, but if you do it has to be coherent to the scene, don't add random things without logic. Keep an eye on the performances.
 
--   [ ] Add some camera movement if not orbit-controls. You might want to drop orbit controls and add a mouse binded/scroll camera on the final version. This is more for the 3d env, if you plan to do a slider might be not necessary. You can add a more subtle animation maybe? Some mouse parallax?
+-   [x] Add some camera movement if not orbit-controls. You might want to drop orbit controls and add a mouse binded/scroll camera on the final version. This is more for the 3d env, if you plan to do a slider might be not necessary. You can add a more subtle animation maybe? Some mouse parallax?
 
 -   [ ] Play with render-target. We haven't covered this topic but here some hints if you want to give it a go. https://blog.maximeheckel.com/posts/beautiful-and-mind-bending-effects-with-webgl-render-targets/.
 
