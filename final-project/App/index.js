@@ -117,7 +117,7 @@ export default class App {
 
         // START
         await this._initScene();
-        this._initFairyFlies();
+        this._initFairyFlies(this._config.fairyFliesNumber);
 
         // RESIZE RENDERER AND CAMERA
         this._resize();
@@ -136,7 +136,7 @@ export default class App {
         this._start();
     }
 
-    _initFairyFlies() {
+    _initFairyFlies(particles) {
         const material = new ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
@@ -148,7 +148,6 @@ export default class App {
             vertexColors: true,
         });
 
-        const particles = 200;
         const geometry = new BufferGeometry();
         const positions = [];
         const colors = [];
@@ -193,6 +192,11 @@ export default class App {
             -30
         );
         this._scene.add(this._fairyFlies);
+    }
+
+    _changeFairiesNumber(particles) {
+        this._scene.remove(this._fairyFlies);
+        this._initFairyFlies(particles);
     }
 
     async _initScene() {
@@ -389,6 +393,8 @@ export default class App {
 
         this._background.material.uniforms.velocity.value =
             this._config.backgroundStarsVelocity;
+
+        this._changeFairiesNumber(this._config.fairyFliesNumber);
 
         this._fairyFlies.material.uniforms.uPointSize.value =
             this._config.fairyFliesSize;

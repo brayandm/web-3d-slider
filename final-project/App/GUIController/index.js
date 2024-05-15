@@ -50,6 +50,21 @@ export default class GUIController {
         this.gui
             .add(
                 {
+                    fairyFliesNumber: this.config.fairyFliesNumber,
+                },
+                "fairyFliesNumber",
+                0,
+                2000
+            )
+            .name("Number of Fairy Flies")
+            .onChange((v) => {
+                this.config.fairyFliesNumber = v;
+                this._changeConfiguration(this.config);
+            });
+
+        this.gui
+            .add(
+                {
                     fairyFliesSize: this.config.fairyFliesSize,
                 },
                 "fairyFliesSize",
