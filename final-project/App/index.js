@@ -130,6 +130,7 @@ export default class App {
 
         // STATS
         document.body.appendChild(this._stats.dom);
+        this._stats.dom.style.display = "none";
 
         // START
         this._start();
@@ -410,5 +411,9 @@ export default class App {
         this._composer.setChromaticAberrationEnabled(
             this._config.chromaticAberrationEnabled
         );
+    }
+
+    setDevMode(enabled) {
+        this._stats.dom.style.display = enabled ? "block" : "none";
     }
 }

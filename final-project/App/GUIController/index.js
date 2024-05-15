@@ -5,7 +5,16 @@ export default class GUIController {
         this.config = config;
         this._changeConfiguration = changeConfiguration;
         this.gui = new GUI();
+        this.gui.hide();
         this.init();
+    }
+
+    setDevMode(enable) {
+        if (enable) {
+            this.gui.show();
+        } else {
+            this.gui.hide();
+        }
     }
 
     init() {

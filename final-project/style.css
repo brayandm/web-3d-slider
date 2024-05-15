@@ -78,3 +78,21 @@ body,
     color: #333;
     margin-bottom: 20px;
 }
+
+.dev-mode-button {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    padding: 10px 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: semibold;
+    cursor: pointer;
+
+    p {
+        user-select: none;
+    }
+}

@@ -18,6 +18,8 @@ const config = {
 
 const loading = document.querySelector(".loading-container");
 
+let devModeEnabled = false;
+
 const app = new App(config, () => {
     loading.style.display = "none";
     const canvas = document.querySelector("#canvas");
@@ -31,5 +33,22 @@ const app = new App(config, () => {
         app.changeConfiguration(config);
     };
 
-    new GUIController(config, changeConfiguration);
+    const gui = new GUIController(config, changeConfiguration);
+
+    const devModeButton = document.querySelector(".dev-mode-button");
+
+    devModeButton.style.display = "block";
+
+    devModeButton.addEventListener("click", () => {
+        devModeEnabled = !devModeEnabled;
+
+        if (devModeEnabled) {
+            devModeButton.classList.add("active");
+        } else {
+            devModeButton.classList.remove("active");
+        }
+
+        app.setDevMode(devModeEnabled);
+        gui.setDevMode(devModeEnabled);
+    });
 });
