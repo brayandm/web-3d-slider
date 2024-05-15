@@ -4,7 +4,7 @@
 
 -   [ ] ~~IF you use model(s), load a glTF (_.gltf or _.glb model).~~
 
--   [ ] IF you use model(s), optimize the model and describe in a README what steps you took to optimize it, or why you didn't have to. (Remember that visual quality is also important, not just making it as small as possible). I'll check model filesize, textures filesize / resolution and polygons. If you need to save kbs you might think about using draco (you can compress models on https://gltf.report/, and use draco loader https://threejs.org/docs/#examples/en/loaders/DRACOLoader). Not necessary but maybe useful? Just be aware draco compress ONLY the geometry, not textures.
+-   [ ] ~~IF you use model(s), optimize the model and describe in a README what steps you took to optimize it, or why you didn't have to. (Remember that visual quality is also important, not just making it as small as possible). I'll check model filesize, textures filesize / resolution and polygons. If you need to save kbs you might think about using draco (you can compress models on https://gltf.report/, and use draco loader https://threejs.org/docs/#examples/en/loaders/DRACOLoader). Not necessary but maybe useful? Just be aware draco compress ONLY the geometry, not textures.~~
 
 -   [ ] Light the scene using an HDRI or other lights. But explain you choice and why one over other. Be aware of the filesize.
 
