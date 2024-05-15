@@ -3,6 +3,7 @@ import {
     EffectComposer,
     EffectPass,
     RenderPass,
+    BlurPass,
 } from "postprocessing";
 import { FloatType, Vector2 } from "three";
 
@@ -24,6 +25,13 @@ export default class Postprocessing {
         // RENDERPASS
         const renderPass = new RenderPass(this._scene, this._camera);
 
+        // BLURPASS
+        this._blurPass = new BlurPass({
+            resolutionScale: 0.5,
+            kernelSize: 1,
+        });
+        this._blurPass.enabled = false;
+
         // EFFECTPASS
         this._chromaticAberrationEffect = new ChromaticAberrationEffect({
             offset: new Vector2(0.001, 0.001),
@@ -36,6 +44,7 @@ export default class Postprocessing {
 
         // ADD PASSES
         composer.addPass(renderPass);
+        composer.addPass(this._blurPass);
         composer.addPass(this._effectPass);
 
         this._composer = composer;
@@ -57,5 +66,9 @@ export default class Postprocessing {
 
     render() {
         this._composer.render();
+    }
+
+    setBlurEnabled(enabled) {
+        this._blurPass.enabled = enabled;
     }
 }

@@ -272,6 +272,11 @@ export default class App {
 
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
         this._composer.updateOffset(offset, offset * 0.25);
+        if (this._isDragging) {
+            this._composer.setBlurEnabled(true);
+        } else {
+            this._composer.setBlurEnabled(false);
+        }
         this._slider.onDrag(e, delta);
         this._fairyFlies.userData.destinationPosition.x += delta;
     }
