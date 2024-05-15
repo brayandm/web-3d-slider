@@ -12,9 +12,9 @@
 
 -   [x] ~~If you create a 3D env, add one light that casts a shadow in the scene. Meshes should be marked with `castShadow` and `receiveShadow` for this to work. If you don't think you'll need it, explain why you decided to skip.~~
 
--   [ ] Correct handling of colorspace, tone mapping, dpr, antialiasing, resize etc.
+-   [x] Correct handling of colorspace, tone mapping, dpr, antialiasing, resize etc.
 
--   [ ] At least one Shader Material with some logic. Using a shader material without any custom things is useless. Shader Material can be on meshes or as post-processing pass/effect, or both. Up to you.
+-   [x] At least one Shader Material with some logic. Using a shader material without any custom things is useless. Shader Material can be on meshes or as post-processing pass/effect, or both. Up to you.
 
 -   [ ] A README file explaining your project, what decisions you made and any information that will help me understand your thinking. For instance, "I tried adding post-processing but my computer was too slow to handle it, instead I focused on adding more elaborate animations to X and Y" etc.
 
@@ -22,7 +22,7 @@
 
 ## Advanced features (optional for higher points):
 
--   [ ] Add one or more post processing effects, but if you do it has to be coherent to the scene, don't add random things without logic. Keep an eye on the performances.
+-   [x] Add one or more post processing effects, but if you do it has to be coherent to the scene, don't add random things without logic. Keep an eye on the performances.
 
 -   [ ] Add some camera movement if not orbit-controls. You might want to drop orbit controls and add a mouse binded/scroll camera on the final version. This is more for the 3d env, if you plan to do a slider might be not necessary. You can add a more subtle animation maybe? Some mouse parallax?
 
