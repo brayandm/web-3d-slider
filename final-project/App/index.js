@@ -156,7 +156,7 @@ export default class App {
                     1000
             );
             positions.push((Math.random() - 0.5) * window.innerHeight * 1.5);
-            positions.push((Math.random() - 0.5) * 50);
+            positions.push((Math.random() - 0.1) * 100);
 
             const fairyColors = [
                 0x4caf50, 0x2196f3, 0xffeb3b, 0xff5722, 0x9c27b0,

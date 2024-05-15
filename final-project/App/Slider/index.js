@@ -52,7 +52,7 @@ export default class Slider extends Group {
             mesh.userData.destinationPosition = mesh.position.clone();
             mesh.userData.initialPosition = mesh.position.clone();
             mesh.userData.dragPosition = mesh.position.clone();
-            mesh.userData.dragPosition.z += MathUtils.randFloat(-50, -30);
+            mesh.userData.dragPosition.z += -20;
             mesh.userData.isSlide = true;
 
             this.add(mesh);
@@ -104,14 +104,15 @@ export default class Slider extends Group {
                 delta
             );
 
-            const zTarget = this._isDragging
-                ? el.userData.dragPosition.z
-                : el.userData.initialPosition.z;
+            const zTarget =
+                (this._isDragging
+                    ? el.userData.dragPosition.z
+                    : el.userData.initialPosition.z) +
+                Math.abs(el.position.x) * 0.05;
 
             damp(el.position, "z", zTarget, 0.2, delta);
 
             el.rotation.y = -el.position.x * 0.0001;
-            el.position.z = Math.abs(el.position.x) * 0.05;
         });
     }
 
