@@ -94,5 +94,32 @@ export default class GUIController {
                 this.config.backgroundColor = v;
                 this._changeConfiguration(this.config);
             });
+
+        this.gui
+            .add(
+                {
+                    blurEnabled: this.config.blurEnabled,
+                },
+                "blurEnabled"
+            )
+            .name("Blur Effect")
+            .onChange((v) => {
+                this.config.blurEnabled = v;
+                this._changeConfiguration(this.config);
+            });
+
+        this.gui
+            .add(
+                {
+                    chromaticAberrationEnabled:
+                        this.config.chromaticAberrationEnabled,
+                },
+                "chromaticAberrationEnabled"
+            )
+            .name("Chromatic Aberration Effect")
+            .onChange((v) => {
+                this.config.chromaticAberrationEnabled = v;
+                this._changeConfiguration(this.config);
+            });
     }
 }

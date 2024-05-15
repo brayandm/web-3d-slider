@@ -12,6 +12,7 @@ export default class Postprocessing {
         this._renderer = renderer;
         this._scene = scene;
         this._camera = camera;
+        this._blockBlur = true;
 
         this._init();
     }
@@ -68,7 +69,18 @@ export default class Postprocessing {
         this._composer.render();
     }
 
+    setBlockBlur(block) {
+        this._blockBlur = block;
+    }
+
     setBlurEnabled(enabled) {
-        this._blurPass.enabled = enabled;
+        console.log("setBlurEnabled", enabled, this._blockBlur);
+        if (this._blockBlur === false) {
+            this._blurPass.enabled = enabled;
+        }
+    }
+
+    setChromaticAberrationEnabled(enabled) {
+        this._chromaticAberrationEffect.enabled = enabled;
     }
 }

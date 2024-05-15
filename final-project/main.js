@@ -12,6 +12,8 @@ const config = {
     lightHelper: false,
     lightColor: "#ffffff",
     backgroundColor: "#191919",
+    blurEnabled: false,
+    chromaticAberrationEnabled: true,
 };
 
 const loading = document.querySelector(".loading-container");

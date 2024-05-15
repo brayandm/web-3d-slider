@@ -399,5 +399,11 @@ export default class App {
             new Color(this._config.backgroundColor).g,
             new Color(this._config.backgroundColor).b
         );
+
+        this._composer.setBlockBlur(!this._config.blurEnabled);
+
+        this._composer.setChromaticAberrationEnabled(
+            this._config.chromaticAberrationEnabled
+        );
     }
 }
