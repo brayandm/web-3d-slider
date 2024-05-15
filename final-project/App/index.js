@@ -19,6 +19,7 @@ import {
     Color,
     Vector3,
     ACESFilmicToneMapping,
+    sRGBEncoding,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -69,6 +70,9 @@ export default class App {
         // TONE MAPPING
         this._gl.toneMapping = ACESFilmicToneMapping;
         this._gl.toneMappingExposure = 1;
+
+        // COLOR SPACE
+        this._gl.outputEncoding = sRGBEncoding;
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
