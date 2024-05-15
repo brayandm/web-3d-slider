@@ -18,6 +18,7 @@ import {
     Points,
     Color,
     Vector3,
+    ACESFilmicToneMapping,
 } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import Stats from "stats.js";
@@ -64,6 +65,10 @@ export default class App {
         if (window.devicePixelRatio > 1) {
             this._gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         }
+
+        // TONE MAPPING
+        this._gl.toneMapping = ACESFilmicToneMapping;
+        this._gl.toneMappingExposure = 1;
 
         // CAMERA
         const aspect = window.innerWidth / window.innerHeight;
