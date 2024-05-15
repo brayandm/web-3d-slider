@@ -2,15 +2,15 @@
 
 ## Basic Features (required to pass):
 
--   [ ] ~~IF you use model(s), load a glTF (_.gltf or _.glb model).~~
+-   [x] ~~IF you use model(s), load a glTF (_.gltf or _.glb model).~~
 
--   [ ] ~~IF you use model(s), optimize the model and describe in a README what steps you took to optimize it, or why you didn't have to. (Remember that visual quality is also important, not just making it as small as possible). I'll check model filesize, textures filesize / resolution and polygons. If you need to save kbs you might think about using draco (you can compress models on https://gltf.report/, and use draco loader https://threejs.org/docs/#examples/en/loaders/DRACOLoader). Not necessary but maybe useful? Just be aware draco compress ONLY the geometry, not textures.~~
+-   [x] ~~IF you use model(s), optimize the model and describe in a README what steps you took to optimize it, or why you didn't have to. (Remember that visual quality is also important, not just making it as small as possible). I'll check model filesize, textures filesize / resolution and polygons. If you need to save kbs you might think about using draco (you can compress models on https://gltf.report/, and use draco loader https://threejs.org/docs/#examples/en/loaders/DRACOLoader). Not necessary but maybe useful? Just be aware draco compress ONLY the geometry, not textures.~~
 
--   [ ] Light the scene using an HDRI or other lights. But explain you choice and why one over other. Be aware of the filesize.
+-   [x] Light the scene using an HDRI or other lights. But explain you choice and why one over other. Be aware of the filesize.
 
--   [ ] Add at least one interaction (can be drag, scroll, click, raycaster, arrows) with an item in the scene which triggers something. Camera? Color? Light intensity? Better if animated using gsap (or an engine of your choice).
+-   [x] Add at least one interaction (can be drag, scroll, click, raycaster, arrows) with an item in the scene which triggers something. Camera? Color? Light intensity? Better if animated using gsap (or an engine of your choice).
 
--   [ ] If you create a 3D env, add one light that casts a shadow in the scene. Meshes should be marked with `castShadow` and `receiveShadow` for this to work. If you don't think you'll need it, explain why you decided to skip.
+-   [x] ~~If you create a 3D env, add one light that casts a shadow in the scene. Meshes should be marked with `castShadow` and `receiveShadow` for this to work. If you don't think you'll need it, explain why you decided to skip.~~
 
 -   [ ] Correct handling of colorspace, tone mapping, dpr, antialiasing, resize etc.
 
