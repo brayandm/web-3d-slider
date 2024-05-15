@@ -5,6 +5,7 @@ import {
     MeshStandardMaterial,
     PlaneGeometry,
     TextureLoader,
+    sRGBEncoding,
 } from "three";
 
 import { damp } from "maath/easing";
@@ -29,7 +30,10 @@ export default class Slider extends Group {
             const geometry = new PlaneGeometry(1, 1);
 
             const texture = new TextureLoader().load(
-                `./unsamples/image-` + i + `.jpg`
+                `./unsamples/image-` + i + `.jpg`,
+                (texture) => {
+                    texture.encoding = sRGBEncoding;
+                }
             );
 
             const material = new MeshStandardMaterial({
