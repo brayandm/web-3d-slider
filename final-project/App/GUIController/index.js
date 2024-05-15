@@ -5,6 +5,7 @@ export default class GUIController {
         this.config = config;
         this._changeConfiguration = changeConfiguration;
         this.gui = new GUI();
+        this.gui.close();
         this.init();
     }
 
