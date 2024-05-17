@@ -18,7 +18,7 @@
 
 -   [ ] A README file explaining your project, what decisions you made and any information that will help me understand your thinking. For instance, "I tried adding post-processing but my computer was too slow to handle it, instead I focused on adding more elaborate animations to X and Y" etc.
 
--   [ ] Another README that explains how to install (if repo) and make run your project. A `.nvmrc` file is obligatory, so we can run the same node. Please please please remember `.nvmrc`
+-   [x] Another README that explains how to install (if repo) and make run your project. A `.nvmrc` file is obligatory, so we can run the same node. Please please please remember `.nvmrc`
 
 ## Advanced features (optional for higher points):
 
