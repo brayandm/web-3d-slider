@@ -59,12 +59,12 @@ body,
     background: #333;
     padding: 20px 20px;
     color: white;
+}
 
-    p {
-        margin: 0;
-        font-size: 20px;
-        font-weight: semibold;
-    }
+.button p {
+    margin: 0;
+    font-size: 20px;
+    font-weight: semibold;
 }
 
 .text {
@@ -96,10 +96,10 @@ body,
     cursor: pointer;
 
     transition: background 1s, border 1s, color 1s;
+}
 
-    p {
-        user-select: none;
-    }
+.dev-mode-button p {
+    user-select: none;
 }
 
 .dev-mode-button.active {
