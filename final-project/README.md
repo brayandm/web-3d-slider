@@ -58,3 +58,8 @@ drag the mouse.
 -   Correct handling of dpr
 -   Correct handling of antialiasing
 -   Correct handling of resize
+
+## UI
+
+-   Show Loading Screen when the assets are loading
+-   Dev Mode button to toggle the dev mode
