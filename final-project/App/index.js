@@ -6,7 +6,6 @@ import {
     Clock,
     Raycaster,
     Vector2,
-    DoubleSide,
     Mesh,
     ShaderMaterial,
     PlaneGeometry,
@@ -388,6 +387,7 @@ export default class App {
             for (let i = 0; i < intersects.length; i++) {
                 const intersected = intersects[i].object;
 
+                // If intersected object is a slide
                 if (intersected.userData.isSlide) {
                     this._slider.hover(intersected);
                 }
