@@ -1,4 +1,9 @@
-# Description
+# Project Overview
+
+The project is a about a Slider that shows some pictures, we can interact with the slider by dragging the mouse over the screen, hovering slides, parallax effect, toggling dev mode and playing with parameters. There is some illumination and post processing effects. Also there are shader materials for background and fairies. By default the slides are animated with a simple animation simulating a floating effect, the same for fairies, and the background uses a noise effect. Also
+the slider simulate a circular movement. For the post processing effects there is a blur effect but we need to enable it
+in dev mode due to performance issues, and by default we have Chromatic Aberration effect that is more visible when we
+drag the mouse.
 
 ## Basic Features (required to pass):
 
