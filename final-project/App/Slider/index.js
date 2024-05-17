@@ -14,6 +14,7 @@ export default class Slider extends Group {
     constructor() {
         super();
 
+        // Size of the image
         this._height = 1920 * 0.15;
         this._width = 1080 * 0.15;
         this._objects = [];
@@ -23,6 +24,7 @@ export default class Slider extends Group {
         this._isDragging = false;
     }
 
+    // Load texture as promise
     _loadTexture(url) {
         return new Promise((resolve, reject) => {
             const loader = new TextureLoader();
@@ -41,19 +43,21 @@ export default class Slider extends Group {
     }
 
     async init() {
+        // Create 20 planes with images
         for (let i = 1; i <= 20; i++) {
             const geometry = new PlaneGeometry(1, 1);
 
+            // Load texture
             const texture = await this._loadTexture(
                 `./unsamples/image-` + i + `.jpg`
             );
 
             const material = new MeshStandardMaterial({
                 map: texture,
-                side: 2,
             });
             const mesh = new Mesh(geometry, material);
 
+            // Set size and position
             mesh.scale.set(this._width, this._height, 1);
             mesh.position.x = this._width * (i - 1) * 1.5;
             mesh.position.y = MathUtils.randFloat(-75, 75);
@@ -61,6 +65,7 @@ export default class Slider extends Group {
 
             mesh.rotation.y = MathUtils.randFloat(-0.025, 0.025);
 
+            // Set user data for dragging
             mesh.userData.destinationPosition = mesh.position.clone();
             mesh.userData.initialPosition = mesh.position.clone();
             mesh.userData.dragPosition = mesh.position.clone();
@@ -74,17 +79,14 @@ export default class Slider extends Group {
         }
     }
 
+    // Hover effect that increases the z position of the object
     hover(object) {
         if (!this._isDragging) {
             object.position.z += 1;
         }
     }
 
-    click(object) {
-        if (!this._isDragging) {
-        }
-    }
-
+    // On drag event
     onDrag(e, delta) {
         this._isDragging = e.dragging;
         this._objects.forEach((el) => {
@@ -92,6 +94,7 @@ export default class Slider extends Group {
         });
     }
 
+    // Animate the objects using sine and cosine functions
     animate() {
         this._objects.forEach((el, index) => {
             el.userData.destinationPosition.x +=
@@ -105,6 +108,7 @@ export default class Slider extends Group {
         });
     }
 
+    // Update the position of the objects when dragging
     update(delta) {
         this.animate();
         this._objects.forEach((el) => {
@@ -128,10 +132,12 @@ export default class Slider extends Group {
         });
     }
 
+    // Get the minimum x position of the objects
     getMinX() {
         return this._objects[0].position.x;
     }
 
+    // Get the maximum x position of the objects
     getMaxX() {
         return this._objects[this._objects.length - 1].position.x;
     }
