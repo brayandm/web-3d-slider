@@ -1,4 +1,18 @@
-# How to Install
+# How to run the project (Bash Script)
+
+## Run Script
+
+```bash
+bash run.sh
+```
+
+## Open Browser
+
+```bash
+open http://localhost:4173
+```
+
+# How to run the project (Command by Command)
 
 ## Install Node.js
 
@@ -24,8 +38,14 @@ npm install
 npm run build
 ```
 
-## Preview Project
+## Start Project
 
 ```bash
 npm run preview
+```
+
+## Open Browser
+
+```bash
+open http://localhost:4173
 ```
