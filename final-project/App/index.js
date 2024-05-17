@@ -137,6 +137,7 @@ export default class App {
     }
 
     _initFairyFlies(particles) {
+        // Shader Material for Fairy Flies
         const material = new ShaderMaterial({
             uniforms: {
                 uTime: { value: 0.0 },
@@ -152,7 +153,9 @@ export default class App {
         const positions = [];
         const colors = [];
 
+        // Create Fairy Flies
         for (let i = 0; i < particles; i++) {
+            // Randomize Fairy Flies Position
             positions.push(
                 (this._slider.getMaxX() - this._slider.getMinX() + 2000) *
                     Math.random() +
@@ -162,6 +165,7 @@ export default class App {
             positions.push((Math.random() - 0.5) * window.innerHeight * 1.5);
             positions.push((Math.random() - 0.1) * 100);
 
+            // Randomize Fairy Flies Color
             const fairyColors = [
                 0x4caf50, 0x2196f3, 0xffeb3b, 0xff5722, 0x9c27b0,
             ];
@@ -174,13 +178,17 @@ export default class App {
             colors.push((color & 255) / 255);
         }
 
+        // Set Fairy Flies Geometry
         geometry.setAttribute(
             "position",
             new Float32BufferAttribute(positions, 3)
         );
         geometry.setAttribute("color", new Float32BufferAttribute(colors, 3));
 
+        // Create Fairy Flies Points
         this._fairyFlies = new Points(geometry, material);
+
+        // Set Fairy Flies User Data for dragging effect
         this._fairyFlies.userData.initialPosition =
             this._fairyFlies.position.clone();
         this._fairyFlies.userData.destinationPosition =
@@ -191,9 +199,11 @@ export default class App {
             -50,
             -30
         );
+
         this._scene.add(this._fairyFlies);
     }
 
+    // Change Fairy Flies Number
     _changeFairiesNumber(particles) {
         this._scene.remove(this._fairyFlies);
         this._initFairyFlies(particles);
@@ -239,7 +249,6 @@ export default class App {
             },
             vertexShader: backgroundVertexShader,
             fragmentShader: backgroundFragmentShader,
-            side: DoubleSide,
         });
 
         this._background = new Mesh(geometry, material);
