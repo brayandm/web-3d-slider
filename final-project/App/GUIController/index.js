@@ -58,7 +58,7 @@ export default class GUIController {
                 },
                 "fairyFliesNumber",
                 0,
-                2000
+                20000
             )
             .name("Number of Fairy Flies")
             .onChange((v) => {
