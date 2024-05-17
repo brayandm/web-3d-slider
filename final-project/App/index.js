@@ -214,6 +214,7 @@ export default class App {
         await this._slider.init();
         this._scene.add(this._slider);
 
+        // Create Background
         const geometry = new PlaneGeometry(
             window.innerWidth * 2.5,
             window.innerHeight * 2.5
@@ -222,6 +223,7 @@ export default class App {
         this._initialWidth = window.innerWidth;
         this._initialHeight = window.innerHeight;
 
+        // Shader Material for Background
         const material = new ShaderMaterial({
             uniforms: {
                 time: { type: "f", value: 0 },
@@ -256,6 +258,7 @@ export default class App {
         this._scene.add(this._background);
     }
 
+    // Event Listeners
     _initEvents() {
         window.addEventListener("resize", this._resize.bind(this));
         window.addEventListener("mousemove", this._onMouseMove.bind(this));
@@ -266,7 +269,8 @@ export default class App {
         event.preventDefault();
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-        this._background.material.uniforms.uMouse.value = this._mouse;
+
+        // Parallax Effect
         this._camera.position.x = this._mouse.x * 25;
         this._camera.position.y = this._mouse.y * 25;
     }
@@ -274,10 +278,9 @@ export default class App {
     _onClick(event) {
         this._mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this._mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-        this._updateClickEffect();
     }
 
+    // Drag Gesture
     onDrag(e, delta) {
         this._isDragging = e.dragging;
 
@@ -290,16 +293,22 @@ export default class App {
         }
 
         const offset = Math.min(Math.abs(delta) * 0.001, 0.03);
+        // Apply Chromatic Aberration when dragging
         this._composer.updateOffset(offset, offset * 0.25);
+
+        // Enable Blur when dragging
         if (this._isDragging) {
             this._composer.setBlurEnabled(true);
         } else {
             this._composer.setBlurEnabled(false);
         }
+
+        // Update Slider Position when dragging
         this._slider.onDrag(e, delta);
         this._fairyFlies.userData.destinationPosition.x += delta;
     }
 
+    // Resize Renderer, Background, and Camera
     _resize() {
         this._composer.setSize(window.innerWidth, window.innerHeight);
 
@@ -333,14 +342,23 @@ export default class App {
         this._deltaClock = this._clock.getDelta();
         this._deltaTimeComposer += this._deltaClock;
 
+        // Roll back the offset when not dragging
         if (!this._deltaTimeComposer || this._deltaTimeComposer > 0.01) {
             this._composer.updateOffset(0.001, 0.001);
             this._deltaTimeComposer = 0;
         }
+
+        // Increase size of slides when hover
         this._updateHoverEffect();
+
+        // Update Slides
         this._slider.update();
+
+        // Update Shader Material Times
         this._background.material.uniforms.time.value += this._deltaClock;
         this._fairyFlies.material.uniforms.uTime.value += this._deltaClock;
+
+        // Update Fairy Flies Position
         damp(
             this._fairyFlies.position,
             "x",
@@ -357,6 +375,7 @@ export default class App {
         this._stats.end();
     }
 
+    // Hover Effect using Raycaster
     _updateHoverEffect() {
         this._raycaster.setFromCamera(this._mouse, this._camera);
 
@@ -376,24 +395,7 @@ export default class App {
         }
     }
 
-    _updateClickEffect() {
-        this._raycaster.setFromCamera(this._mouse, this._camera);
-        const intersects = this._raycaster.intersectObjects(
-            this._scene.children,
-            true
-        );
-
-        if (intersects.length > 0) {
-            for (let i = 0; i < intersects.length; i++) {
-                const intersected = intersects[i].object;
-
-                if (intersected.userData.isSlide) {
-                    this._slider.click(intersected);
-                }
-            }
-        }
-    }
-
+    // Change Configuration
     changeConfiguration(config) {
         this._config = config;
 
@@ -428,6 +430,7 @@ export default class App {
         );
     }
 
+    // Dev Mode
     setDevMode(enabled) {
         this._stats.dom.style.display = enabled ? "block" : "none";
     }
