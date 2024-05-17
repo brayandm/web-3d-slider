@@ -9,6 +9,7 @@ export default class GUIController {
         this.init();
     }
 
+    // Enable or disable dev mode
     setDevMode(enable) {
         if (enable) {
             this.gui.show();
@@ -18,6 +19,7 @@ export default class GUIController {
     }
 
     init() {
+        // Add Background Stars Spread Control
         this.gui
             .add(
                 { backgroundStarsSpread: this.config.backgroundStarsSpread },
@@ -31,6 +33,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Background Stars Velocity Control
         this.gui
             .add(
                 {
@@ -47,6 +50,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Fairy Flies Number Control
         this.gui
             .add(
                 {
@@ -62,6 +66,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Fairy Flies Size Control
         this.gui
             .add(
                 {
@@ -77,6 +82,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Fairy Flies Velocity Control
         this.gui
             .add(
                 {
@@ -92,6 +98,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Light Helper Control
         this.gui
             .add({ lightHelper: this.config.lightHelper }, "lightHelper")
             .name("Spot Light Helper")
@@ -100,6 +107,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Light Color Control
         this.gui
             .addColor({ lightColor: this.config.lightColor }, "lightColor")
             .name("Spot Light Color")
@@ -108,6 +116,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Background Color Control
         this.gui
             .addColor(
                 { backgroundColor: this.config.backgroundColor },
@@ -119,6 +128,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Blur Effect Control
         this.gui
             .add(
                 {
@@ -132,6 +142,7 @@ export default class GUIController {
                 this._changeConfiguration(this.config);
             });
 
+        // Add Chromatic Aberration Effect Control
         this.gui
             .add(
                 {

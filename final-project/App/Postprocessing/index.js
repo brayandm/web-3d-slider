@@ -52,6 +52,7 @@ export default class Postprocessing {
         this._composer = composer;
     }
 
+    // Updating Offset of Chromatic Aberration
     updateOffset(x, y) {
         if (this._blockChromaticAberration) return;
 
@@ -64,24 +65,29 @@ export default class Postprocessing {
         );
     }
 
+    // Set Size of Composer
     setSize(width, height) {
         this._composer.setSize(width, height);
     }
 
+    // Render Composer
     render() {
         this._composer.render();
     }
 
+    // Block The Blur
     setBlockBlur(block) {
         this._blockBlur = block;
     }
 
+    // Activate/Deactivate Blur
     setBlurEnabled(enabled) {
         if (this._blockBlur === false) {
             this._blurPass.enabled = enabled;
         }
     }
 
+    // Activate/Deactivate Chromatic Aberration
     setChromaticAberrationEnabled(enabled) {
         this._blockChromaticAberration = !enabled;
 
