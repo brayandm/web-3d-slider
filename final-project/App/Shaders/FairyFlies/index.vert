@@ -1,3 +1,4 @@
+attribute vec3 axisStrength;
 uniform float uTime;
 uniform float uVelocity;
 uniform float uPointSize;
@@ -8,9 +9,9 @@ void main() {
     vec3 newPosition = position;
 
     // Move the vertex in a circular motion
-    newPosition.x += sin(uTime * uVelocity / 2.0 + position.y * 10.0) * 10.0;
-    newPosition.y += sin(uTime * uVelocity / 2.0 + position.x * 10.0) * 10.0;
-    newPosition.z += sin(uTime * uVelocity / 2.0 + position.z * 10.0) * 10.0;
+    newPosition.x += sin(uTime * uVelocity / 2.0 + position.y * 10.0) * 10.0 * axisStrength.x;
+    newPosition.y += sin(uTime * uVelocity / 2.0 + position.x * 10.0) * 10.0 * axisStrength.y;
+    newPosition.z += sin(uTime * uVelocity / 2.0 + position.z * 10.0) * 10.0 * axisStrength.z;
     
     // Set the color of the vertex
     vColor = color;
