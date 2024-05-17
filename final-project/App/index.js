@@ -34,7 +34,9 @@ import { damp } from "maath/easing";
 
 export default class App {
     constructor(config, onLoaded = () => {}) {
-        this._config = config;
+        this._config = Object.assign({
+            ...config,
+        });
         this._onLoaded = onLoaded;
         this._gl = undefined;
         this._composer = undefined;
@@ -397,7 +399,9 @@ export default class App {
 
     // Change Configuration
     changeConfiguration(config) {
-        this._config = config;
+        const fairyFliesNumber = this._config.fairyFliesNumber;
+
+        this._config = Object.assign(this._config, config);
 
         this._background.material.uniforms.spread.value =
             this._config.backgroundStarsSpread;
@@ -405,7 +409,8 @@ export default class App {
         this._background.material.uniforms.velocity.value =
             this._config.backgroundStarsVelocity;
 
-        this._changeFairiesNumber(this._config.fairyFliesNumber);
+        if (fairyFliesNumber !== this._config.fairyFliesNumber)
+            this._changeFairiesNumber(this._config.fairyFliesNumber);
 
         this._fairyFlies.material.uniforms.uPointSize.value =
             this._config.fairyFliesSize;
