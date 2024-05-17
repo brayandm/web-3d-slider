@@ -24,6 +24,7 @@ drag the mouse.
 -   Slides: Animation simulating a floating effect
 -   Fairies: Animation simulating a floating effect
 -   Background: Noise effect
+-   Ondrag animation: Circular movement of the slider and put the slides and fairies far away from the camera
 
 ## Shader Materials
 
