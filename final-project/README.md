@@ -7,16 +7,33 @@ drag the mouse.
 
 # Features
 
-## Spot Light
+## Lights
 
--   Iluminate the center of the slider, the color can be changed in dev mode.
+-   Spot Light: iluminate the center of the slider, the color can be changed in dev mode.
+-   Ambient Light: iluminate the whole scene
 
-## Interaction
+## Interactions
 
 -   Drag the mouse over the screen to move the slider
 -   Hover the slides to make them closer to the camera
 -   Parallax effect when moving the mouse
 -   Dev mode to play with parameters
+
+## Animations
+
+-   Slides: Animation simulating a floating effect
+-   Fairies: Animation simulating a floating effect
+-   Background: Noise effect
+
+## Shader Materials
+
+-   Background: Noise effect to simulate a starry night, velocity, spread and color can be changed in dev mode
+-   Fairies: Animation simulating a floating effect for several fairies, velocity, size and number of fairies can be changed in dev mode
+
+## Post Processing Effects
+
+-   Chromatic Aberration effect: a little bit by default, more visible when dragging the mouse, can be disabled in dev mode
+-   Blur effect: need to enable it in dev mode due to performance issues, is visible when dragging the mouse
 
 ## Miscellaneous
 
@@ -25,13 +42,3 @@ drag the mouse.
 -   Correct handling of dpr
 -   Correct handling of antialiasing
 -   Correct handling of resize
-
-## Shader Materials
-
--   Background: Noise effect to simulate a starry night
--   Fairies: Animation simulating a floating effect for several fairies
-
-## Post Processing Effects
-
--   Chromatic Aberration effect: a little bit by default, more visible when dragging the mouse
--   Blur effect: need to enable it in dev mode due to performance issues, is visible when dragging the mouse
