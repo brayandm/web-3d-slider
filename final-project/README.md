@@ -35,6 +35,21 @@ drag the mouse.
 -   Chromatic Aberration effect: a little bit by default, more visible when dragging the mouse, can be disabled in dev mode
 -   Blur effect: need to enable it in dev mode due to performance issues, is visible when dragging the mouse
 
+## Dev Mode
+
+-   Stats: show the performance of the scene
+-   GUI: to play with parameters
+    -   We can modify the spread of stars in the background
+    -   We can modify the velocity of the stars in the background
+    -   We can modify the number of fairies
+    -   We can modify the size of the fairies
+    -   We can velocity the size of the fairies
+    -   Switch the spot light helper
+    -   Change the color of the spot light
+    -   Change the color of the background shader
+    -   Toggle the blur effect
+    -   Toggle the chromatic aberration effect
+
 ## Miscellaneous
 
 -   Correct handling of colorspace
