@@ -154,6 +154,7 @@ export default class App {
         const positions = [];
         const colors = [];
         const axisStrength = [];
+        const initialSize = [];
 
         // Create Fairy Flies
         for (let i = 0; i < particles; i++) {
@@ -183,6 +184,9 @@ export default class App {
             axisStrength.push(Math.random() * 5);
             axisStrength.push(Math.random() * 5);
             axisStrength.push(Math.random() * 5);
+
+            // Randomize initial size
+            initialSize.push(Math.random() * 1.5 + 0.5);
         }
 
         // Set Fairy Flies Geometry
@@ -194,6 +198,10 @@ export default class App {
         geometry.setAttribute(
             "axisStrength",
             new Float32BufferAttribute(axisStrength, 3)
+        );
+        geometry.setAttribute(
+            "initialSize",
+            new Float32BufferAttribute(initialSize, 1)
         );
 
         // Create Fairy Flies Points

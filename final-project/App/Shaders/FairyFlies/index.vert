@@ -1,4 +1,5 @@
 attribute vec3 axisStrength;
+attribute float initialSize;
 uniform float uTime;
 uniform float uVelocity;
 uniform float uPointSize;
@@ -17,7 +18,7 @@ void main() {
     vColor = color;
 
     // Set the size of the point
-    gl_PointSize = uPointSize;
+    gl_PointSize = uPointSize * initialSize;
 
     // Set the position of the vertex
     gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
